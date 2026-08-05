@@ -1,12 +1,252 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi página web</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mtro. Daniel Moreno Cortés</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#f5f7fa;
+color:#333;
+line-height:1.6;
+}
+
+header{
+background:#0b3d91;
+color:white;
+padding:70px 20px;
+text-align:center;
+}
+
+header h1{
+font-size:48px;
+}
+
+header p{
+font-size:22px;
+margin-top:10px;
+}
+
+nav{
+background:#06275d;
+padding:15px;
+position:sticky;
+top:0;
+}
+
+nav ul{
+display:flex;
+justify-content:center;
+list-style:none;
+gap:30px;
+flex-wrap:wrap;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+nav a:hover{
+color:#ffd54f;
+}
+
+section{
+max-width:1100px;
+margin:auto;
+padding:60px 20px;
+}
+
+h2{
+color:#0b3d91;
+margin-bottom:20px;
+}
+
+.tarjetas{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+.tarjeta{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+transition:.3s;
+}
+
+.tarjeta:hover{
+transform:translateY(-8px);
+}
+
+footer{
+background:#0b3d91;
+color:white;
+text-align:center;
+padding:30px;
+margin-top:40px;
+}
+
+.boton{
+display:inline-block;
+margin-top:20px;
+background:#0b3d91;
+color:white;
+padding:12px 25px;
+border-radius:6px;
+text-decoration:none;
+}
+
+.boton:hover{
+background:#06275d;
+}
+
+</style>
+
 </head>
+
 <body>
-    <h1>¡Bienvenido a mi página web!</h1>
-    <p>Esta es mi primera página creada con GitHub Pages.</p>
+
+<header>
+
+<h1>Mtro. Daniel Moreno Cortés</h1>
+
+<p>Docente • Derecho • Formación Cívica y Ética • Sociología</p>
+
+<a class="boton" href="#materias">
+Conoce mis materias
+</a>
+
+</header>
+
+<nav>
+
+<ul>
+
+<li><a href="#">Inicio</a></li>
+
+<li><a href="#sobre">Sobre mí</a></li>
+
+<li><a href="#materias">Materias</a></li>
+
+<li><a href="#recursos">Recursos</a></li>
+
+<li><a href="#contacto">Contacto</a></li>
+
+</ul>
+
+</nav>
+
+<section id="sobre">
+
+<h2>Sobre mí</h2>
+
+<p>
+
+Bienvenido a mi sitio académico.
+
+Este espacio tiene como finalidad compartir materiales de estudio, actividades,
+avisos y recursos educativos para apoyar el aprendizaje de mis estudiantes.
+
+</p>
+
+</section>
+
+<section id="materias">
+
+<h2>Materias que imparto</h2>
+
+<div class="tarjetas">
+
+<div class="tarjeta">
+<h3>⚖️ Derecho</h3>
+<p>Materiales, actividades y recursos jurídicos.</p>
+</div>
+
+<div class="tarjeta">
+<h3>🏛️ Sociología</h3>
+<p>Apuntes, lecturas y actividades.</p>
+</div>
+
+<div class="tarjeta">
+<h3>📘 Formación Cívica y Ética</h3>
+<p>Guías, proyectos y recursos para secundaria.</p>
+</div>
+
+<div class="tarjeta">
+<h3>🎓 Recursos Académicos</h3>
+<p>Presentaciones, documentos y bibliografía.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="recursos">
+
+<h2>Recursos</h2>
+
+<p>
+
+Próximamente encontrarás aquí:
+
+</p>
+
+<ul>
+
+<li>Guías de estudio.</li>
+
+<li>Presentaciones.</li>
+
+<li>Rúbricas.</li>
+
+<li>Material descargable.</li>
+
+<li>Bibliografía.</li>
+
+<li>Avisos importantes.</li>
+
+</ul>
+
+</section>
+
+<section id="contacto">
+
+<h2>Contacto</h2>
+
+<p>
+
+Este apartado estará disponible próximamente para facilitar la comunicación
+con estudiantes y colaboradores.
+
+</p>
+
+</section>
+
+<footer>
+
+<p>
+
+© 2026
+
+Mtro. Daniel Moreno Cortés
+
+</p>
+
+</footer>
+
 </body>
 </html>
