@@ -490,6 +490,52 @@ color:#999;
 
 }
 
+/* Estilos para la Galería Académica */
+#galeria {
+  padding: 60px 20px;
+}
+
+#galeria h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.galeria-item {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.galeria-item:hover {
+  transform: translateY(-5px);
+  border-color: #c5a059;
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.galeria-item p {
+  padding: 15px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #ddd;
+  margin: 0;
+}
+
 @media(max-width:1000px){
 
 .hero{
