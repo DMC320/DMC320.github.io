@@ -16,6 +16,54 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <link rel="stylesheet" href="css/style.css">
 
+<style>
+/* Estilos integrados para la Galería Académica */
+#galeria {
+  padding: 60px 20px;
+}
+
+#galeria h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.galeria-item {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.galeria-item:hover {
+  transform: translateY(-5px);
+  border-color: #c5a059;
+}
+
+.galeria-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.galeria-item p {
+  padding: 15px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #ddd;
+  margin: 0;
+}
+</style>
+
 </head>
 
 <body>
@@ -43,6 +91,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <li><a href="#materias">Materias</a></li>
 
 <li><a href="#recursos">Recursos</a></li>
+
+<li><a href="#galeria">Galería</a></li>
 
 <li><a href="#contacto">Contacto</a></li>
 
@@ -426,6 +476,41 @@ Recursos Jurídicos Interactivos
 
 <a href="#" class="btn2">Próximamente</a>
 
+</div>
+
+</div>
+
+</section>
+
+<section id="galeria">
+
+<h2>
+
+Galería Académica
+
+</h2>
+
+<p style="text-align: center; color: #aaa; margin-bottom: 30px;">
+
+Registro visual de clases, ponencias e impartición de cursos académicos.
+
+</p>
+
+<div class="galeria-grid">
+
+<div class="galeria-item">
+<img src="img1.jpg" alt="Clase presencial y ponencias académicas">
+<p>Impartición de cátedra universitaria</p>
+</div>
+
+<div class="galeria-item">
+<img src="img2.jpg" alt="Ponencia y conferencias jurídicas">
+<p>Participación en ponencias y coloquios</p>
+</div>
+
+<div class="galeria-item">
+<img src="img3.jpg" alt="Innovación educativa y docencia">
+<p>Aplicación de pedagogía jurídica</p>
 </div>
 
 </div>
