@@ -5,64 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Jurídico | Mtro. Daniel Moreno Cortés</title>
 
-<!-- Fuentes e Iconos (iguales a tu sitio principal) -->
+<!-- Fuentes e Iconos -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-<link rel="stylesheet" href="css/style.css">
 
-<!-- Estilos específicos limpios para el Quiz adaptados a tus clases -->
+<!-- Estilos integrados para garantizar compatibilidad total -->
 <style>
+  * {
+    box-sizing: border-box;
+  }
   body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #0d0d0d;
+    color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    padding: 20px;
   }
   .quiz-container {
     max-width: 800px;
-    margin: 50px auto;
-    background: #ffffff;
+    margin: 40px auto;
+    background: #1a1a1a;
     padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    border: 1px solid #c5a059;
+    box-shadow: 0 4px 20px rgba(197, 160, 89, 0.15);
   }
   .quiz-header {
     text-align: center;
     margin-bottom: 30px;
   }
+  .quiz-header h3 {
+    color: #c5a059;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+  }
   .quiz-header h1 {
     font-family: 'Cinzel', serif;
-    color: #1a1a1a;
-    font-size: 2rem;
+    color: #ffffff;
+    font-size: 1.8rem;
     margin-bottom: 10px;
+  }
+  .quiz-header p {
+    color: #aaa;
+    font-size: 0.95rem;
   }
   .pregunta-card {
     margin-bottom: 25px;
     padding: 20px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #333;
     border-radius: 6px;
-    background: #fff;
+    background: #222;
   }
   .pregunta-card h3 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     margin-bottom: 15px;
-    color: #2c3e50;
+    color: #fff;
   }
   .opciones label {
     display: block;
-    padding: 10px 12px;
+    padding: 12px 15px;
     margin-bottom: 8px;
-    background: #f8f9fa;
-    border: 1px solid #ddd;
+    background: #2a2a2a;
+    border: 1px solid #444;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    color: #ddd;
   }
   .opciones label:hover {
-    background: #e9ecef;
+    background: #333;
+    border-color: #c5a059;
   }
   .opciones input {
     margin-right: 10px;
@@ -73,24 +88,38 @@
     font-weight: 500;
   }
   .correcta {
-    color: #27ae60;
+    color: #2ecc71;
   }
   .incorrecta {
-    color: #c0392b;
+    color: #e74c3c;
   }
   .quiz-footer {
     text-align: center;
     margin-top: 30px;
   }
+  .btn-calificar {
+    background-color: #c5a059;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .btn-calificar:hover {
+    background-color: #d4af37;
+  }
   .btn-volver {
     display: inline-block;
     margin-top: 20px;
-    color: #666;
+    color: #c5a059;
     text-decoration: none;
     font-weight: 500;
   }
   .btn-volver:hover {
-    color: #1a1a1a;
+    text-decoration: underline;
   }
 </style>
 </head>
@@ -140,7 +169,7 @@
       </div>
 
       <div class="quiz-footer">
-        <button type="button" class="btn1" onclick="evaluarQuiz()" style="border: none; cursor: pointer; padding: 12px 30px; font-size: 1rem; border-radius: 4px;">Calificar Respuestas</button>
+        <button type="button" class="btn-calificar" onclick="evaluarQuiz()">Calificar Respuestas</button>
         <br>
         <a href="index.html" class="btn-volver"><i class="fa-solid fa-arrow-left"></i> Volver al Portal Académico</a>
       </div>
