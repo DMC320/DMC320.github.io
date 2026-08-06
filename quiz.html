@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Jurídico | Mtro. Daniel Moreno Cortés</title>
 
+<!-- Fuentes e Iconos (iguales a tu sitio principal) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Estilos específicos limpios para el Quiz adaptados a tus clases -->
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  .quiz-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .quiz-header h1 {
+    font-family: 'Cinzel', serif;
+    color: #1a1a1a;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .pregunta-card {
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: #fff;
+  }
+  .pregunta-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+  }
+  .opciones label {
+    display: block;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .opciones label:hover {
+    background: #e9ecef;
+  }
+  .opciones input {
+    margin-right: 10px;
+  }
+  .retroalimentacion {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .correcta {
+    color: #27ae60;
+  }
+  .incorrecta {
+    color: #c0392b;
+  }
+  .quiz-footer {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .btn-volver {
+    display: inline-block;
+    margin-top: 20px;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .btn-volver:hover {
+    color: #1a1a1a;
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <h3>PORTAL ACADÉMICO</h3>
+      <h1>⚖️ Quiz Jurídico Interactivo</h1>
+      <p>Mtro. Daniel Moreno Cortés | Evalúa tus conocimientos jurídicos fundamentales.</p>
+    </div>
+
+    <form id="formQuiz">
+      
+      <!-- Pregunta 1 -->
+      <div class="pregunta-card">
+        <h3>1. ¿Cuál es el principio constitucional que establece que ninguna ley será retroactiva en perjuicio de persona alguna?</h3>
+        <div class="opciones">
+          <label><input type="radio" name="p1" value="a"> A) Principio de Legalidad</label>
+          <label><input type="radio" name="p1" value="b" data-correcta="true"> B) Irretroactividad de la Ley (Artículo 14 Constitucional)</label>
+          <label><input type="radio" name="p1" value="c"> C) Debido Proceso</label>
+        </div>
+        <div class="retroalimentacion" id="retro-p1"></div>
+      </div>
+
+      <!-- Pregunta 2 -->
+      <div class="pregunta-card">
+        <h3>2. En el Sistema Penal Acusatorio, ¿cuál es el principio rector que garantiza que el juez esté presente en todas las audiencias?</h3>
+        <div class="opciones">
+          <label><input type="radio" name="p2" value="a"> A) Publicidad</label>
+          <label><input type="radio" name="p2" value="b"> B) Concentración</label>
+          <label><input type="radio" name="p2" value="c" data-correcta="true"> C) Inmediación</label>
+        </div>
+        <div class="retroalimentacion" id="retro-p2"></div>
+      </div>
+
+      <!-- Pregunta 3 -->
+      <div class="pregunta-card">
+        <h3>3. ¿Qué rama del derecho tiene como enfoque principal la prevención de conflictos legales antes de llegar a litigios judiciales?</h3>
+        <div class="opciones">
+          <label><input type="radio" name="p3" value="a" data-correcta="true"> A) Asesoría Legal Preventiva</label>
+          <label><input type="radio" name="p3" value="b"> B) Derecho Procesal Forzoso</label>
+          <label><input type="radio" name="p3" value="c"> C) Litigio Estratégico Sancionador</label>
+        </div>
+        <div class="retroalimentacion" id="retro-p3"></div>
+      </div>
+
+      <div class="quiz-footer">
+        <button type="button" class="btn1" onclick="evaluarQuiz()" style="border: none; cursor: pointer; padding: 12px 30px; font-size: 1rem; border-radius: 4px;">Calificar Respuestas</button>
+        <br>
+        <a href="index.html" class="btn-volver"><i class="fa-solid fa-arrow-left"></i> Volver al Portal Académico</a>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    function evaluarQuiz() {
+      // Validar Pregunta 1
+      const p1Respuesta = document.querySelector('input[name="p1"]:checked');
+      const retro1 = document.getElementById('retro-p1');
+      if (!p1Respuesta) {
+        retro1.textContent = "Por favor selecciona una opción.";
+        retro1.className = "retroalimentacion incorrecta";
+      } else if (p1Respuesta.dataset.correcta) {
+        retro1.textContent = "¡Correcto! El artículo 14 constitucional protege la irretroactividad en perjuicio.";
+        retro1.className = "retroalimentacion correcta";
+      } else {
+        retro1.textContent = "Incorrecto. La respuesta correcta es la opción B.";
+        retro1.className = "retroalimentacion incorrecta";
+      }
+
+      // Validar Pregunta 2
+      const p2Respuesta = document.querySelector('input[name="p2"]:checked');
+      const retro2 = document.getElementById('retro-p2');
+      if (!p2Respuesta) {
+        retro2.textContent = "Por favor selecciona una opción.";
+        retro2.className = "retroalimentacion incorrecta";
+      } else if (p2Respuesta.dataset.correcta) {
+        retro2.textContent = "¡Correcto! La inmediación asegura la presencia directa del juez.";
+        retro2.className = "retroalimentacion correcta";
+      } else {
+        retro2.textContent = "Incorrecto. La respuesta correcta es la opción C.";
+        retro2.className = "retroalimentacion incorrecta";
+      }
+
+      // Validar Pregunta 3
+      const p3Respuesta = document.querySelector('input[name="p3"]:checked');
+      const retro3 = document.getElementById('retro-p3');
+      if (!p3Respuesta) {
+        retro3.textContent = "Por favor selecciona una opción.";
+        retro3.className = "retroalimentacion incorrecta";
+      } else if (p3Respuesta.dataset.correcta) {
+        retro3.textContent = "¡Correcto! La asesoría preventiva anticipa y mitiga riesgos legales.";
+        retro3.className = "retroalimentacion correcta";
+      } else {
+        retro3.textContent = "Incorrecto. La respuesta correcta es la opción A.";
+        retro3.className = "retroalimentacion incorrecta";
+      }
+    }
+  </script>
+
+</body>
+</html>
