@@ -28,26 +28,67 @@ function actualizarRango(){
 
 
 
+
 function iniciarJuicio() {
 
-
-let caso = casos[casoActual];
-
-
-document.querySelector(".box").innerHTML = `
+    let caso = casos[casoActual];
 
 
-    <h1>CASO #${caso.id}</h1>
+    document.querySelector(".box").innerHTML = `
+
+
+    <h1>EXPEDIENTE #${caso.id}</h1>
 
 
     <h2>${caso.titulo}</h2>
 
 
     <p>
-    Materia:
+    MATERIA:
     <br>
     ${caso.materia}
     </p>
+
+
+    <p>
+    TRIBUNAL:
+    <br>
+    JUZGADO No. 7
+    </p>
+
+
+    <p>
+    NIVEL:
+    <br>
+    JUEZ INICIAL
+    </p>
+
+
+    <button onclick="abrirCaso()">
+
+    ABRIR EXPEDIENTE
+
+    </button>
+
+
+    `;
+
+}
+
+
+
+function abrirCaso(){
+
+    let caso = casos[casoActual];
+
+
+    document.querySelector(".box").innerHTML = `
+
+
+    <h1>CASO #${caso.id}</h1>
+
+
+    <h2>${caso.titulo}</h2>
 
 
     <p>
@@ -89,113 +130,116 @@ document.querySelector(".box").innerHTML = `
     </button>
 
 
-`;
+    `;
 
 }
+
 
 
 
 function veredicto(decision) {
 
-
-let caso = casos[casoActual];
-
+    let caso = casos[casoActual];
 
 
-if(decision === caso.respuestaCorrecta) {
+    if(decision === caso.respuestaCorrecta) {
 
 
-    puntos += 500;
+        puntos += 500;
 
-    casosResueltos++;
+        casosResueltos++;
 
-    actualizarRango();
+        actualizarRango();
 
 
 
-    document.querySelector(".box").innerHTML = `
+        document.querySelector(".box").innerHTML = `
 
 
-    <h1>VERDICT</h1>
+        <h1>VERDICT</h1>
 
 
-    <h2>⚖️ DECISIÓN CORRECTA</h2>
+        <h2>⚖️ DECISIÓN CORRECTA</h2>
 
 
-    <p>
-    PUNTUACIÓN:
-    <br>
-    ${puntos}
-    </p>
+        <p>
+        PUNTUACIÓN:
+        <br>
+        ${puntos}
+        </p>
 
 
-    <p>
-    CASOS RESUELTOS:
-    <br>
-    ${casosResueltos}
-    </p>
+        <p>
+        CASOS RESUELTOS:
+        <br>
+        ${casosResueltos}
+        </p>
 
 
-    <p>
-    RANGO:
-    <br>
-    ${rango}
-    </p>
+        <p>
+        RANGO:
+        <br>
+        ${rango}
+        </p>
 
 
-    <button onclick="siguienteCaso()">
-    SIGUIENTE CASO
-    </button>
+        <button onclick="siguienteCaso()">
+
+        SIGUIENTE CASO
+
+        </button>
 
 
-    `;
-
-
-
-} else {
+        `;
 
 
 
-    document.querySelector(".box").innerHTML = `
+    } else {
 
 
-    <h1>VERDICT</h1>
+
+        document.querySelector(".box").innerHTML = `
 
 
-    <h2>DECISIÓN REVISABLE</h2>
+        <h1>VERDICT</h1>
 
 
-    <p>
-    La justicia requiere más análisis.
-    </p>
+        <h2>DECISIÓN REVISABLE</h2>
 
 
-    <p>
-    PUNTUACIÓN:
-    <br>
-    ${puntos}
-    </p>
+        <p>
+        La justicia requiere más análisis.
+        </p>
 
 
-    <p>
-    RANGO:
-    <br>
-    ${rango}
-    </p>
+        <p>
+        PUNTUACIÓN:
+        <br>
+        ${puntos}
+        </p>
 
 
-    <button onclick="siguienteCaso()">
-    CONTINUAR
-    </button>
+        <p>
+        RANGO:
+        <br>
+        ${rango}
+        </p>
 
 
-    `;
+        <button onclick="siguienteCaso()">
 
+        CONTINUAR
+
+        </button>
+
+
+        `;
+
+
+    }
 
 }
 
-
-}
 
 
 
@@ -203,53 +247,51 @@ if(decision === caso.respuestaCorrecta) {
 function siguienteCaso() {
 
 
-casoActual++;
+    casoActual++;
 
 
 
-if(casoActual >= casos.length) {
+    if(casoActual >= casos.length) {
+
+
+        document.querySelector(".box").innerHTML = `
+
+
+        <h1>FIN DEL TURNO</h1>
+
+
+        <h2>⚖️ JUEZ</h2>
+
+
+        <p>
+        Has revisado todos los expedientes disponibles.
+        </p>
+
+
+        <p>
+        PUNTUACIÓN FINAL:
+        <br>
+        ${puntos}
+        </p>
+
+
+        <p>
+        RANGO FINAL:
+        <br>
+        ${rango}
+        </p>
+
+
+        `;
 
 
 
-    document.querySelector(".box").innerHTML = `
+    } else {
 
 
-    <h1>FIN DEL TURNO</h1>
+        iniciarJuicio();
 
 
-    <h2>⚖️ JUEZ</h2>
-
-
-    <p>
-    Has revisado todos los expedientes disponibles.
-    </p>
-
-
-    <p>
-    PUNTUACIÓN FINAL:
-    <br>
-    ${puntos}
-    </p>
-
-
-    <p>
-    RANGO FINAL:
-    <br>
-    ${rango}
-    </p>
-
-
-    `;
-
-
-
-} else {
-
-
-    iniciarJuicio();
-
-
-}
-
+    }
 
 }
