@@ -1,65 +1,95 @@
 let casoActual = 0;
 
+let puntos = 0;
+
+let casosResueltos = 0;
+
+let rango = "JUEZ NOVATO";
+
+
+
+function actualizarRango(){
+
+    if(puntos >= 3000){
+
+        rango = "JUEZ SUPREMO";
+
+    } else if(puntos >= 1500){
+
+        rango = "MAGISTRADO";
+
+    } else {
+
+        rango = "JUEZ NOVATO";
+
+    }
+
+}
+
+
 
 function iniciarJuicio() {
 
-    let caso = casos[casoActual];
+
+let caso = casos[casoActual];
 
 
-    document.querySelector(".box").innerHTML = `
-
-        <h1>CASO #${caso.id}</h1>
+document.querySelector(".box").innerHTML = `
 
 
-        <h2>${caso.titulo}</h2>
+    <h1>CASO #${caso.id}</h1>
 
 
-        <p>
-        Materia:
-        <br>
-        ${caso.materia}
-        </p>
+    <h2>${caso.titulo}</h2>
 
 
-        <p>
-        ${caso.descripcion}
-        </p>
+    <p>
+    Materia:
+    <br>
+    ${caso.materia}
+    </p>
 
 
-        <h2>PRUEBAS</h2>
+    <p>
+    ${caso.descripcion}
+    </p>
 
 
-        <p>
-        ${caso.pruebas.join("<br>")}
-        </p>
+    <h2>PRUEBAS</h2>
 
 
-        <h2>
-        ¿Cuál es tu decisión?
-        </h2>
+    <p>
+    ${caso.pruebas.join("<br>")}
+    </p>
 
 
-        <button onclick="veredicto(1)">
-        A) ${caso.opciones[0]}
-        </button>
+    <h2>
+    ¿Cuál es tu decisión?
+    </h2>
 
 
-        <br><br>
+    <button onclick="veredicto(1)">
+    A) ${caso.opciones[0]}
+    </button>
 
 
-        <button onclick="veredicto(2)">
-        B) ${caso.opciones[1]}
-        </button>
+    <br><br>
 
 
-        <br><br>
+    <button onclick="veredicto(2)">
+    B) ${caso.opciones[1]}
+    </button>
 
 
-        <button onclick="veredicto(3)">
-        C) ${caso.opciones[2]}
-        </button>
+    <br><br>
 
-    `;
+
+    <button onclick="veredicto(3)">
+    C) ${caso.opciones[2]}
+    </button>
+
+
+`;
 
 }
 
@@ -68,105 +98,158 @@ function iniciarJuicio() {
 function veredicto(decision) {
 
 
-    let caso = casos[casoActual];
+let caso = casos[casoActual];
 
 
-    if(decision === caso.respuestaCorrecta) {
+
+if(decision === caso.respuestaCorrecta) {
 
 
-        document.querySelector(".box").innerHTML = `
+    puntos += 500;
+
+    casosResueltos++;
+
+    actualizarRango();
 
 
-        <h1>VERDICT</h1>
+
+    document.querySelector(".box").innerHTML = `
 
 
-        <h2>⚖️ DECISIÓN CORRECTA</h2>
+    <h1>VERDICT</h1>
 
 
-        <p>
-        PUNTUACIÓN: +500
-        </p>
+    <h2>⚖️ DECISIÓN CORRECTA</h2>
 
 
-        <p>
-        RANGO:
-        <br>
-        JUEZ NOVATO
-        </p>
+    <p>
+    PUNTUACIÓN:
+    <br>
+    ${puntos}
+    </p>
 
 
-        <button onclick="siguienteCaso()">
-        SIGUIENTE CASO
-        </button>
+    <p>
+    CASOS RESUELTOS:
+    <br>
+    ${casosResueltos}
+    </p>
 
 
-        `;
+    <p>
+    RANGO:
+    <br>
+    ${rango}
+    </p>
 
 
-    } else {
+    <button onclick="siguienteCaso()">
+    SIGUIENTE CASO
+    </button>
 
 
-        document.querySelector(".box").innerHTML = `
+    `;
 
 
-        <h1>VERDICT</h1>
+
+} else {
 
 
-        <h2>DECISIÓN REVISABLE</h2>
+
+    document.querySelector(".box").innerHTML = `
 
 
-        <p>
-        La justicia requiere más análisis.
-        </p>
+    <h1>VERDICT</h1>
 
 
-        <button onclick="siguienteCaso()">
-        CONTINUAR
-        </button>
+    <h2>DECISIÓN REVISABLE</h2>
 
 
-        `;
+    <p>
+    La justicia requiere más análisis.
+    </p>
 
-    }
+
+    <p>
+    PUNTUACIÓN:
+    <br>
+    ${puntos}
+    </p>
+
+
+    <p>
+    RANGO:
+    <br>
+    ${rango}
+    </p>
+
+
+    <button onclick="siguienteCaso()">
+    CONTINUAR
+    </button>
+
+
+    `;
+
+
+}
 
 
 }
 
 
 
+
 function siguienteCaso() {
 
 
-    casoActual++;
+casoActual++;
 
 
-    if(casoActual >= casos.length) {
+
+if(casoActual >= casos.length) {
 
 
-        document.querySelector(".box").innerHTML = `
+
+    document.querySelector(".box").innerHTML = `
 
 
-        <h1>FIN DEL TURNO</h1>
+    <h1>FIN DEL TURNO</h1>
 
 
-        <h2>⚖️ JUEZ</h2>
+    <h2>⚖️ JUEZ</h2>
 
 
-        <p>
-        Has revisado todos los expedientes disponibles.
-        </p>
+    <p>
+    Has revisado todos los expedientes disponibles.
+    </p>
 
 
-        `;
+    <p>
+    PUNTUACIÓN FINAL:
+    <br>
+    ${puntos}
+    </p>
 
 
-    } else {
+    <p>
+    RANGO FINAL:
+    <br>
+    ${rango}
+    </p>
 
 
-        iniciarJuicio();
+    `;
 
 
-    }
+
+} else {
+
+
+    iniciarJuicio();
+
+
+}
 
 
 }
