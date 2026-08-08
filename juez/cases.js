@@ -1,51 +1,170 @@
-const casos = [
-
+const cases = [
     {
         id: 1,
-        titulo: "EL CONTRATO PERDIDO",
-        materia: "Derecho Civil",
+        expediente: "EXP-001/2026",
+        tribunal: "JUZGADO No. 7",
+        nivel: "PRIMERA INSTANCIA",
+        dificultad: "NOVATO",
+        titulo: "Incumplimiento de contrato",
+        materia: "DERECHO CIVIL",
+        areaJuridica: "CIVIL",
+        demandante: "María Elena Torres",
+        demandado: "Servicios Delta S.A. de C.V.",
+        fecha: "08/08/2026",
 
         descripcion:
-        "Un ciudadano demanda a una empresa por incumplimiento de contrato. El demandante afirma que realizó el pago acordado, pero nunca recibió el servicio prometido.",
+            "La parte demandante sostiene que celebró un contrato de prestación de servicios con la empresa demandada. Afirma que realizó el pago acordado, pero el servicio contratado no fue entregado en los términos establecidos.",
 
         pruebas: [
-            "Contrato firmado",
-            "Comprobante de pago",
-            "Testimonio del demandante"
+            "Contrato firmado por ambas partes.",
+            "Comprobante de pago.",
+            "Correos electrónicos entre las partes.",
+            "Testimonio de una persona relacionada con la contratación."
         ],
 
         opciones: [
-            "Dar la razón al demandante",
-            "Absolver al acusado",
-            "Solicitar más pruebas"
+            "Declarar procedente la acción porque existe contrato y comprobante de pago.",
+            "Desechar la demanda porque los correos electrónicos carecen de valor.",
+            "Declarar improcedente la acción sin analizar las pruebas.",
+            "Resolver únicamente con base en el testimonio."
+        ],
+
+        respuestaCorrecta: 0
+    },
+
+    {
+        id: 2,
+        expediente: "EXP-002/2026",
+        tribunal: "JUZGADO No. 7",
+        nivel: "PRIMERA INSTANCIA",
+        dificultad: "INTERMEDIO",
+        titulo: "Despido controvertido",
+        materia: "DERECHO LABORAL",
+        areaJuridica: "LABORAL",
+        demandante: "Carlos Ramírez López",
+        demandado: "Grupo Industrial del Centro S.A. de C.V.",
+        fecha: "08/08/2026",
+
+        descripcion:
+            "El trabajador afirma haber sido despedido sin que se le informara una causa justificada. La empresa sostiene que la terminación de la relación laboral obedeció a un incumplimiento atribuible al trabajador.",
+
+        pruebas: [
+            "Contrato individual de trabajo.",
+            "Recibos de nómina.",
+            "Registro de asistencia.",
+            "Comunicaciones internas de la empresa.",
+            "Declaraciones de compañeros de trabajo."
+        ],
+
+        opciones: [
+            "Dar por acreditado el despido sin analizar las demás pruebas.",
+            "Analizar integralmente las pruebas para determinar si existió causa justificada.",
+            "Considerar únicamente la versión de la empresa.",
+            "Considerar únicamente la versión del trabajador."
         ],
 
         respuestaCorrecta: 1
     },
 
-
     {
-        id: 2,
-        titulo: "EL DESPIDO INJUSTIFICADO",
-        materia: "Derecho Laboral",
+        id: 3,
+        expediente: "EXP-003/2026",
+        tribunal: "JUZGADO No. 7",
+        nivel: "PRIMERA INSTANCIA",
+        dificultad: "AVANZADO",
+        titulo: "La evidencia cuestionada",
+        materia: "DERECHO PENAL",
+        areaJuridica: "PENAL",
+        demandante: "Ministerio Público",
+        demandado: "Jorge Alberto Méndez",
+        fecha: "08/08/2026",
 
         descripcion:
-        "Un trabajador afirma haber sido despedido sin causa justificada después de varios años de servicio.",
+            "El Ministerio Público presenta una evidencia obtenida durante una investigación penal. La defensa cuestiona la legalidad de la obtención de dicha evidencia y solicita que sea excluida del proceso.",
 
         pruebas: [
-            "Contrato laboral",
-            "Recibos de nómina",
-            "Carta de despido"
+            "Informe de investigación.",
+            "Registro de la diligencia.",
+            "Cadena de custodia.",
+            "Declaración del agente investigador.",
+            "Argumentos de la defensa."
         ],
 
         opciones: [
-            "Rechazar la demanda",
-            "Declarar el caso sin elementos",
-            "Reconocer la afectación laboral"
+            "Admitir automáticamente la evidencia porque fue presentada por el Ministerio Público.",
+            "Analizar la legalidad de la obtención y los requisitos de incorporación de la evidencia.",
+            "Excluir toda la evidencia presentada durante la investigación.",
+            "Resolver únicamente con base en la declaración del agente."
         ],
 
-        respuestaCorrecta: 3
+        respuestaCorrecta: 1
+    },
+
+    {
+        id: 4,
+        expediente: "EXP-004/2026",
+        tribunal: "JUZGADO No. 7",
+        nivel: "CONTROL CONSTITUCIONAL",
+        dificultad: "EXPERTO",
+        titulo: "Libertad de expresión",
+        materia: "DERECHO CONSTITUCIONAL",
+        areaJuridica: "CONSTITUCIONAL",
+        demandante: "Ana Lucía Herrera",
+        demandado: "Autoridad Administrativa Municipal",
+        fecha: "08/08/2026",
+
+        descripcion:
+            "Una ciudadana sostiene que una autoridad municipal restringió una expresión pública realizada en un espacio abierto. La autoridad argumenta que la medida fue necesaria para preservar el orden público.",
+
+        pruebas: [
+            "Acta administrativa.",
+            "Grabación del acontecimiento.",
+            "Testimonios de personas presentes.",
+            "Reglamento municipal aplicable.",
+            "Escrito de la autoridad."
+        ],
+
+        opciones: [
+            "Validar automáticamente la restricción por tratarse de una decisión administrativa.",
+            "Analizar si la restricción persigue una finalidad legítima y si resulta necesaria y proporcional.",
+            "Considerar que toda expresión pública está prohibida.",
+            "Resolver únicamente con base en el reglamento municipal."
+        ],
+
+        respuestaCorrecta: 1
+    },
+
+    {
+        id: 5,
+        expediente: "EXP-005/2026",
+        tribunal: "JUZGADO No. 7",
+        nivel: "SEGUNDA REVISIÓN",
+        dificultad: "EXPERTO",
+        titulo: "La decisión administrativa",
+        materia: "DERECHO ADMINISTRATIVO",
+        areaJuridica: "ADMINISTRATIVO",
+        demandante: "Constructora Horizonte S.A. de C.V.",
+        demandado: "Dirección Municipal de Desarrollo Urbano",
+        fecha: "08/08/2026",
+
+        descripcion:
+            "Una empresa impugna una resolución administrativa mediante la cual se negó una autorización para realizar un proyecto. La autoridad sostiene que actuó conforme a sus facultades legales.",
+
+        pruebas: [
+            "Resolución administrativa.",
+            "Solicitud presentada por la empresa.",
+            "Documentación técnica del proyecto.",
+            "Normativa aplicable.",
+            "Informe de la autoridad responsable."
+        ],
+
+        opciones: [
+            "Confirmar la resolución únicamente porque proviene de una autoridad.",
+            "Analizar la competencia de la autoridad, la fundamentación y motivación de la resolución.",
+            "Anular automáticamente toda resolución administrativa.",
+            "Resolver únicamente con base en la documentación de la empresa."
+        ],
+
+        respuestaCorrecta: 1
     }
-
-
 ];
