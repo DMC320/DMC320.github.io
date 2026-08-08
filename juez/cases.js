@@ -1,4 +1,5 @@
-const cases = [
+const casos = [
+
     {
         id: 1,
         expediente: "EXP-001/2026",
@@ -25,12 +26,12 @@ const cases = [
         opciones: [
             "Declarar procedente la acción porque existe contrato y comprobante de pago.",
             "Desechar la demanda porque los correos electrónicos carecen de valor.",
-            "Declarar improcedente la acción sin analizar las pruebas.",
-            "Resolver únicamente con base en el testimonio."
+            "Declarar improcedente la acción sin analizar las pruebas."
         ],
 
-        respuestaCorrecta: 0
+        respuestaCorrecta: 1
     },
+
 
     {
         id: 2,
@@ -59,12 +60,12 @@ const cases = [
         opciones: [
             "Dar por acreditado el despido sin analizar las demás pruebas.",
             "Analizar integralmente las pruebas para determinar si existió causa justificada.",
-            "Considerar únicamente la versión de la empresa.",
-            "Considerar únicamente la versión del trabajador."
+            "Considerar únicamente la versión de la empresa."
         ],
 
-        respuestaCorrecta: 1
+        respuestaCorrecta: 2
     },
+
 
     {
         id: 3,
@@ -93,12 +94,12 @@ const cases = [
         opciones: [
             "Admitir automáticamente la evidencia porque fue presentada por el Ministerio Público.",
             "Analizar la legalidad de la obtención y los requisitos de incorporación de la evidencia.",
-            "Excluir toda la evidencia presentada durante la investigación.",
-            "Resolver únicamente con base en la declaración del agente."
+            "Excluir toda la evidencia presentada durante la investigación."
         ],
 
-        respuestaCorrecta: 1
+        respuestaCorrecta: 2
     },
+
 
     {
         id: 4,
@@ -127,12 +128,12 @@ const cases = [
         opciones: [
             "Validar automáticamente la restricción por tratarse de una decisión administrativa.",
             "Analizar si la restricción persigue una finalidad legítima y si resulta necesaria y proporcional.",
-            "Considerar que toda expresión pública está prohibida.",
-            "Resolver únicamente con base en el reglamento municipal."
+            "Considerar que toda expresión pública está prohibida."
         ],
 
-        respuestaCorrecta: 1
+        respuestaCorrecta: 2
     },
+
 
     {
         id: 5,
@@ -161,10 +162,10 @@ const cases = [
         opciones: [
             "Confirmar la resolución únicamente porque proviene de una autoridad.",
             "Analizar la competencia de la autoridad, la fundamentación y motivación de la resolución.",
-            "Anular automáticamente toda resolución administrativa.",
-            "Resolver únicamente con base en la documentación de la empresa."
+            "Anular automáticamente toda resolución administrativa."
         ],
 
-        respuestaCorrecta: 1
+        respuestaCorrecta: 2
     }
+
 ];
