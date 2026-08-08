@@ -5,80 +5,852 @@
 
 <meta charset="UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>VERDICT 7</title>
+
+<!-- Tipografía Pixel -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+rel="stylesheet">
 
 
 <style>
 
-body {
-    background: black;
-    color: #00ff00;
-    font-family: "Courier New", monospace;
-    text-align: center;
-    padding-top: 80px;
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
 }
 
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+
+    background: #000;
+
+    color: #00ff00;
+
+    font-family: "Press Start 2P",
+                 "Courier New",
+                 monospace;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    position: relative;
+
+}
+
+
+/* =====================================================
+   FONDO DIGITAL
+===================================================== */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+
+        linear-gradient(
+            rgba(0,255,0,0.025) 50%,
+            transparent 50%
+        );
+
+    background-size: 100% 4px;
+
+    pointer-events: none;
+
+    z-index: 20;
+
+    animation: scanlines 0.15s linear infinite;
+
+}
+
+
+@keyframes scanlines {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(4px);
+    }
+
+}
+
+
+/* =====================================================
+   VIÑETA / OSCURECIMIENTO
+===================================================== */
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            transparent 45%,
+            rgba(0,0,0,0.75) 100%
+        );
+
+    z-index: 15;
+
+}
+
+
+/* =====================================================
+   CÓDIGO DIGITAL DEL FONDO
+===================================================== */
+
+.matrix {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    z-index: 0;
+
+    opacity: 0.35;
+
+}
+
+
+.matrix span {
+
+    position: absolute;
+
+    top: -100px;
+
+    color: #00ff00;
+
+    font-family: monospace;
+
+    font-size: 18px;
+
+    line-height: 20px;
+
+    white-space: pre;
+
+    text-shadow:
+        0 0 5px #00ff00,
+        0 0 10px #00ff00;
+
+    animation: caer linear infinite;
+
+}
+
+
+@keyframes caer {
+
+    0% {
+
+        transform:
+            translateY(-120px);
+
+        opacity: 0;
+
+    }
+
+    10% {
+
+        opacity: 1;
+
+    }
+
+    90% {
+
+        opacity: 0.8;
+
+    }
+
+    100% {
+
+        transform:
+            translateY(110vh);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =====================================================
+   CONTENEDOR PRINCIPAL
+===================================================== */
+
+.box {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: min(850px, 90vw);
+
+    min-height: 650px;
+
+    padding: 65px 50px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+
+    border: 2px solid #00ff00;
+
+    background:
+
+        rgba(0, 0, 0, 0.88);
+
+
+    box-shadow:
+
+        0 0 10px #00ff00,
+
+        0 0 30px rgba(0,255,0,0.35),
+
+        inset 0 0 40px rgba(0,255,0,0.08);
+
+
+    animation:
+
+        aparecer 1.2s ease-out,
+
+        respirar 4s ease-in-out infinite;
+
+}
+
+
+@keyframes aparecer {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(0.75)
+            translateY(30px);
+
+        filter: brightness(4);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+        filter: brightness(1);
+
+    }
+
+}
+
+
+@keyframes respirar {
+
+    0%,
+    100% {
+
+        box-shadow:
+
+            0 0 10px #00ff00,
+
+            0 0 25px rgba(0,255,0,0.25),
+
+            inset 0 0 30px rgba(0,255,0,0.05);
+
+    }
+
+    50% {
+
+        box-shadow:
+
+            0 0 20px #00ff00,
+
+            0 0 55px rgba(0,255,0,0.45),
+
+            inset 0 0 45px rgba(0,255,0,0.10);
+
+    }
+
+}
+
+
+/* =====================================================
+   BORDES DECORATIVOS
+===================================================== */
+
+.box::before,
+.box::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 35px;
+
+    height: 35px;
+
+    border-color: #00ff00;
+
+    border-style: solid;
+
+}
+
+
+.box::before {
+
+    top: -3px;
+
+    left: -3px;
+
+    border-width: 4px 0 0 4px;
+
+}
+
+
+.box::after {
+
+    bottom: -3px;
+
+    right: -3px;
+
+    border-width: 0 4px 4px 0;
+
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
 
 h1 {
-    font-size: 60px;
-    letter-spacing: 8px;
-    text-shadow: 0 0 10px #00ff00;
+
+    margin: 0 0 45px 0;
+
+    font-size: clamp(45px, 7vw, 85px);
+
+    letter-spacing: 5px;
+
+    color: #00ff00;
+
+    text-shadow:
+
+        0 0 5px #00ff00,
+
+        0 0 15px #00ff00,
+
+        0 0 35px #00ff00;
+
+    position: relative;
+
+    animation:
+
+        tituloEntrada 1.5s ease-out,
+
+        glitch 5s infinite;
+
 }
 
+
+@keyframes tituloEntrada {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(2);
+
+        letter-spacing: 30px;
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+        letter-spacing: 5px;
+
+    }
+
+}
+
+
+@keyframes glitch {
+
+    0%,
+    92%,
+    100% {
+
+        transform:
+            translate(0);
+
+    }
+
+    93% {
+
+        transform:
+            translate(-4px, 2px);
+
+    }
+
+    94% {
+
+        transform:
+            translate(4px, -2px);
+
+    }
+
+    95% {
+
+        transform:
+            translate(-2px, 0);
+
+    }
+
+    96% {
+
+        transform:
+            translate(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   SUBTÍTULO
+===================================================== */
 
 h2 {
-    font-size: 25px;
+
+    margin: 0 0 30px 0;
+
+    font-size: clamp(14px, 2vw, 22px);
+
+    color: #00eaff;
+
+    text-shadow:
+
+        0 0 5px #00eaff,
+
+        0 0 15px #00eaff;
+
+    animation:
+
+        deslizar 1.5s 0.5s both;
+
 }
 
+
+@keyframes deslizar {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =====================================================
+   TEXTOS
+===================================================== */
 
 p {
-    font-size: 20px;
+
+    font-size: clamp(11px, 1.5vw, 16px);
+
+    line-height: 2;
+
+    margin: 15px 0;
+
+    text-shadow:
+
+        0 0 5px #00ff00;
+
 }
 
+
+p:nth-of-type(1) {
+
+    color: #00ff00;
+
+}
+
+
+p:nth-of-type(2) {
+
+    color: #9aff9a;
+
+}
+
+
+/* =====================================================
+   BOTÓN
+===================================================== */
 
 button {
 
-    background: black;
+    margin-top: 35px;
+
+    padding: 20px 35px;
+
+    min-width: 300px;
+
+    background: #000;
+
     color: #00ff00;
+
     border: 2px solid #00ff00;
-    padding: 15px 40px;
-    font-size: 20px;
-    font-family: "Courier New", monospace;
+
+    font-family:
+        "Press Start 2P",
+        "Courier New",
+        monospace;
+
+    font-size: 14px;
+
     cursor: pointer;
-    margin-top: 30px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+
+        0 0 10px rgba(0,255,0,0.5);
+
+    transition:
+
+        transform 0.15s,
+
+        background 0.15s,
+
+        color 0.15s,
+
+        box-shadow 0.15s;
+
+    animation:
+
+        botonEntrada 1.5s 1s both;
+
+}
+
+
+@keyframes botonEntrada {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: #00ff00;
+
+    transition: left 0.25s;
+
+    z-index: -1;
 
 }
 
 
 button:hover {
 
+    color: #000;
+
     background: #00ff00;
-    color: black;
+
+    transform:
+        scale(1.06);
+
+    box-shadow:
+
+        0 0 15px #00ff00,
+
+        0 0 40px #00ff00;
 
 }
 
 
-.box {
+button:hover::before {
 
-    border: 2px solid #00ff00;
-    width: 500px;
-    margin: auto;
-    padding: 30px;
+    left: 0;
 
 }
 
 
-/* Firma del desarrollador */
+button:active {
+
+    transform:
+        scale(0.96);
+
+}
+
+
+/* =====================================================
+   FIRMA
+===================================================== */
 
 .developer {
 
-    margin-top: 50px;
-    font-size: 16px;
-    opacity: 0.8;
-    letter-spacing: 2px;
+    margin-top: 55px;
+
+    font-size: 10px;
+
+    line-height: 2;
+
+    color: #00ff00;
+
+    opacity: 0.7;
+
+    letter-spacing: 1px;
+
+    animation:
+
+        aparecerFirma 2s 1.2s both;
 
 }
 
+
+@keyframes aparecerFirma {
+
+    from {
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        opacity: 0.7;
+
+    }
+
+}
+
+
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
+
+.particle {
+
+    position: fixed;
+
+    width: 4px;
+
+    height: 4px;
+
+    background: #00ff00;
+
+    box-shadow:
+
+        0 0 8px #00ff00;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    animation:
+
+        particula linear infinite;
+
+}
+
+
+@keyframes particula {
+
+    0% {
+
+        transform:
+            translateY(105vh)
+            rotate(0deg);
+
+        opacity: 0;
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    85% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform:
+            translateY(-10vh)
+            rotate(360deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .box {
+
+        min-height: 90vh;
+
+        padding: 40px 20px;
+
+    }
+
+    h1 {
+
+        margin-bottom: 30px;
+
+    }
+
+    button {
+
+        min-width: 240px;
+
+        font-size: 11px;
+
+        padding: 18px 20px;
+
+    }
+
+}
+
+
+/* =====================================================
+   EFECTO DE APAGADO AL INICIAR
+===================================================== */
+
+.fade-out {
+
+    animation:
+        apagar 0.7s forwards !important;
+
+}
+
+
+@keyframes apagar {
+
+    0% {
+
+        opacity: 1;
+
+        filter: brightness(1);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        filter: brightness(8);
+
+        transform:
+            scale(1.15);
+
+    }
+
+}
 
 </style>
 
@@ -88,59 +860,188 @@ button:hover {
 <body>
 
 
-<div class="box">
+<!-- =====================================================
+     FONDO MATRIX
+===================================================== -->
+
+<div class="matrix" id="matrix"></div>
 
 
-<h1>VERDICT 7</h1>
+<!-- =====================================================
+     PORTADA
+===================================================== -->
+
+<div class="box" id="portada">
 
 
-<h2>⚖️ COURT SIMULATOR</h2>
+    <h1>VERDICT 7</h1>
 
 
-<p>
-JUZGADO No. 7 ONLINE
-</p>
+    <h2>⚖ COURT SIMULATOR</h2>
 
 
-<p>
-
-Tú eres el Juez.
-
-<br>
-
-Cada decisión cambiará el veredicto.
-
-</p>
+    <p>
+        JUZGADO No. 7 ONLINE
+    </p>
 
 
+    <p>
 
-<button onclick="iniciarJuicio()">
+        Tú eres el Juez.
 
-INICIAR JUICIO
+        <br>
 
-</button>
+        Cada decisión cambiará el veredicto.
+
+    </p>
 
 
+    <button onclick="iniciarJuicio()">
 
-<p class="developer">
+        INICIAR JUICIO
 
-Desarrollado por:
+    </button>
 
-<br>
 
-Mtro. Daniel Moreno Cortés
+    <p class="developer">
 
-</p>
+        Desarrollado por:
 
+        <br>
+
+        Mtro. Daniel Moreno Cortés
+
+    </p>
 
 
 </div>
 
 
+<!-- =====================================================
+     SCRIPTS DEL JUEGO
+===================================================== -->
 
 <script src="cases.js"></script>
 
 <script src="game.js"></script>
+
+
+<!-- =====================================================
+     ANIMACIÓN DE FONDO
+===================================================== -->
+
+<script>
+
+
+// -------------------------------------------------------
+// MATRIX DE NÚMEROS
+// -------------------------------------------------------
+
+const matrix = document.getElementById("matrix");
+
+const caracteres =
+    "01 01 10 11 00 VERDICT 7 JUDGE COURT";
+
+
+for (let i = 0; i < 28; i++) {
+
+    const columna =
+        document.createElement("span");
+
+    columna.innerText =
+        generarCodigo(
+            Math.floor(Math.random() * 18) + 8
+        );
+
+    columna.style.left =
+        Math.random() * 100 + "%";
+
+    columna.style.animationDuration =
+        (5 + Math.random() * 9) + "s";
+
+    columna.style.animationDelay =
+        (-Math.random() * 10) + "s";
+
+    columna.style.fontSize =
+        (10 + Math.random() * 12) + "px";
+
+    matrix.appendChild(columna);
+
+}
+
+
+function generarCodigo(longitud) {
+
+    let resultado = "";
+
+    for (let i = 0; i < longitud; i++) {
+
+        resultado +=
+            caracteres[
+                Math.floor(
+                    Math.random() *
+                    caracteres.length
+                )
+            ];
+
+        resultado += "\n";
+
+    }
+
+    return resultado;
+
+}
+
+
+// -------------------------------------------------------
+// PARTÍCULAS
+// -------------------------------------------------------
+
+for (let i = 0; i < 45; i++) {
+
+    const particle =
+        document.createElement("div");
+
+    particle.className =
+        "particle";
+
+    particle.style.left =
+        Math.random() * 100 + "%";
+
+    particle.style.animationDuration =
+        (4 + Math.random() * 8) + "s";
+
+    particle.style.animationDelay =
+        (-Math.random() * 10) + "s";
+
+    particle.style.width =
+        (2 + Math.random() * 5) + "px";
+
+    particle.style.height =
+        particle.style.width;
+
+    document.body.appendChild(particle);
+
+}
+
+
+// -------------------------------------------------------
+// EFECTO AL PRESIONAR INICIAR JUICIO
+// -------------------------------------------------------
+
+const boton =
+    document.querySelector("button");
+
+boton.addEventListener("click", function() {
+
+    document
+        .getElementById("portada")
+        .classList.add("fade-out");
+
+});
+
+
+</script>
 
 
 </body>
