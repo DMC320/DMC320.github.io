@@ -28,7 +28,6 @@ function actualizarRango(){
 
 
 
-
 function iniciarJuicio() {
 
     let caso = casos[casoActual];
@@ -36,32 +35,85 @@ function iniciarJuicio() {
 
     document.querySelector(".box").innerHTML = `
 
-
     <h1>EXPEDIENTE #${caso.id}</h1>
 
+    <p>
+    ━━━━━━━━━━━━━━━━━━━━━
+    </p>
 
-    <h2>${caso.titulo}</h2>
+    <h2>${caso.expediente}</h2>
 
 
     <p>
-    MATERIA:
+    <strong>TRIBUNAL:</strong>
+    <br>
+    ${caso.tribunal}
+    </p>
+
+
+    <p>
+    <strong>NIVEL:</strong>
+    <br>
+    ${caso.nivel}
+    </p>
+
+
+    <p>
+    <strong>MATERIA:</strong>
     <br>
     ${caso.materia}
     </p>
 
 
     <p>
-    TRIBUNAL:
+    <strong>ÁREA JURÍDICA:</strong>
     <br>
-    JUZGADO No. 7
+    ${caso.areaJuridica}
     </p>
 
 
     <p>
-    NIVEL:
+    <strong>DIFICULTAD:</strong>
     <br>
-    JUEZ INICIAL
+    ${caso.dificultad}
     </p>
+
+
+    <p>
+    <strong>FECHA:</strong>
+    <br>
+    ${caso.fecha}
+    </p>
+
+
+    <p>
+    ━━━━━━━━━━━━━━━━━━━━━
+    </p>
+
+
+    <h2>PARTES</h2>
+
+
+    <p>
+    <strong>DEMANDANTE:</strong>
+    <br>
+    ${caso.demandante}
+    </p>
+
+
+    <p>
+    <strong>DEMANDADO:</strong>
+    <br>
+    ${caso.demandado}
+    </p>
+
+
+    <p>
+    ━━━━━━━━━━━━━━━━━━━━━
+    </p>
+
+
+    <h2>${caso.titulo}</h2>
 
 
     <button onclick="abrirCaso()">
@@ -84,11 +136,61 @@ function abrirCaso(){
 
     document.querySelector(".box").innerHTML = `
 
-
     <h1>CASO #${caso.id}</h1>
 
 
     <h2>${caso.titulo}</h2>
+
+
+    <p>
+    <strong>EXPEDIENTE:</strong>
+    <br>
+    ${caso.expediente}
+    </p>
+
+
+    <p>
+    <strong>MATERIA:</strong>
+    <br>
+    ${caso.materia}
+    </p>
+
+
+    <p>
+    <strong>DIFICULTAD:</strong>
+    <br>
+    ${caso.dificultad}
+    </p>
+
+
+    <p>
+    ━━━━━━━━━━━━━━━━━━━━━
+    </p>
+
+
+    <h2>PARTES</h2>
+
+
+    <p>
+    <strong>DEMANDANTE:</strong>
+    <br>
+    ${caso.demandante}
+    </p>
+
+
+    <p>
+    <strong>DEMANDADO:</strong>
+    <br>
+    ${caso.demandado}
+    </p>
+
+
+    <p>
+    ━━━━━━━━━━━━━━━━━━━━━
+    </p>
+
+
+    <h2>ANTECEDENTES</h2>
 
 
     <p>
@@ -100,17 +202,24 @@ function abrirCaso(){
 
 
     <p>
-    ${caso.pruebas.join("<br>")}
+    ${caso.pruebas.join("<br><br>")}
+    </p>
+
+
+    <p>
+    ━━━━━━━━━━━━━━━━━━━━━
     </p>
 
 
     <h2>
-    ¿Cuál es tu decisión?
+    ⚖️ ¿CUÁL ES TU DECISIÓN?
     </h2>
 
 
     <button onclick="veredicto(1)">
+
     A) ${caso.opciones[0]}
+
     </button>
 
 
@@ -118,7 +227,9 @@ function abrirCaso(){
 
 
     <button onclick="veredicto(2)">
+
     B) ${caso.opciones[1]}
+
     </button>
 
 
@@ -126,14 +237,15 @@ function abrirCaso(){
 
 
     <button onclick="veredicto(3)">
+
     C) ${caso.opciones[2]}
+
     </button>
 
 
     `;
 
 }
-
 
 
 
@@ -152,14 +264,19 @@ function veredicto(decision) {
         actualizarRango();
 
 
-
         document.querySelector(".box").innerHTML = `
-
 
         <h1>VERDICT</h1>
 
 
         <h2>⚖️ DECISIÓN CORRECTA</h2>
+
+
+        <p>
+        EXPEDIENTE:
+        <br>
+        ${caso.expediente}
+        </p>
 
 
         <p>
@@ -208,6 +325,13 @@ function veredicto(decision) {
 
 
         <p>
+        EXPEDIENTE:
+        <br>
+        ${caso.expediente}
+        </p>
+
+
+        <p>
         La justicia requiere más análisis.
         </p>
 
@@ -242,13 +366,9 @@ function veredicto(decision) {
 
 
 
-
-
 function siguienteCaso() {
 
-
     casoActual++;
-
 
 
     if(casoActual >= casos.length) {
@@ -272,6 +392,13 @@ function siguienteCaso() {
         PUNTUACIÓN FINAL:
         <br>
         ${puntos}
+        </p>
+
+
+        <p>
+        CASOS RESUELTOS:
+        <br>
+        ${casosResueltos}
         </p>
 
 
