@@ -5,91 +5,179 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>VERDICT 7</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-rel="stylesheet">
 
 
 <style>
 
-/* =====================================================
-   CONFIGURACIÓN GENERAL
-===================================================== */
+/* ============================= */
+/* CONFIGURACIÓN GENERAL */
+/* ============================= */
 
 * {
     box-sizing: border-box;
 }
 
+
 html,
 body {
     margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
 
-body {
     background: #000;
+
     color: #00ff00;
 
     font-family:
-        "Press Start 2P",
         "Courier New",
         monospace;
 }
 
 
-/* =====================================================
-   PANTALLA DE ARRANQUE
-===================================================== */
+/* ============================= */
+/* FONDO CYBERPUNK */
+/* ============================= */
 
-#bootScreen {
+body {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    position: relative;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0,255,0,.025) 0px,
+            rgba(0,255,0,.025) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        #000;
+}
+
+
+body::before {
+
+    content: "";
 
     position: fixed;
 
     inset: 0;
 
-    z-index: 100;
+    pointer-events: none;
 
-    background: #000;
+    opacity: .18;
 
-    color: #00ff00;
+    background-image:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0,255,0,.08) 50%,
+            transparent 100%
+        );
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 30px;
+    animation:
+        backgroundMove 10s linear infinite;
 
 }
 
 
+@keyframes backgroundMove {
+
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+
+}
+
+
+/* ============================= */
+/* PARTÍCULAS / CÓDIGO */
+/* ============================= */
+
+.matrix {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+}
+
+
+.matrix span {
+
+    position: absolute;
+
+    top: -50px;
+
+    color: #00ff00;
+
+    opacity: .18;
+
+    font-size: 14px;
+
+    animation:
+        fall linear infinite;
+
+}
+
+
+@keyframes fall {
+
+    from {
+        transform: translateY(-100px);
+    }
+
+    to {
+        transform: translateY(110vh);
+    }
+
+}
+
+
+/* ============================= */
+/* PANTALLA BOOT */
+/* ============================= */
+
 .boot {
 
-    width: min(800px, 90vw);
+    position: fixed;
 
-    font-family:
-        "Courier New",
-        monospace;
+    z-index: 100;
 
-    font-size:
-        clamp(13px, 1.7vw, 18px);
+    inset: 0;
 
-    line-height: 1.8;
+    display: flex;
 
-    text-shadow:
-        0 0 5px #00ff00,
-        0 0 12px #00ff00;
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #000;
+
+    padding: 30px;
 
 }
 
@@ -98,89 +186,50 @@ body {
 
     color: #00ff00;
 
-    font-family:
-        "Press Start 2P",
-        monospace;
-
     font-size:
-        clamp(18px, 3vw, 30px);
+        clamp(22px, 4vw, 48px);
+
+    letter-spacing: 5px;
 
     margin-bottom: 35px;
 
-    animation:
-        bootBlink 1s infinite;
-
-}
-
-
-@keyframes bootBlink {
-
-    0%,
-    45% {
-        opacity: 1;
-    }
-
-    50%,
-    100% {
-        opacity: 0.55;
-    }
+    text-shadow:
+        0 0 10px #00ff00,
+        0 0 30px #00ff00;
 
 }
 
 
 .boot-line {
 
-    opacity: 0;
+    width:
+        min(600px, 90vw);
 
     margin: 8px 0;
 
-}
+    color: #00ff00;
 
+    font-size:
+        clamp(10px, 1.4vw, 16px);
 
-.boot-line.show {
+    opacity: 0;
 
-    animation:
-        bootLine 0.25s forwards;
-
-}
-
-
-@keyframes bootLine {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateX(-10px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateX(0);
-
-    }
+    transition: opacity .4s;
 
 }
 
-
-/* =====================================================
-   BARRA DE CARGA
-===================================================== */
 
 .progress {
 
-    margin-top: 20px;
+    width:
+        min(600px, 90vw);
 
-    width: 100%;
+    height: 18px;
 
-    height: 25px;
+    margin-top: 30px;
 
-    border: 2px solid #00ff00;
+    border:
+        1px solid #00ff00;
 
     padding: 3px;
 
@@ -199,279 +248,28 @@ body {
         0 0 10px #00ff00,
         0 0 20px #00ff00;
 
+    transition: width .4s;
+
 }
 
 
 .boot-status {
 
-    margin-top: 25px;
-
-    color: #00eaff;
-
-    text-shadow:
-        0 0 5px #00eaff,
-        0 0 15px #00eaff;
-
-}
-
-
-/* =====================================================
-   SALIDA DEL ARRANQUE
-===================================================== */
-
-#bootScreen.hide {
-
-    animation:
-        bootExit 0.8s forwards;
-
-}
-
-
-@keyframes bootExit {
-
-    0% {
-
-        opacity: 1;
-
-        filter:
-            brightness(1);
-
-    }
-
-    50% {
-
-        opacity: 1;
-
-        filter:
-            brightness(4);
-
-    }
-
-    100% {
-
-        opacity: 0;
-
-        visibility: hidden;
-
-        filter:
-            brightness(8);
-
-    }
-
-}
-
-
-/* =====================================================
-   EFECTO CRT
-===================================================== */
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: 20;
-
-    background:
-
-        linear-gradient(
-            rgba(0,255,0,0.025) 50%,
-            transparent 50%
-        );
-
-    background-size:
-        100% 4px;
-
-    animation:
-        scanlines 0.15s linear infinite;
-
-}
-
-
-@keyframes scanlines {
-
-    from {
-        transform:
-            translateY(0);
-    }
-
-    to {
-        transform:
-            translateY(4px);
-    }
-
-}
-
-
-/* =====================================================
-   VIÑETA
-===================================================== */
-
-body::after {
-
-    content: "";
-
-    position: fixed;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: 15;
-
-    background:
-
-        radial-gradient(
-            ellipse at center,
-            transparent 45%,
-            rgba(0,0,0,0.75) 100%
-        );
-
-}
-
-
-/* =====================================================
-   FONDO MATRIX
-===================================================== */
-
-.matrix {
-
-    position: fixed;
-
-    inset: 0;
-
-    overflow: hidden;
-
-    z-index: 0;
-
-    opacity: 0.35;
-
-}
-
-
-.matrix span {
-
-    position: absolute;
-
-    top: -100px;
+    margin-top: 18px;
 
     color: #00ff00;
 
-    font-family: monospace;
+    font-size:
+        clamp(9px, 1.2vw, 14px);
 
-    font-size: 18px;
-
-    line-height: 20px;
-
-    white-space: pre;
-
-    text-shadow:
-        0 0 5px #00ff00,
-        0 0 10px #00ff00;
-
-    animation:
-        caer linear infinite;
+    letter-spacing: 2px;
 
 }
 
 
-@keyframes caer {
-
-    0% {
-
-        transform:
-            translateY(-120px);
-
-        opacity: 0;
-
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    90% {
-        opacity: 0.8;
-    }
-
-    100% {
-
-        transform:
-            translateY(110vh);
-
-        opacity: 0;
-
-    }
-
-}
-
-
-/* =====================================================
-   PANTALLA PRINCIPAL
-===================================================== */
-
-#mainScreen {
-
-    width: 100%;
-
-    height: 100%;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    opacity: 0;
-
-}
-
-
-#mainScreen.show {
-
-    animation:
-        mainAppear 1.2s forwards;
-
-}
-
-
-@keyframes mainAppear {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            scale(1.08);
-
-        filter:
-            brightness(5);
-
-    }
-
-    100% {
-
-        opacity: 1;
-
-        transform:
-            scale(1);
-
-        filter:
-            brightness(1);
-
-    }
-
-}
-
-
-/* =====================================================
-   CAJA PRINCIPAL
-===================================================== */
+/* ============================= */
+/* CAJA PRINCIPAL */
+/* ============================= */
 
 .box {
 
@@ -480,16 +278,14 @@ body::after {
     z-index: 5;
 
     width:
-        min(850px, 90vw);
+        min(850px, 92vw);
 
-    min-height:
-        650px;
+    height: 88vh;
 
-    max-height:
-        90vh;
+    max-height: 88vh;
 
     padding:
-        55px 45px;
+        clamp(18px, 3vw, 35px);
 
     display: flex;
 
@@ -503,214 +299,141 @@ body::after {
 
     overflow-y: auto;
 
+    overflow-x: hidden;
+
     border:
         2px solid #00ff00;
 
     background:
-        rgba(0,0,0,0.90);
+        rgba(0,0,0,.92);
 
     box-shadow:
-
         0 0 10px #00ff00,
-
-        0 0 30px rgba(0,255,0,0.35),
-
-        inset 0 0 40px rgba(0,255,0,0.08);
+        0 0 30px rgba(0,255,0,.35),
+        inset 0 0 40px rgba(0,255,0,.06);
 
     animation:
-        respirar 4s ease-in-out infinite;
+        breath 4s ease-in-out infinite;
 
 }
 
 
-@keyframes respirar {
+/* Scroll interno */
+
+.box::-webkit-scrollbar {
+
+    width: 7px;
+
+}
+
+
+.box::-webkit-scrollbar-track {
+
+    background: #000;
+
+}
+
+
+.box::-webkit-scrollbar-thumb {
+
+    background: #00ff00;
+
+    box-shadow:
+        0 0 10px #00ff00;
+
+}
+
+
+@keyframes breath {
 
     0%,
     100% {
 
         box-shadow:
-
             0 0 10px #00ff00,
-
-            0 0 25px rgba(0,255,0,0.25),
-
-            inset 0 0 30px rgba(0,255,0,0.05);
+            0 0 25px rgba(0,255,0,.25),
+            inset 0 0 30px rgba(0,255,0,.04);
 
     }
+
 
     50% {
 
         box-shadow:
-
-            0 0 20px #00ff00,
-
-            0 0 55px rgba(0,255,0,0.45),
-
-            inset 0 0 45px rgba(0,255,0,0.10);
+            0 0 15px #00ff00,
+            0 0 45px rgba(0,255,0,.45),
+            inset 0 0 50px rgba(0,255,0,.08);
 
     }
 
 }
 
 
-/* =====================================================
-   ESQUINAS
-===================================================== */
-
-.box::before,
-.box::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 35px;
-
-    height: 35px;
-
-    border-color: #00ff00;
-
-    border-style: solid;
-
-}
-
-
-.box::before {
-
-    top: -3px;
-
-    left: -3px;
-
-    border-width:
-        4px 0 0 4px;
-
-}
-
-
-.box::after {
-
-    bottom: -3px;
-
-    right: -3px;
-
-    border-width:
-        0 4px 4px 0;
-
-}
-
-
-/* =====================================================
-   TÍTULO
-===================================================== */
+/* ============================= */
+/* TÍTULO PRINCIPAL */
+/* ============================= */
 
 h1 {
 
     margin:
-        0 0 35px 0;
+        0 0 18px;
+
+    color: #00ff00;
 
     font-size:
-        clamp(38px, 6vw, 75px);
+        clamp(28px, 5vw, 62px);
 
     letter-spacing:
-        4px;
+        clamp(3px, 1vw, 10px);
 
-    color:
-        #00ff00;
+    line-height: 1.1;
 
     text-shadow:
-
-        0 0 5px #00ff00,
-
-        0 0 15px #00ff00,
-
-        0 0 35px #00ff00;
-
-    animation:
-        tituloGlitch 5s infinite;
+        0 0 8px #00ff00,
+        0 0 20px #00ff00,
+        0 0 40px rgba(0,255,0,.6);
 
 }
 
 
-@keyframes tituloGlitch {
-
-    0%,
-    92%,
-    100% {
-
-        transform:
-            translate(0);
-
-    }
-
-    93% {
-
-        transform:
-            translate(-4px, 2px);
-
-    }
-
-    94% {
-
-        transform:
-            translate(4px, -2px);
-
-    }
-
-    95% {
-
-        transform:
-            translate(-2px, 0);
-
-    }
-
-    96% {
-
-        transform:
-            translate(0);
-
-    }
-
-}
-
-
-/* =====================================================
-   SUBTÍTULO
-===================================================== */
+/* ============================= */
+/* SUBTÍTULOS */
+/* ============================= */
 
 h2 {
 
     margin:
-        0 0 25px 0;
+        8px 0 12px;
+
+    color: #00eaff;
 
     font-size:
-        clamp(13px, 2vw, 21px);
+        clamp(12px, 1.8vw, 22px);
 
-    color:
-        #00eaff;
+    line-height: 1.4;
+
+    letter-spacing: 2px;
 
     text-shadow:
-
         0 0 5px #00eaff,
-
         0 0 15px #00eaff;
 
 }
 
 
-/* =====================================================
-   TEXTOS
-===================================================== */
+/* ============================= */
+/* TEXTO */
+/* ============================= */
 
 p {
 
-    font-size:
-        clamp(10px, 1.4vw, 15px);
-
-    line-height:
-        2;
-
     margin:
-        12px 0;
+        6px 0;
+
+    font-size:
+        clamp(10px, 1.25vw, 16px);
+
+    line-height: 1.5;
 
     text-shadow:
         0 0 5px #00ff00;
@@ -718,72 +441,62 @@ p {
 }
 
 
-/* =====================================================
-   BOTONES
-===================================================== */
+/* ============================= */
+/* BOTONES */
+/* ============================= */
 
 button {
 
-    margin-top:
-        25px;
+    margin-top: 14px;
 
     padding:
-        18px 28px;
+        13px 24px;
 
     min-width:
-        300px;
+        min(280px, 80vw);
 
-    max-width:
-        90%;
+    max-width: 90%;
 
-    background:
-        #000;
+    background: #000;
 
-    color:
-        #00ff00;
+    color: #00ff00;
 
     border:
         2px solid #00ff00;
 
     font-family:
-        "Press Start 2P",
         "Courier New",
         monospace;
 
     font-size:
-        12px;
+        clamp(10px, 1.3vw, 15px);
 
-    line-height:
-        1.5;
+    font-weight: bold;
 
-    cursor:
-        pointer;
+    letter-spacing: 1px;
+
+    line-height: 1.4;
+
+    cursor: pointer;
 
     box-shadow:
-        0 0 10px rgba(0,255,0,0.5);
+        0 0 10px rgba(0,255,0,.4);
 
     transition:
-        0.15s;
+        .15s;
 
 }
 
 
 button:hover {
 
-    color:
-        #000;
+    background: #00ff00;
 
-    background:
-        #00ff00;
-
-    transform:
-        scale(1.04);
+    color: #000;
 
     box-shadow:
-
         0 0 15px #00ff00,
-
-        0 0 40px #00ff00;
+        0 0 35px #00ff00;
 
 }
 
@@ -791,149 +504,119 @@ button:hover {
 button:active {
 
     transform:
-        scale(0.96);
+        scale(.97);
 
 }
 
 
-/* =====================================================
-   FIRMA
-===================================================== */
+/* ============================= */
+/* FIRMA */
+/* ============================= */
 
 .developer {
 
-    margin-top:
-        45px;
+    margin-top: 22px;
 
     font-size:
-        9px;
+        clamp(9px, 1vw, 13px);
 
-    line-height:
-        2;
+    opacity: .8;
 
-    color:
-        #00ff00;
-
-    opacity:
-        0.7;
-
-    letter-spacing:
-        1px;
+    letter-spacing: 2px;
 
 }
 
 
-/* =====================================================
-   PARTÍCULAS
-===================================================== */
+/* ============================= */
+/* BOTÓN MÚSICA */
+/* ============================= */
 
-.particle {
+.sound-button {
 
     position: fixed;
 
-    width: 4px;
+    top: 15px;
 
-    height: 4px;
+    right: 15px;
 
-    background:
-        #00ff00;
+    z-index: 20;
+
+    min-width: auto;
+
+    margin: 0;
+
+    padding:
+        10px 14px;
+
+    font-size: 11px;
+
+}
+
+
+/* ============================= */
+/* LÍNEAS SEPARADORAS */
+/* ============================= */
+
+hr {
+
+    width: 70%;
+
+    border: none;
+
+    border-top:
+        1px solid #00ff00;
+
+    margin: 15px auto;
 
     box-shadow:
         0 0 8px #00ff00;
 
-    pointer-events:
-        none;
-
-    z-index:
-        2;
-
-    animation:
-        particula linear infinite;
-
 }
 
 
-@keyframes particula {
-
-    0% {
-
-        transform:
-            translateY(105vh)
-            rotate(0deg);
-
-        opacity:
-            0;
-
-    }
-
-    15% {
-        opacity: 1;
-    }
-
-    85% {
-        opacity: 1;
-    }
-
-    100% {
-
-        transform:
-            translateY(-10vh)
-            rotate(360deg);
-
-        opacity:
-            0;
-
-    }
-
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
 
 @media (max-width: 600px) {
 
     .box {
 
-        width:
-            94vw;
+        width: 94vw;
 
-        min-height:
-            90vh;
+        height: 90vh;
 
-        padding:
-            35px 18px;
+        max-height: 90vh;
+
+        padding: 16px;
 
     }
+
 
     h1 {
 
-        font-size:
-            36px;
-
-        margin-bottom:
-            25px;
+        font-size: 30px;
 
     }
+
 
     h2 {
 
-        font-size:
-            13px;
+        font-size: 12px;
 
     }
 
+
+    p {
+
+        font-size: 10px;
+
+    }
+
+
     button {
 
-        min-width:
-            230px;
-
-        font-size:
-            10px;
-
-        padding:
-            16px 15px;
+        padding: 12px 15px;
 
     }
 
@@ -947,376 +630,346 @@ button:active {
 <body>
 
 
-<!-- =====================================================
-     ARRANQUE
-===================================================== -->
+<!-- ============================= -->
+<!-- FONDO MATRIX -->
+<!-- ============================= -->
 
-<div id="bootScreen">
+<div class="matrix">
 
-    <div class="boot">
+    <span style="left:5%; animation-duration:8s;">0 1 1 0 1</span>
 
-        <div class="boot-title">
-            VERDICT 7 COURT SYSTEM
-        </div>
+    <span style="left:12%; animation-duration:11s;">VERDICT 7</span>
 
+    <span style="left:20%; animation-duration:7s;">101010</span>
 
-        <div class="boot-line" id="line1">
-            &gt; INITIALIZING JUDICIAL SYSTEM...
-        </div>
+    <span style="left:30%; animation-duration:12s;">JUSTICIA</span>
 
+    <span style="left:42%; animation-duration:9s;">001101</span>
 
-        <div class="boot-line" id="line2">
-            &gt; LOADING CASE DATABASE...
-        </div>
+    <span style="left:55%; animation-duration:13s;">JUEZ</span>
 
+    <span style="left:68%; animation-duration:8s;">010101</span>
 
-        <div class="boot-line" id="line3">
-            &gt; VERIFYING COURT SECURITY...
-        </div>
+    <span style="left:78%; animation-duration:11s;">CASO</span>
 
+    <span style="left:88%; animation-duration:9s;">VEREDICTO</span>
 
-        <div class="boot-line" id="line4">
-            &gt; CONNECTING TO JUZGADO No. 7...
-        </div>
+    <span style="left:95%; animation-duration:14s;">001110</span>
+
+</div>
 
 
-        <div class="progress">
+<!-- ============================= -->
+<!-- MÚSICA -->
+<!-- ============================= -->
 
-            <div
-                class="progress-bar"
-                id="progressBar">
-            </div>
+<audio
+    id="musica"
+    loop>
 
-        </div>
+    <source
+        src="slimeyfox-hypervector-arcade-542999.mp3"
+        type="audio/mpeg">
+
+</audio>
 
 
-        <div
-            class="boot-status"
-            id="bootStatus">
+<button
+    class="sound-button"
+    id="soundButton"
+    type="button"
+    onclick="toggleMusic()">
 
-            SYSTEM INITIALIZING...
+    ♫ ON
 
-        </div>
+</button>
+
+
+<!-- ============================= -->
+<!-- PANTALLA BOOT -->
+<!-- ============================= -->
+
+<div
+    class="boot"
+    id="bootScreen">
+
+
+    <div class="boot-title">
+
+        VERDICT 7 COURT SYSTEM
 
     </div>
 
-</div>
-
-
-<!-- =====================================================
-     MATRIX
-===================================================== -->
-
-<div
-    class="matrix"
-    id="matrix">
-</div>
-
-
-<!-- =====================================================
-     PANTALLA PRINCIPAL
-===================================================== -->
-
-<div
-    id="mainScreen">
 
     <div
-        class="box"
-        id="portada">
+        class="boot-line"
+        id="line1">
 
-
-        <h1>
-            VERDICT 7
-        </h1>
-
-
-        <h2>
-            ⚖ COURT SIMULATOR
-        </h2>
-
-
-        <p>
-            JUZGADO No. 7 ONLINE
-        </p>
-
-
-        <p>
-
-            Tú eres el Juez.
-
-            <br>
-
-            Cada decisión cambiará el veredicto.
-
-        </p>
-
-
-        <button
-            type="button"
-            onclick="iniciarJuicio()">
-
-            INICIAR JUICIO
-
-        </button>
-
-
-        <p class="developer">
-
-            Desarrollado por:
-
-            <br>
-
-            Mtro. Daniel Moreno Cortés
-
-        </p>
-
+        &gt; INITIALIZING JUDICIAL SYSTEM...
 
     </div>
+
+
+    <div
+        class="boot-line"
+        id="line2">
+
+        &gt; LOADING CASE DATABASE...
+
+    </div>
+
+
+    <div
+        class="boot-line"
+        id="line3">
+
+        &gt; VERIFYING COURT SECURITY...
+
+    </div>
+
+
+    <div
+        class="boot-line"
+        id="line4">
+
+        &gt; CONNECTING TO JUZGADO No. 7...
+
+    </div>
+
+
+    <div class="progress">
+
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+
+    </div>
+
+
+    <div
+        class="boot-status"
+        id="bootStatus">
+
+        SYSTEM INITIALIZING...
+
+    </div>
+
 
 </div>
 
 
-<!-- =====================================================
-     CASOS Y LÓGICA DEL JUEGO
-===================================================== -->
+<!-- ============================= -->
+<!-- PORTADA / JUEGO -->
+<!-- ============================= -->
+
+<div
+    class="box"
+    id="portada">
+
+
+    <h1>
+
+        VERDICT 7
+
+    </h1>
+
+
+    <h2>
+
+        ⚖ COURT SIMULATOR
+
+    </h2>
+
+
+    <p>
+
+        JUZGADO No. 7 ONLINE
+
+    </p>
+
+
+    <p>
+
+        Tú eres el Juez.
+
+        <br>
+
+        Cada decisión cambiará el veredicto.
+
+    </p>
+
+
+    <button
+        type="button"
+        onclick="iniciarJuego()">
+
+        INICIAR JUICIO
+
+    </button>
+
+
+    <p class="developer">
+
+        Desarrollado por:
+
+        <br>
+
+        Mtro. Daniel Moreno Cortés
+
+    </p>
+
+
+</div>
+
+
+<!-- ============================= -->
+<!-- CASOS Y JUEGO -->
+<!-- ============================= -->
 
 <script src="cases.js"></script>
+
 <script src="game.js"></script>
 
 
-<!-- =====================================================
-     ANIMACIONES
-===================================================== -->
-
 <script>
 
-/* =====================================================
-   ARRANQUE
-===================================================== */
 
-const lineas = [
+/* ============================= */
+/* MÚSICA */
+/* ============================= */
 
-    document.getElementById("line1"),
-    document.getElementById("line2"),
-    document.getElementById("line3"),
-    document.getElementById("line4")
+const musica =
+    document.getElementById("musica");
 
-];
+const soundButton =
+    document.getElementById("soundButton");
 
+
+musica.volume = 0.25;
+
+
+function iniciarJuego() {
+
+    musica.play()
+        .catch(() => {});
+
+    iniciarJuicio();
+
+}
+
+
+function toggleMusic() {
+
+    if (musica.paused) {
+
+        musica.play();
+
+        soundButton.textContent =
+            "♫ ON";
+
+    }
+
+    else {
+
+        musica.pause();
+
+        soundButton.textContent =
+            "🔇 OFF";
+
+    }
+
+}
+
+
+/* ============================= */
+/* BOOT SYSTEM */
+/* ============================= */
+
+const bootScreen =
+    document.getElementById("bootScreen");
+
+const line1 =
+    document.getElementById("line1");
+
+const line2 =
+    document.getElementById("line2");
+
+const line3 =
+    document.getElementById("line3");
+
+const line4 =
+    document.getElementById("line4");
 
 const progressBar =
     document.getElementById("progressBar");
-
 
 const bootStatus =
     document.getElementById("bootStatus");
 
 
-const bootScreen =
-    document.getElementById("bootScreen");
+setTimeout(() => {
 
+    line1.style.opacity = "1";
 
-const mainScreen =
-    document.getElementById("mainScreen");
+    progressBar.style.width = "20%";
 
+}, 400);
 
-let progreso = 0;
 
+setTimeout(() => {
 
-/* Mostrar líneas */
+    line2.style.opacity = "1";
 
-lineas.forEach(
-    (linea, indice) => {
+    progressBar.style.width = "45%";
 
-        setTimeout(
-            () => {
+    bootStatus.textContent =
+        "LOADING CASE DATABASE...";
 
-                linea.classList.add("show");
+}, 900);
 
-            },
-            500 + indice * 550
-        );
 
-    }
-);
+setTimeout(() => {
 
+    line3.style.opacity = "1";
 
-/* Barra de progreso */
+    progressBar.style.width = "70%";
 
-const progresoInterval =
-    setInterval(
-        () => {
+    bootStatus.textContent =
+        "VERIFYING SECURITY...";
 
-            progreso +=
-                Math.floor(
-                    Math.random() * 7
-                ) + 2;
+}, 1400);
 
 
-            if (progreso >= 100) {
+setTimeout(() => {
 
-                progreso = 100;
+    line4.style.opacity = "1";
 
-                clearInterval(
-                    progresoInterval
-                );
+    progressBar.style.width = "100%";
 
+    bootStatus.textContent =
+        "SYSTEM READY";
 
-                bootStatus.innerHTML =
-                    "SYSTEM ONLINE<br><br>&gt; ACCESS GRANTED";
+}, 1900);
 
-            }
 
+setTimeout(() => {
 
-            progressBar.style.width =
-                progreso + "%";
+    bootScreen.style.opacity = "0";
 
+    bootScreen.style.transition =
+        "opacity .6s";
 
-        },
-        90
-    );
+}, 2600);
 
 
-/* Mostrar portada */
+setTimeout(() => {
 
-setTimeout(
-    () => {
+    bootScreen.style.display =
+        "none";
 
-        bootScreen.classList.add("hide");
+}, 3200);
 
-        mainScreen.classList.add("show");
-
-    },
-    4300
-);
-
-
-/* =====================================================
-   MATRIX
-===================================================== */
-
-const matrix =
-    document.getElementById("matrix");
-
-
-const caracteres =
-    "01 01 10 11 00 VERDICT 7 JUDGE COURT";
-
-
-for (
-    let i = 0;
-    i < 28;
-    i++
-) {
-
-    const columna =
-        document.createElement("span");
-
-
-    columna.innerText =
-        generarCodigo(
-            Math.floor(
-                Math.random() * 18
-            ) + 8
-        );
-
-
-    columna.style.left =
-        Math.random() * 100 + "%";
-
-
-    columna.style.animationDuration =
-        (5 + Math.random() * 9) + "s";
-
-
-    columna.style.animationDelay =
-        (-Math.random() * 10) + "s";
-
-
-    columna.style.fontSize =
-        (10 + Math.random() * 12) + "px";
-
-
-    matrix.appendChild(
-        columna
-    );
-
-}
-
-
-function generarCodigo(longitud) {
-
-    let resultado = "";
-
-
-    for (
-        let i = 0;
-        i < longitud;
-        i++
-    ) {
-
-        resultado +=
-            caracteres[
-                Math.floor(
-                    Math.random() *
-                    caracteres.length
-                )
-            ];
-
-
-        resultado += "\n";
-
-    }
-
-
-    return resultado;
-
-}
-
-
-/* =====================================================
-   PARTÍCULAS
-===================================================== */
-
-for (
-    let i = 0;
-    i < 45;
-    i++
-) {
-
-    const particle =
-        document.createElement("div");
-
-
-    particle.className =
-        "particle";
-
-
-    particle.style.left =
-        Math.random() * 100 + "%";
-
-
-    particle.style.animationDuration =
-        (4 + Math.random() * 8) + "s";
-
-
-    particle.style.animationDelay =
-        (-Math.random() * 10) + "s";
-
-
-    particle.style.width =
-        (2 + Math.random() * 5) + "px";
-
-
-    particle.style.height =
-        particle.style.width;
-
-
-    document.body.appendChild(
-        particle
-    );
-
-}
 
 </script>
 
