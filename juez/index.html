@@ -9,7 +9,6 @@
 
 <title>VERDICT 7</title>
 
-<!-- Tipografía Pixel -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -30,11 +29,15 @@ rel="stylesheet">
 
 html,
 body {
+
     margin: 0;
     padding: 0;
+
     width: 100%;
     height: 100%;
+
     overflow: hidden;
+
 }
 
 body {
@@ -43,23 +46,225 @@ body {
 
     color: #00ff00;
 
-    font-family: "Press Start 2P",
-                 "Courier New",
-                 monospace;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    position: relative;
+    font-family:
+        "Press Start 2P",
+        "Courier New",
+        monospace;
 
 }
 
 
 /* =====================================================
-   FONDO DIGITAL
+   PANTALLA DE ARRANQUE
+===================================================== */
+
+#bootScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    background: #000;
+
+    color: #00ff00;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+}
+
+
+.boot {
+
+    width: min(800px, 90vw);
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: clamp(13px, 1.7vw, 18px);
+
+    line-height: 1.8;
+
+    text-shadow:
+        0 0 5px #00ff00,
+        0 0 12px #00ff00;
+
+}
+
+
+.boot-title {
+
+    color: #00ff00;
+
+    font-family:
+        "Press Start 2P",
+        monospace;
+
+    font-size: clamp(18px, 3vw, 30px);
+
+    margin-bottom: 35px;
+
+    animation:
+        bootBlink 1s infinite;
+
+}
+
+
+@keyframes bootBlink {
+
+    0%,
+    45% {
+
+        opacity: 1;
+
+    }
+
+    50%,
+    100% {
+
+        opacity: 0.55;
+
+    }
+
+}
+
+
+.boot-line {
+
+    opacity: 0;
+
+    margin: 8px 0;
+
+}
+
+
+.boot-line.show {
+
+    animation:
+        bootLine 0.25s forwards;
+
+}
+
+
+@keyframes bootLine {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(-10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+.progress {
+
+    margin-top: 20px;
+
+    width: 100%;
+
+    height: 25px;
+
+    border: 2px solid #00ff00;
+
+    padding: 3px;
+
+}
+
+
+.progress-bar {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #00ff00;
+
+    box-shadow:
+        0 0 10px #00ff00,
+        0 0 20px #00ff00;
+
+}
+
+
+.boot-status {
+
+    margin-top: 25px;
+
+    color: #00eaff;
+
+    text-shadow:
+        0 0 5px #00eaff,
+        0 0 15px #00eaff;
+
+}
+
+
+/* =====================================================
+   TRANSICIÓN DE ARRANQUE
+===================================================== */
+
+#bootScreen.hide {
+
+    animation:
+        bootExit 0.8s forwards;
+
+}
+
+
+@keyframes bootExit {
+
+    0% {
+
+        opacity: 1;
+
+        filter: brightness(1);
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+        filter: brightness(4);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        filter: brightness(8);
+
+    }
+
+}
+
+
+/* =====================================================
+   EFECTO CRT
 ===================================================== */
 
 body::before {
@@ -70,8 +275,11 @@ body::before {
 
     inset: 0;
 
-    background:
+    pointer-events: none;
 
+    z-index: 20;
+
+    background:
         linear-gradient(
             rgba(0,255,0,0.025) 50%,
             transparent 50%
@@ -79,11 +287,8 @@ body::before {
 
     background-size: 100% 4px;
 
-    pointer-events: none;
-
-    z-index: 20;
-
-    animation: scanlines 0.15s linear infinite;
+    animation:
+        scanlines 0.15s linear infinite;
 
 }
 
@@ -91,18 +296,24 @@ body::before {
 @keyframes scanlines {
 
     from {
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
+
     }
 
     to {
-        transform: translateY(4px);
+
+        transform:
+            translateY(4px);
+
     }
 
 }
 
 
 /* =====================================================
-   VIÑETA / OSCURECIMIENTO
+   VIÑETA
 ===================================================== */
 
 body::after {
@@ -115,6 +326,8 @@ body::after {
 
     pointer-events: none;
 
+    z-index: 15;
+
     background:
 
         radial-gradient(
@@ -123,13 +336,11 @@ body::after {
             rgba(0,0,0,0.75) 100%
         );
 
-    z-index: 15;
-
 }
 
 
 /* =====================================================
-   CÓDIGO DIGITAL DEL FONDO
+   MATRIX
 ===================================================== */
 
 .matrix {
@@ -167,7 +378,8 @@ body::after {
         0 0 5px #00ff00,
         0 0 10px #00ff00;
 
-    animation: caer linear infinite;
+    animation:
+        caer linear infinite;
 
 }
 
@@ -208,7 +420,65 @@ body::after {
 
 
 /* =====================================================
-   CONTENEDOR PRINCIPAL
+   PORTADA
+===================================================== */
+
+#mainScreen {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    opacity: 0;
+
+}
+
+
+#mainScreen.show {
+
+    animation:
+        mainAppear 1.2s forwards;
+
+}
+
+
+@keyframes mainAppear {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(1.08);
+
+        filter:
+            brightness(5);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+        filter:
+            brightness(1);
+
+    }
+
+}
+
+
+/* =====================================================
+   CAJA PRINCIPAL
 ===================================================== */
 
 .box {
@@ -233,13 +503,10 @@ body::after {
 
     text-align: center;
 
-
     border: 2px solid #00ff00;
 
     background:
-
-        rgba(0, 0, 0, 0.88);
-
+        rgba(0,0,0,0.88);
 
     box-shadow:
 
@@ -249,41 +516,8 @@ body::after {
 
         inset 0 0 40px rgba(0,255,0,0.08);
 
-
     animation:
-
-        aparecer 1.2s ease-out,
-
         respirar 4s ease-in-out infinite;
-
-}
-
-
-@keyframes aparecer {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            scale(0.75)
-            translateY(30px);
-
-        filter: brightness(4);
-
-    }
-
-    100% {
-
-        opacity: 1;
-
-        transform:
-            scale(1)
-            translateY(0);
-
-        filter: brightness(1);
-
-    }
 
 }
 
@@ -319,7 +553,7 @@ body::after {
 
 
 /* =====================================================
-   BORDES DECORATIVOS
+   ESQUINAS
 ===================================================== */
 
 .box::before,
@@ -346,7 +580,8 @@ body::after {
 
     left: -3px;
 
-    border-width: 4px 0 0 4px;
+    border-width:
+        4px 0 0 4px;
 
 }
 
@@ -357,7 +592,8 @@ body::after {
 
     right: -3px;
 
-    border-width: 0 4px 4px 0;
+    border-width:
+        0 4px 4px 0;
 
 }
 
@@ -368,9 +604,11 @@ body::after {
 
 h1 {
 
-    margin: 0 0 45px 0;
+    margin:
+        0 0 45px 0;
 
-    font-size: clamp(45px, 7vw, 85px);
+    font-size:
+        clamp(45px, 7vw, 85px);
 
     letter-spacing: 5px;
 
@@ -384,45 +622,13 @@ h1 {
 
         0 0 35px #00ff00;
 
-    position: relative;
-
     animation:
-
-        tituloEntrada 1.5s ease-out,
-
-        glitch 5s infinite;
+        tituloGlitch 5s infinite;
 
 }
 
 
-@keyframes tituloEntrada {
-
-    0% {
-
-        opacity: 0;
-
-        transform:
-            scale(2);
-
-        letter-spacing: 30px;
-
-    }
-
-    100% {
-
-        opacity: 1;
-
-        transform:
-            scale(1);
-
-        letter-spacing: 5px;
-
-    }
-
-}
-
-
-@keyframes glitch {
+@keyframes tituloGlitch {
 
     0%,
     92%,
@@ -470,9 +676,11 @@ h1 {
 
 h2 {
 
-    margin: 0 0 30px 0;
+    margin:
+        0 0 30px 0;
 
-    font-size: clamp(14px, 2vw, 22px);
+    font-size:
+        clamp(14px, 2vw, 22px);
 
     color: #00eaff;
 
@@ -481,33 +689,6 @@ h2 {
         0 0 5px #00eaff,
 
         0 0 15px #00eaff;
-
-    animation:
-
-        deslizar 1.5s 0.5s both;
-
-}
-
-
-@keyframes deslizar {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(20px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
 
 }
 
@@ -518,29 +699,16 @@ h2 {
 
 p {
 
-    font-size: clamp(11px, 1.5vw, 16px);
+    font-size:
+        clamp(11px, 1.5vw, 16px);
 
     line-height: 2;
 
-    margin: 15px 0;
+    margin:
+        15px 0;
 
     text-shadow:
-
         0 0 5px #00ff00;
-
-}
-
-
-p:nth-of-type(1) {
-
-    color: #00ff00;
-
-}
-
-
-p:nth-of-type(2) {
-
-    color: #9aff9a;
 
 }
 
@@ -553,7 +721,8 @@ button {
 
     margin-top: 35px;
 
-    padding: 20px 35px;
+    padding:
+        20px 35px;
 
     min-width: 300px;
 
@@ -561,7 +730,8 @@ button {
 
     color: #00ff00;
 
-    border: 2px solid #00ff00;
+    border:
+        2px solid #00ff00;
 
     font-family:
         "Press Start 2P",
@@ -572,73 +742,11 @@ button {
 
     cursor: pointer;
 
-    position: relative;
-
-    overflow: hidden;
+    transition:
+        0.15s;
 
     box-shadow:
-
         0 0 10px rgba(0,255,0,0.5);
-
-    transition:
-
-        transform 0.15s,
-
-        background 0.15s,
-
-        color 0.15s,
-
-        box-shadow 0.15s;
-
-    animation:
-
-        botonEntrada 1.5s 1s both;
-
-}
-
-
-@keyframes botonEntrada {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(25px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-button::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: -100%;
-
-    width: 100%;
-
-    height: 100%;
-
-    background: #00ff00;
-
-    transition: left 0.25s;
-
-    z-index: -1;
 
 }
 
@@ -657,13 +765,6 @@ button:hover {
         0 0 15px #00ff00,
 
         0 0 40px #00ff00;
-
-}
-
-
-button:hover::before {
-
-    left: 0;
 
 }
 
@@ -694,27 +795,6 @@ button:active {
 
     letter-spacing: 1px;
 
-    animation:
-
-        aparecerFirma 2s 1.2s both;
-
-}
-
-
-@keyframes aparecerFirma {
-
-    from {
-
-        opacity: 0;
-
-    }
-
-    to {
-
-        opacity: 0.7;
-
-    }
-
 }
 
 
@@ -733,7 +813,6 @@ button:active {
     background: #00ff00;
 
     box-shadow:
-
         0 0 8px #00ff00;
 
     pointer-events: none;
@@ -741,7 +820,6 @@ button:active {
     z-index: 2;
 
     animation:
-
         particula linear infinite;
 
 }
@@ -785,40 +863,7 @@ button:active {
 
 
 /* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .box {
-
-        min-height: 90vh;
-
-        padding: 40px 20px;
-
-    }
-
-    h1 {
-
-        margin-bottom: 30px;
-
-    }
-
-    button {
-
-        min-width: 240px;
-
-        font-size: 11px;
-
-        padding: 18px 20px;
-
-    }
-
-}
-
-
-/* =====================================================
-   EFECTO DE APAGADO AL INICIAR
+   APAGADO AL INICIAR JUICIO
 ===================================================== */
 
 .fade-out {
@@ -835,7 +880,8 @@ button:active {
 
         opacity: 1;
 
-        filter: brightness(1);
+        filter:
+            brightness(1);
 
     }
 
@@ -843,10 +889,46 @@ button:active {
 
         opacity: 0;
 
-        filter: brightness(8);
+        filter:
+            brightness(8);
 
         transform:
             scale(1.15);
+
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .box {
+
+        min-height: 90vh;
+
+        padding:
+            40px 20px;
+
+    }
+
+    h1 {
+
+        margin-bottom: 30px;
+
+    }
+
+    button {
+
+        min-width: 240px;
+
+        font-size: 11px;
+
+        padding:
+            18px 20px;
 
     }
 
@@ -861,64 +943,154 @@ button:active {
 
 
 <!-- =====================================================
-     FONDO MATRIX
+     PANTALLA DE ARRANQUE
 ===================================================== -->
 
-<div class="matrix" id="matrix"></div>
+<div id="bootScreen">
+
+    <div class="boot">
+
+        <div class="boot-title">
+
+            VERDICT 7 COURT SYSTEM
+
+        </div>
 
 
-<!-- =====================================================
-     PORTADA
-===================================================== -->
+        <div class="boot-line" id="line1">
 
-<div class="box" id="portada">
+            &gt; INITIALIZING JUDICIAL SYSTEM...
 
-
-    <h1>VERDICT 7</h1>
+        </div>
 
 
-    <h2>⚖ COURT SIMULATOR</h2>
+        <div class="boot-line" id="line2">
+
+            &gt; LOADING CASE DATABASE...
+
+        </div>
 
 
-    <p>
-        JUZGADO No. 7 ONLINE
-    </p>
+        <div class="boot-line" id="line3">
+
+            &gt; VERIFYING COURT SECURITY...
+
+        </div>
 
 
-    <p>
+        <div class="boot-line" id="line4">
 
-        Tú eres el Juez.
+            &gt; CONNECTING TO JUZGADO No. 7...
 
-        <br>
-
-        Cada decisión cambiará el veredicto.
-
-    </p>
+        </div>
 
 
-    <button onclick="iniciarJuicio()">
+        <div class="progress">
 
-        INICIAR JUICIO
+            <div
+                class="progress-bar"
+                id="progressBar">
+            </div>
 
-    </button>
+        </div>
 
 
-    <p class="developer">
+        <div
+            class="boot-status"
+            id="bootStatus">
 
-        Desarrollado por:
+            SYSTEM INITIALIZING...
 
-        <br>
+        </div>
 
-        Mtro. Daniel Moreno Cortés
-
-    </p>
-
+    </div>
 
 </div>
 
 
+
 <!-- =====================================================
-     SCRIPTS DEL JUEGO
+     FONDO MATRIX
+===================================================== -->
+
+<div
+    class="matrix"
+    id="matrix">
+</div>
+
+
+
+<!-- =====================================================
+     PORTADA PRINCIPAL
+===================================================== -->
+
+<div
+    id="mainScreen">
+
+    <div
+        class="box"
+        id="portada">
+
+
+        <h1>
+
+            VERDICT 7
+
+        </h1>
+
+
+        <h2>
+
+            ⚖ COURT SIMULATOR
+
+        </h2>
+
+
+        <p>
+
+            JUZGADO No. 7 ONLINE
+
+        </p>
+
+
+        <p>
+
+            Tú eres el Juez.
+
+            <br>
+
+            Cada decisión cambiará el veredicto.
+
+        </p>
+
+
+        <button
+            onclick="iniciarJuicio()">
+
+            INICIAR JUICIO
+
+        </button>
+
+
+        <p class="developer">
+
+            Desarrollado por:
+
+            <br>
+
+            Mtro. Daniel Moreno Cortés
+
+        </p>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ARCHIVOS DEL JUEGO
 ===================================================== -->
 
 <script src="cases.js"></script>
@@ -926,46 +1098,154 @@ button:active {
 <script src="game.js"></script>
 
 
-<!-- =====================================================
-     ANIMACIÓN DE FONDO
-===================================================== -->
 
 <script>
 
+/* =====================================================
+   ARRANQUE DEL SISTEMA
+===================================================== */
 
-// -------------------------------------------------------
-// MATRIX DE NÚMEROS
-// -------------------------------------------------------
+const lineas = [
 
-const matrix = document.getElementById("matrix");
+    document.getElementById("line1"),
+
+    document.getElementById("line2"),
+
+    document.getElementById("line3"),
+
+    document.getElementById("line4")
+
+];
+
+
+const progressBar =
+    document.getElementById("progressBar");
+
+
+const bootStatus =
+    document.getElementById("bootStatus");
+
+
+const bootScreen =
+    document.getElementById("bootScreen");
+
+
+const mainScreen =
+    document.getElementById("mainScreen");
+
+
+let progreso = 0;
+
+
+/* Mostrar líneas */
+
+lineas.forEach(
+    (linea, indice) => {
+
+        setTimeout(() => {
+
+            linea.classList.add("show");
+
+        }, 500 + indice * 550);
+
+    }
+);
+
+
+/* Barra de progreso */
+
+const progresoInterval =
+    setInterval(() => {
+
+        progreso +=
+            Math.floor(
+                Math.random() * 7
+            ) + 2;
+
+
+        if (progreso >= 100) {
+
+            progreso = 100;
+
+            clearInterval(
+                progresoInterval
+            );
+
+            bootStatus.innerHTML =
+                "SYSTEM ONLINE<br><br>&gt; ACCESS GRANTED";
+
+        }
+
+
+        progressBar.style.width =
+            progreso + "%";
+
+
+    }, 90);
+
+
+
+/* Entrar a la portada */
+
+setTimeout(() => {
+
+    bootScreen.classList.add("hide");
+
+    mainScreen.classList.add("show");
+
+}, 4300);
+
+
+
+/* =====================================================
+   MATRIX
+===================================================== */
+
+const matrix =
+    document.getElementById("matrix");
+
 
 const caracteres =
     "01 01 10 11 00 VERDICT 7 JUDGE COURT";
 
 
-for (let i = 0; i < 28; i++) {
+for (
+    let i = 0;
+    i < 28;
+    i++
+) {
 
     const columna =
         document.createElement("span");
 
+
     columna.innerText =
         generarCodigo(
-            Math.floor(Math.random() * 18) + 8
+            Math.floor(
+                Math.random() * 18
+            ) + 8
         );
+
 
     columna.style.left =
         Math.random() * 100 + "%";
 
+
     columna.style.animationDuration =
         (5 + Math.random() * 9) + "s";
+
 
     columna.style.animationDelay =
         (-Math.random() * 10) + "s";
 
+
     columna.style.fontSize =
         (10 + Math.random() * 12) + "px";
 
-    matrix.appendChild(columna);
+
+    matrix.appendChild(
+        columna
+    );
 
 }
 
@@ -974,7 +1254,12 @@ function generarCodigo(longitud) {
 
     let resultado = "";
 
-    for (let i = 0; i < longitud; i++) {
+
+    for (
+        let i = 0;
+        i < longitud;
+        i++
+    ) {
 
         resultado +=
             caracteres[
@@ -984,62 +1269,80 @@ function generarCodigo(longitud) {
                 )
             ];
 
+
         resultado += "\n";
 
     }
+
 
     return resultado;
 
 }
 
 
-// -------------------------------------------------------
-// PARTÍCULAS
-// -------------------------------------------------------
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
 
-for (let i = 0; i < 45; i++) {
+for (
+    let i = 0;
+    i < 45;
+    i++
+) {
 
     const particle =
         document.createElement("div");
 
+
     particle.className =
         "particle";
+
 
     particle.style.left =
         Math.random() * 100 + "%";
 
+
     particle.style.animationDuration =
         (4 + Math.random() * 8) + "s";
+
 
     particle.style.animationDelay =
         (-Math.random() * 10) + "s";
 
+
     particle.style.width =
         (2 + Math.random() * 5) + "px";
+
 
     particle.style.height =
         particle.style.width;
 
-    document.body.appendChild(particle);
+
+    document.body.appendChild(
+        particle
+    );
 
 }
 
 
-// -------------------------------------------------------
-// EFECTO AL PRESIONAR INICIAR JUICIO
-// -------------------------------------------------------
+/* =====================================================
+   BOTÓN
+===================================================== */
 
 const boton =
     document.querySelector("button");
 
-boton.addEventListener("click", function() {
 
-    document
-        .getElementById("portada")
-        .classList.add("fade-out");
+boton.addEventListener(
+    "click",
+    function() {
 
-});
+        document
+            .getElementById("portada")
+            .classList.add("fade-out");
 
+    }
+);
 
 </script>
 
