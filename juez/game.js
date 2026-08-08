@@ -1,11 +1,12 @@
 let casoActual = 0;
-
 let puntos = 0;
-
 let casosResueltos = 0;
-
 let rango = "JUEZ NOVATO";
 
+
+/* =====================================================
+   ACTUALIZAR RANGO
+===================================================== */
 
 function actualizarRango() {
 
@@ -26,169 +27,340 @@ function actualizarRango() {
 }
 
 
+/* =====================================================
+   INICIAR JUICIO
+===================================================== */
+
 function iniciarJuicio() {
 
     let caso = casos[casoActual];
 
-    document.querySelector(".box").innerHTML = `
+    if (!caso) {
 
-    <h1>EXPEDIENTE #${caso.id}</h1>
+        console.error("No se encontró el caso.");
 
-    <p>━━━━━━━━━━━━━━━━━━━━━</p>
+        return;
 
-    <h2>${caso.expediente}</h2>
+    }
 
-    <p>
-    <strong>TRIBUNAL:</strong>
-    <br>
-    ${caso.tribunal}
-    </p>
 
-    <p>
-    <strong>NIVEL:</strong>
-    <br>
-    ${caso.nivel}
-    </p>
+    const caja = document.querySelector(".box");
 
-    <p>
-    <strong>MATERIA:</strong>
-    <br>
-    ${caso.materia}
-    </p>
 
-    <p>
-    <strong>ÁREA JURÍDICA:</strong>
-    <br>
-    ${caso.areaJuridica}
-    </p>
+    if (!caja) {
 
-    <p>
-    <strong>DIFICULTAD:</strong>
-    <br>
-    ${caso.dificultad}
-    </p>
+        console.error("No se encontró el contenedor .box.");
 
-    <p>
-    <strong>FECHA:</strong>
-    <br>
-    ${caso.fecha}
-    </p>
+        return;
 
-    <p>━━━━━━━━━━━━━━━━━━━━━</p>
+    }
 
-    <h2>PARTES</h2>
 
-    <p>
-    <strong>DEMANDANTE:</strong>
-    <br>
-    ${caso.demandante}
-    </p>
+    // Eliminar cualquier animación que pudiera
+    // ocultar la pantalla.
 
-    <p>
-    <strong>DEMANDADO:</strong>
-    <br>
-    ${caso.demandado}
-    </p>
+    caja.classList.remove("fade-out");
 
-    <p>━━━━━━━━━━━━━━━━━━━━━</p>
 
-    <h2>${caso.titulo}</h2>
+    // Mostrar el expediente
 
-    <button onclick="abrirCaso()">
-    ABRIR EXPEDIENTE
-    </button>
+    caja.innerHTML = `
+
+        <h1>EXPEDIENTE #${caso.id}</h1>
+
+        <p>━━━━━━━━━━━━━━━━━━━━━</p>
+
+        <h2>${caso.expediente}</h2>
+
+
+        <p>
+
+            <strong>TRIBUNAL:</strong>
+
+            <br>
+
+            ${caso.tribunal}
+
+        </p>
+
+
+        <p>
+
+            <strong>NIVEL:</strong>
+
+            <br>
+
+            ${caso.nivel}
+
+        </p>
+
+
+        <p>
+
+            <strong>MATERIA:</strong>
+
+            <br>
+
+            ${caso.materia}
+
+        </p>
+
+
+        <p>
+
+            <strong>ÁREA JURÍDICA:</strong>
+
+            <br>
+
+            ${caso.areaJuridica}
+
+        </p>
+
+
+        <p>
+
+            <strong>DIFICULTAD:</strong>
+
+            <br>
+
+            ${caso.dificultad}
+
+        </p>
+
+
+        <p>
+
+            <strong>FECHA:</strong>
+
+            <br>
+
+            ${caso.fecha}
+
+        </p>
+
+
+        <p>━━━━━━━━━━━━━━━━━━━━━</p>
+
+
+        <h2>PARTES</h2>
+
+
+        <p>
+
+            <strong>DEMANDANTE:</strong>
+
+            <br>
+
+            ${caso.demandante}
+
+        </p>
+
+
+        <p>
+
+            <strong>DEMANDADO:</strong>
+
+            <br>
+
+            ${caso.demandado}
+
+        </p>
+
+
+        <p>━━━━━━━━━━━━━━━━━━━━━</p>
+
+
+        <h2>${caso.titulo}</h2>
+
+
+        <button onclick="abrirCaso()">
+
+            ABRIR EXPEDIENTE
+
+        </button>
 
     `;
 
 }
 
+
+/* =====================================================
+   ABRIR CASO
+===================================================== */
 
 function abrirCaso() {
 
     let caso = casos[casoActual];
 
-    document.querySelector(".box").innerHTML = `
 
-    <h1>CASO #${caso.id}</h1>
+    if (!caso) {
 
-    <h2>${caso.titulo}</h2>
+        console.error("No se encontró el caso.");
 
-    <p>
-    <strong>EXPEDIENTE:</strong>
-    <br>
-    ${caso.expediente}
-    </p>
+        return;
 
-    <p>
-    <strong>MATERIA:</strong>
-    <br>
-    ${caso.materia}
-    </p>
+    }
 
-    <p>
-    <strong>DIFICULTAD:</strong>
-    <br>
-    ${caso.dificultad}
-    </p>
 
-    <p>━━━━━━━━━━━━━━━━━━━━━</p>
+    const caja = document.querySelector(".box");
 
-    <h2>PARTES</h2>
 
-    <p>
-    <strong>DEMANDANTE:</strong>
-    <br>
-    ${caso.demandante}
-    </p>
+    caja.classList.remove("fade-out");
 
-    <p>
-    <strong>DEMANDADO:</strong>
-    <br>
-    ${caso.demandado}
-    </p>
 
-    <p>━━━━━━━━━━━━━━━━━━━━━</p>
+    caja.innerHTML = `
 
-    <h2>ANTECEDENTES</h2>
+        <h1>CASO #${caso.id}</h1>
 
-    <p>
-    ${caso.descripcion}
-    </p>
 
-    <h2>PRUEBAS</h2>
+        <h2>${caso.titulo}</h2>
 
-    <p>
-    ${caso.pruebas.join("<br><br>")}
-    </p>
 
-    <p>━━━━━━━━━━━━━━━━━━━━━</p>
+        <p>
 
-    <h2>⚖️ ¿CUÁL ES TU DECISIÓN?</h2>
+            <strong>EXPEDIENTE:</strong>
 
-    <button onclick="veredicto(1)">
-    A) ${caso.opciones[0]}
-    </button>
+            <br>
 
-    <br><br>
+            ${caso.expediente}
 
-    <button onclick="veredicto(2)">
-    B) ${caso.opciones[1]}
-    </button>
+        </p>
 
-    <br><br>
 
-    <button onclick="veredicto(3)">
-    C) ${caso.opciones[2]}
-    </button>
+        <p>
+
+            <strong>MATERIA:</strong>
+
+            <br>
+
+            ${caso.materia}
+
+        </p>
+
+
+        <p>
+
+            <strong>DIFICULTAD:</strong>
+
+            <br>
+
+            ${caso.dificultad}
+
+        </p>
+
+
+        <p>━━━━━━━━━━━━━━━━━━━━━</p>
+
+
+        <h2>PARTES</h2>
+
+
+        <p>
+
+            <strong>DEMANDANTE:</strong>
+
+            <br>
+
+            ${caso.demandante}
+
+        </p>
+
+
+        <p>
+
+            <strong>DEMANDADO:</strong>
+
+            <br>
+
+            ${caso.demandado}
+
+        </p>
+
+
+        <p>━━━━━━━━━━━━━━━━━━━━━</p>
+
+
+        <h2>ANTECEDENTES</h2>
+
+
+        <p>
+
+            ${caso.descripcion}
+
+        </p>
+
+
+        <h2>PRUEBAS</h2>
+
+
+        <p>
+
+            ${caso.pruebas.join("<br><br>")}
+
+        </p>
+
+
+        <p>━━━━━━━━━━━━━━━━━━━━━</p>
+
+
+        <h2>⚖️ ¿CUÁL ES TU DECISIÓN?</h2>
+
+
+        <button onclick="veredicto(1)">
+
+            A) ${caso.opciones[0]}
+
+        </button>
+
+
+        <br><br>
+
+
+        <button onclick="veredicto(2)">
+
+            B) ${caso.opciones[1]}
+
+        </button>
+
+
+        <br><br>
+
+
+        <button onclick="veredicto(3)">
+
+            C) ${caso.opciones[2]}
+
+        </button>
 
     `;
 
 }
 
 
+/* =====================================================
+   VEREDICTO
+===================================================== */
+
 function veredicto(decision) {
 
     let caso = casos[casoActual];
+
+
+    if (!caso) {
+
+        console.error("No se encontró el caso.");
+
+        return;
+
+    }
+
+
+    const caja = document.querySelector(".box");
+
+
+    /* ---------------------------------------------
+       DECISIÓN CORRECTA
+    --------------------------------------------- */
 
     if (decision === caso.respuestaCorrecta) {
 
@@ -198,75 +370,130 @@ function veredicto(decision) {
 
         actualizarRango();
 
-        document.querySelector(".box").innerHTML = `
 
-        <h1>VERDICT</h1>
+        caja.innerHTML = `
 
-        <h2>⚖️ DECISIÓN CORRECTA</h2>
+            <h1>VERDICT</h1>
 
-        <p>
-        EXPEDIENTE:
-        <br>
-        ${caso.expediente}
-        </p>
 
-        <p>
-        PUNTUACIÓN:
-        <br>
-        ${puntos}
-        </p>
+            <h2>⚖️ DECISIÓN CORRECTA</h2>
 
-        <p>
-        CASOS RESUELTOS:
-        <br>
-        ${casosResueltos}
-        </p>
 
-        <p>
-        RANGO:
-        <br>
-        ${rango}
-        </p>
+            <p>
 
-        <button onclick="siguienteCaso()">
-        SIGUIENTE CASO
-        </button>
+                EXPEDIENTE:
+
+                <br>
+
+                ${caso.expediente}
+
+            </p>
+
+
+            <p>
+
+                PUNTUACIÓN:
+
+                <br>
+
+                ${puntos}
+
+            </p>
+
+
+            <p>
+
+                CASOS RESUELTOS:
+
+                <br>
+
+                ${casosResueltos}
+
+            </p>
+
+
+            <p>
+
+                RANGO:
+
+                <br>
+
+                ${rango}
+
+            </p>
+
+
+            <button onclick="siguienteCaso()">
+
+                SIGUIENTE CASO
+
+            </button>
 
         `;
 
-    } else {
 
-        document.querySelector(".box").innerHTML = `
+    }
 
-        <h1>VERDICT</h1>
 
-        <h2>DECISIÓN REVISABLE</h2>
+    /* ---------------------------------------------
+       DECISIÓN INCORRECTA
+    --------------------------------------------- */
 
-        <p>
-        EXPEDIENTE:
-        <br>
-        ${caso.expediente}
-        </p>
+    else {
 
-        <p>
-        La justicia requiere más análisis.
-        </p>
+        caja.innerHTML = `
 
-        <p>
-        PUNTUACIÓN:
-        <br>
-        ${puntos}
-        </p>
+            <h1>VERDICT</h1>
 
-        <p>
-        RANGO:
-        <br>
-        ${rango}
-        </p>
 
-        <button onclick="siguienteCaso()">
-        CONTINUAR
-        </button>
+            <h2>DECISIÓN REVISABLE</h2>
+
+
+            <p>
+
+                EXPEDIENTE:
+
+                <br>
+
+                ${caso.expediente}
+
+            </p>
+
+
+            <p>
+
+                La justicia requiere más análisis.
+
+            </p>
+
+
+            <p>
+
+                PUNTUACIÓN:
+
+                <br>
+
+                ${puntos}
+
+            </p>
+
+
+            <p>
+
+                RANGO:
+
+                <br>
+
+                ${rango}
+
+            </p>
+
+
+            <button onclick="siguienteCaso()">
+
+                CONTINUAR
+
+            </button>
 
         `;
 
@@ -275,43 +502,79 @@ function veredicto(decision) {
 }
 
 
+/* =====================================================
+   SIGUIENTE CASO
+===================================================== */
+
 function siguienteCaso() {
 
     casoActual++;
+
+
+    /* ---------------------------------------------
+       FIN DE LOS CASOS
+    --------------------------------------------- */
 
     if (casoActual >= casos.length) {
 
         document.querySelector(".box").innerHTML = `
 
-        <h1>FIN DEL TURNO</h1>
+            <h1>FIN DEL TURNO</h1>
 
-        <h2>⚖️ JUEZ</h2>
 
-        <p>
-        Has revisado todos los expedientes disponibles.
-        </p>
+            <h2>⚖️ JUEZ</h2>
 
-        <p>
-        PUNTUACIÓN FINAL:
-        <br>
-        ${puntos}
-        </p>
 
-        <p>
-        CASOS RESUELTOS:
-        <br>
-        ${casosResueltos}
-        </p>
+            <p>
 
-        <p>
-        RANGO FINAL:
-        <br>
-        ${rango}
-        </p>
+                Has revisado todos los expedientes disponibles.
+
+            </p>
+
+
+            <p>
+
+                PUNTUACIÓN FINAL:
+
+                <br>
+
+                ${puntos}
+
+            </p>
+
+
+            <p>
+
+                CASOS RESUELTOS:
+
+                <br>
+
+                ${casosResueltos}
+
+            </p>
+
+
+            <p>
+
+                RANGO FINAL:
+
+                <br>
+
+                ${rango}
+
+            </p>
 
         `;
 
-    } else {
+
+    }
+
+
+    /* ---------------------------------------------
+       SIGUIENTE EXPEDIENTE
+    --------------------------------------------- */
+
+    else {
 
         iniciarJuicio();
 
