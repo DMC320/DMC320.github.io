@@ -29,28 +29,21 @@ rel="stylesheet">
 
 html,
 body {
-
     margin: 0;
     padding: 0;
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
 }
 
 body {
-
     background: #000;
-
     color: #00ff00;
 
     font-family:
         "Press Start 2P",
         "Courier New",
         monospace;
-
 }
 
 
@@ -89,7 +82,8 @@ body {
         "Courier New",
         monospace;
 
-    font-size: clamp(13px, 1.7vw, 18px);
+    font-size:
+        clamp(13px, 1.7vw, 18px);
 
     line-height: 1.8;
 
@@ -108,7 +102,8 @@ body {
         "Press Start 2P",
         monospace;
 
-    font-size: clamp(18px, 3vw, 30px);
+    font-size:
+        clamp(18px, 3vw, 30px);
 
     margin-bottom: 35px;
 
@@ -122,16 +117,12 @@ body {
 
     0%,
     45% {
-
         opacity: 1;
-
     }
 
     50%,
     100% {
-
         opacity: 0.55;
-
     }
 
 }
@@ -177,6 +168,10 @@ body {
 }
 
 
+/* =====================================================
+   BARRA DE CARGA
+===================================================== */
+
 .progress {
 
     margin-top: 20px;
@@ -221,7 +216,7 @@ body {
 
 
 /* =====================================================
-   TRANSICIÓN DE ARRANQUE
+   SALIDA DEL ARRANQUE
 ===================================================== */
 
 #bootScreen.hide {
@@ -238,7 +233,8 @@ body {
 
         opacity: 1;
 
-        filter: brightness(1);
+        filter:
+            brightness(1);
 
     }
 
@@ -246,7 +242,8 @@ body {
 
         opacity: 1;
 
-        filter: brightness(4);
+        filter:
+            brightness(4);
 
     }
 
@@ -256,7 +253,8 @@ body {
 
         visibility: hidden;
 
-        filter: brightness(8);
+        filter:
+            brightness(8);
 
     }
 
@@ -280,12 +278,14 @@ body::before {
     z-index: 20;
 
     background:
+
         linear-gradient(
             rgba(0,255,0,0.025) 50%,
             transparent 50%
         );
 
-    background-size: 100% 4px;
+    background-size:
+        100% 4px;
 
     animation:
         scanlines 0.15s linear infinite;
@@ -296,17 +296,13 @@ body::before {
 @keyframes scanlines {
 
     from {
-
         transform:
             translateY(0);
-
     }
 
     to {
-
         transform:
             translateY(4px);
-
     }
 
 }
@@ -340,7 +336,7 @@ body::after {
 
 
 /* =====================================================
-   MATRIX
+   FONDO MATRIX
 ===================================================== */
 
 .matrix {
@@ -396,15 +392,11 @@ body::after {
     }
 
     10% {
-
         opacity: 1;
-
     }
 
     90% {
-
         opacity: 0.8;
-
     }
 
     100% {
@@ -420,7 +412,7 @@ body::after {
 
 
 /* =====================================================
-   PORTADA
+   PANTALLA PRINCIPAL
 ===================================================== */
 
 #mainScreen {
@@ -487,11 +479,17 @@ body::after {
 
     z-index: 5;
 
-    width: min(850px, 90vw);
+    width:
+        min(850px, 90vw);
 
-    min-height: 650px;
+    min-height:
+        650px;
 
-    padding: 65px 50px;
+    max-height:
+        90vh;
+
+    padding:
+        55px 45px;
 
     display: flex;
 
@@ -503,10 +501,13 @@ body::after {
 
     text-align: center;
 
-    border: 2px solid #00ff00;
+    overflow-y: auto;
+
+    border:
+        2px solid #00ff00;
 
     background:
-        rgba(0,0,0,0.88);
+        rgba(0,0,0,0.90);
 
     box-shadow:
 
@@ -605,14 +606,16 @@ body::after {
 h1 {
 
     margin:
-        0 0 45px 0;
+        0 0 35px 0;
 
     font-size:
-        clamp(45px, 7vw, 85px);
+        clamp(38px, 6vw, 75px);
 
-    letter-spacing: 5px;
+    letter-spacing:
+        4px;
 
-    color: #00ff00;
+    color:
+        #00ff00;
 
     text-shadow:
 
@@ -677,12 +680,13 @@ h1 {
 h2 {
 
     margin:
-        0 0 30px 0;
+        0 0 25px 0;
 
     font-size:
-        clamp(14px, 2vw, 22px);
+        clamp(13px, 2vw, 21px);
 
-    color: #00eaff;
+    color:
+        #00eaff;
 
     text-shadow:
 
@@ -700,12 +704,13 @@ h2 {
 p {
 
     font-size:
-        clamp(11px, 1.5vw, 16px);
+        clamp(10px, 1.4vw, 15px);
 
-    line-height: 2;
+    line-height:
+        2;
 
     margin:
-        15px 0;
+        12px 0;
 
     text-shadow:
         0 0 5px #00ff00;
@@ -714,21 +719,28 @@ p {
 
 
 /* =====================================================
-   BOTÓN
+   BOTONES
 ===================================================== */
 
 button {
 
-    margin-top: 35px;
+    margin-top:
+        25px;
 
     padding:
-        20px 35px;
+        18px 28px;
 
-    min-width: 300px;
+    min-width:
+        300px;
 
-    background: #000;
+    max-width:
+        90%;
 
-    color: #00ff00;
+    background:
+        #000;
+
+    color:
+        #00ff00;
 
     border:
         2px solid #00ff00;
@@ -738,27 +750,34 @@ button {
         "Courier New",
         monospace;
 
-    font-size: 14px;
+    font-size:
+        12px;
 
-    cursor: pointer;
+    line-height:
+        1.5;
 
-    transition:
-        0.15s;
+    cursor:
+        pointer;
 
     box-shadow:
         0 0 10px rgba(0,255,0,0.5);
+
+    transition:
+        0.15s;
 
 }
 
 
 button:hover {
 
-    color: #000;
+    color:
+        #000;
 
-    background: #00ff00;
+    background:
+        #00ff00;
 
     transform:
-        scale(1.06);
+        scale(1.04);
 
     box-shadow:
 
@@ -783,17 +802,23 @@ button:active {
 
 .developer {
 
-    margin-top: 55px;
+    margin-top:
+        45px;
 
-    font-size: 10px;
+    font-size:
+        9px;
 
-    line-height: 2;
+    line-height:
+        2;
 
-    color: #00ff00;
+    color:
+        #00ff00;
 
-    opacity: 0.7;
+    opacity:
+        0.7;
 
-    letter-spacing: 1px;
+    letter-spacing:
+        1px;
 
 }
 
@@ -810,14 +835,17 @@ button:active {
 
     height: 4px;
 
-    background: #00ff00;
+    background:
+        #00ff00;
 
     box-shadow:
         0 0 8px #00ff00;
 
-    pointer-events: none;
+    pointer-events:
+        none;
 
-    z-index: 2;
+    z-index:
+        2;
 
     animation:
         particula linear infinite;
@@ -833,20 +861,17 @@ button:active {
             translateY(105vh)
             rotate(0deg);
 
-        opacity: 0;
+        opacity:
+            0;
 
     }
 
     15% {
-
         opacity: 1;
-
     }
 
     85% {
-
         opacity: 1;
-
     }
 
     100% {
@@ -855,45 +880,8 @@ button:active {
             translateY(-10vh)
             rotate(360deg);
 
-        opacity: 0;
-
-    }
-
-}
-
-
-/* =====================================================
-   APAGADO AL INICIAR JUICIO
-===================================================== */
-
-.fade-out {
-
-    animation:
-        apagar 0.7s forwards !important;
-
-}
-
-
-@keyframes apagar {
-
-    0% {
-
-        opacity: 1;
-
-        filter:
-            brightness(1);
-
-    }
-
-    100% {
-
-        opacity: 0;
-
-        filter:
-            brightness(8);
-
-        transform:
-            scale(1.15);
+        opacity:
+            0;
 
     }
 
@@ -908,27 +896,44 @@ button:active {
 
     .box {
 
-        min-height: 90vh;
+        width:
+            94vw;
+
+        min-height:
+            90vh;
 
         padding:
-            40px 20px;
+            35px 18px;
 
     }
 
     h1 {
 
-        margin-bottom: 30px;
+        font-size:
+            36px;
+
+        margin-bottom:
+            25px;
+
+    }
+
+    h2 {
+
+        font-size:
+            13px;
 
     }
 
     button {
 
-        min-width: 240px;
+        min-width:
+            230px;
 
-        font-size: 11px;
+        font-size:
+            10px;
 
         padding:
-            18px 20px;
+            16px 15px;
 
     }
 
@@ -943,7 +948,7 @@ button:active {
 
 
 <!-- =====================================================
-     PANTALLA DE ARRANQUE
+     ARRANQUE
 ===================================================== -->
 
 <div id="bootScreen">
@@ -951,37 +956,27 @@ button:active {
     <div class="boot">
 
         <div class="boot-title">
-
             VERDICT 7 COURT SYSTEM
-
         </div>
 
 
         <div class="boot-line" id="line1">
-
             &gt; INITIALIZING JUDICIAL SYSTEM...
-
         </div>
 
 
         <div class="boot-line" id="line2">
-
             &gt; LOADING CASE DATABASE...
-
         </div>
 
 
         <div class="boot-line" id="line3">
-
             &gt; VERIFYING COURT SECURITY...
-
         </div>
 
 
         <div class="boot-line" id="line4">
-
             &gt; CONNECTING TO JUZGADO No. 7...
-
         </div>
 
 
@@ -1008,9 +1003,8 @@ button:active {
 </div>
 
 
-
 <!-- =====================================================
-     FONDO MATRIX
+     MATRIX
 ===================================================== -->
 
 <div
@@ -1019,9 +1013,8 @@ button:active {
 </div>
 
 
-
 <!-- =====================================================
-     PORTADA PRINCIPAL
+     PANTALLA PRINCIPAL
 ===================================================== -->
 
 <div
@@ -1033,23 +1026,17 @@ button:active {
 
 
         <h1>
-
             VERDICT 7
-
         </h1>
 
 
         <h2>
-
             ⚖ COURT SIMULATOR
-
         </h2>
 
 
         <p>
-
             JUZGADO No. 7 ONLINE
-
         </p>
 
 
@@ -1065,6 +1052,7 @@ button:active {
 
 
         <button
+            type="button"
             onclick="iniciarJuicio()">
 
             INICIAR JUICIO
@@ -1088,31 +1076,29 @@ button:active {
 </div>
 
 
-
 <!-- =====================================================
-     ARCHIVOS DEL JUEGO
+     CASOS Y LÓGICA DEL JUEGO
 ===================================================== -->
 
 <script src="cases.js"></script>
-
 <script src="game.js"></script>
 
 
+<!-- =====================================================
+     ANIMACIONES
+===================================================== -->
 
 <script>
 
 /* =====================================================
-   ARRANQUE DEL SISTEMA
+   ARRANQUE
 ===================================================== */
 
 const lineas = [
 
     document.getElementById("line1"),
-
     document.getElementById("line2"),
-
     document.getElementById("line3"),
-
     document.getElementById("line4")
 
 ];
@@ -1142,11 +1128,14 @@ let progreso = 0;
 lineas.forEach(
     (linea, indice) => {
 
-        setTimeout(() => {
+        setTimeout(
+            () => {
 
-            linea.classList.add("show");
+                linea.classList.add("show");
 
-        }, 500 + indice * 550);
+            },
+            500 + indice * 550
+        );
 
     }
 );
@@ -1155,46 +1144,51 @@ lineas.forEach(
 /* Barra de progreso */
 
 const progresoInterval =
-    setInterval(() => {
+    setInterval(
+        () => {
 
-        progreso +=
-            Math.floor(
-                Math.random() * 7
-            ) + 2;
-
-
-        if (progreso >= 100) {
-
-            progreso = 100;
-
-            clearInterval(
-                progresoInterval
-            );
-
-            bootStatus.innerHTML =
-                "SYSTEM ONLINE<br><br>&gt; ACCESS GRANTED";
-
-        }
+            progreso +=
+                Math.floor(
+                    Math.random() * 7
+                ) + 2;
 
 
-        progressBar.style.width =
-            progreso + "%";
+            if (progreso >= 100) {
+
+                progreso = 100;
+
+                clearInterval(
+                    progresoInterval
+                );
 
 
-    }, 90);
+                bootStatus.innerHTML =
+                    "SYSTEM ONLINE<br><br>&gt; ACCESS GRANTED";
+
+            }
 
 
+            progressBar.style.width =
+                progreso + "%";
 
-/* Entrar a la portada */
 
-setTimeout(() => {
+        },
+        90
+    );
 
-    bootScreen.classList.add("hide");
 
-    mainScreen.classList.add("show");
+/* Mostrar portada */
 
-}, 4300);
+setTimeout(
+    () => {
 
+        bootScreen.classList.add("hide");
+
+        mainScreen.classList.add("show");
+
+    },
+    4300
+);
 
 
 /* =====================================================
@@ -1323,26 +1317,6 @@ for (
     );
 
 }
-
-
-/* =====================================================
-   BOTÓN
-===================================================== */
-
-const boton =
-    document.querySelector("button");
-
-
-boton.addEventListener(
-    "click",
-    function() {
-
-        document
-            .getElementById("portada")
-            .classList.add("fade-out");
-
-    }
-);
 
 </script>
 
