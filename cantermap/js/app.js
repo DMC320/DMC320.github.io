@@ -6,11 +6,8 @@
 
 
 // ==========================================
-// CONFIGURACIÓN INICIAL DEL MAPA
+// INICIALIZAR MAPA
 // ==========================================
-
-// Coordenadas iniciales:
-// Ciudad de México
 
 const map = L.map("map").setView(
     [19.4326, -99.1332],
@@ -22,38 +19,28 @@ const map = L.map("map").setView(
 // MAPA BASE
 // ==========================================
 
-// Utilizamos OpenStreetMap como mapa base.
-
 L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
-        attribution:
-            '&copy; OpenStreetMap contributors'
+        attribution: "&copy; OpenStreetMap contributors"
     }
 ).addTo(map);
 
 
 // ==========================================
-// VARIABLES DEL SISTEMA
+// VARIABLES
 // ==========================================
-
-// Aquí almacenaremos los eventos.
 
 let events = [];
 
-
-// Aquí almacenaremos los marcadores
-// que aparecen en el mapa.
-
 let markers = [];
+
+let analysisCircle = null;
 
 
 // ==========================================
 // AGREGAR EVENTO
 // ==========================================
-
-// Cuando el usuario haga clic en el mapa,
-// registraremos ese punto como un evento.
 
 map.on("click", function (e) {
 
@@ -62,25 +49,16 @@ map.on("click", function (e) {
     const longitude = e.latlng.lng;
 
 
-    // Crear objeto del evento
-
     const event = {
-
         latitude: latitude,
-
         longitude: longitude
-
     };
 
-
-    // Guardar evento
 
     events.push(event);
 
 
-    // ======================================
-    // CREAR MARCADOR
-    // ======================================
+    // Crear marcador
 
     const marker = L.marker([
         latitude,
@@ -88,37 +66,19 @@ map.on("click", function (e) {
     ]).addTo(map);
 
 
-    // ======================================
-    // INFORMACIÓN DEL MARCADOR
-    // ======================================
-
     marker.bindPopup(
-
         `
-        <strong>
-            Evento ${events.length}
-        </strong>
-
+        <strong>Evento ${events.length}</strong>
         <br><br>
-
-        Latitud:
-        ${latitude.toFixed(5)}
-
+        Latitud: ${latitude.toFixed(5)}
         <br>
-
-        Longitud:
-        ${longitude.toFixed(5)}
+        Longitud: ${longitude.toFixed(5)}
         `
-
     );
 
 
-    // Guardar marcador
-
     markers.push(marker);
 
-
-    // Actualizar estadísticas
 
     updateInterface();
 
@@ -131,35 +91,43 @@ map.on("click", function (e) {
 
 function updateInterface() {
 
+    const eventCount =
+        document.getElementById("event-count");
 
-    // Número de eventos
+    const radiusElement =
+        document.getElementById("radius");
 
-    document.getElementById(
-        "event-count"
-    ).textContent = events.length;
+    const centerElement =
+        document.getElementById("center");
 
 
-    // Si no hay eventos
+    eventCount.textContent =
+        events.length;
+
+
+    // Si no existen eventos
 
     if (events.length === 0) {
 
-        document.getElementById(
-            "radius"
-        ).textContent = "—";
+        radiusElement.textContent = "—";
+
+        centerElement.textContent = "—";
 
 
-        document.getElementById(
-            "center"
-        ).textContent = "—";
+        if (analysisCircle !== null) {
 
+            map.removeLayer(analysisCircle);
+
+            analysisCircle = null;
+
+        }
 
         return;
-
     }
 
 
     // ======================================
-    // CALCULAR CENTRO PROMEDIO
+    // CENTRO PROMEDIO
     // ======================================
 
     let latitudeSum = 0;
@@ -184,34 +152,92 @@ function updateInterface() {
         longitudeSum / events.length;
 
 
-    // ======================================
-    // MOSTRAR CENTRO
-    // ======================================
-
-    document.getElementById(
-        "center"
-    ).textContent =
-
-        `${centerLatitude.toFixed(5)},
-         ${centerLongitude.toFixed(5)}`;
+    centerElement.textContent =
+        centerLatitude.toFixed(5)
+        + ", "
+        + centerLongitude.toFixed(5);
 
 
     // ======================================
-    // RADIO
+    // CALCULAR DISTANCIA MÁXIMA
     // ======================================
 
-    // Todavía no calculamos el radio real
-    // del círculo de Canter.
+    let maximumDistance = 0;
 
-    document.getElementById(
-        "radius"
-    ).textContent = "Pendiente";
+
+    events.forEach(function (event) {
+
+        const distance =
+            map.distance(
+                [
+                    centerLatitude,
+                    centerLongitude
+                ],
+                [
+                    event.latitude,
+                    event.longitude
+                ]
+            );
+
+
+        if (distance > maximumDistance) {
+
+            maximumDistance = distance;
+
+        }
+
+    });
+
+
+    // ======================================
+    // MOSTRAR RADIO
+    // ======================================
+
+    if (maximumDistance < 1000) {
+
+        radiusElement.textContent =
+            Math.round(maximumDistance)
+            + " m";
+
+    } else {
+
+        radiusElement.textContent =
+            (maximumDistance / 1000).toFixed(2)
+            + " km";
+
+    }
+
+
+    // ======================================
+    // DIBUJAR CÍRCULO
+    // ==========================================
+
+    if (analysisCircle !== null) {
+
+        map.removeLayer(analysisCircle);
+
+    }
+
+
+    analysisCircle = L.circle(
+        [
+            centerLatitude,
+            centerLongitude
+        ],
+        {
+            radius: maximumDistance,
+
+            fillOpacity: 0.12,
+
+            weight: 2
+        }
+    ).addTo(map);
 
 }
 
 
 // ==========================================
-// LIMPIAR TODOS LOS EVENTOS
+// BOTÓN LIMPIAR
 // ==========================================
 
 document
@@ -232,11 +258,24 @@ document
             );
 
 
-            // Vaciar arrays
+            // Eliminar círculo
 
-            markers = [];
+            if (analysisCircle !== null) {
+
+                map.removeLayer(
+                    analysisCircle
+                );
+
+                analysisCircle = null;
+
+            }
+
+
+            // Vaciar eventos
 
             events = [];
+
+            markers = [];
 
 
             // Actualizar interfaz
