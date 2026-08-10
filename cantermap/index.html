@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -9,13 +10,21 @@
 
     <title>CanterMap | Análisis Geográfico del Delito</title>
 
-    <!-- Leaflet CSS -->
+
+    <!-- =====================================
+         LEAFLET CSS
+    ====================================== -->
+
     <link
         rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
     >
 
-    <!-- Nuestro CSS -->
+
+    <!-- =====================================
+         ESTILOS PROPIOS
+    ====================================== -->
+
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -34,7 +43,9 @@
 
             <div>
 
-                <h1>CanterMap</h1>
+                <h1>
+                    CanterMap
+                </h1>
 
                 <p>
                     Análisis geográfico del delito
@@ -91,7 +102,9 @@
         <section class="workspace">
 
 
-            <!-- MAPA -->
+            <!-- =================================
+                 MAPA
+            ================================== -->
 
             <div class="map-container">
 
@@ -101,7 +114,9 @@
 
 
 
-            <!-- PANEL DE ANÁLISIS -->
+            <!-- =================================
+                 PANEL DE ANÁLISIS
+            ================================== -->
 
             <aside class="sidebar">
 
@@ -117,16 +132,12 @@
                 <div class="stat-card">
 
                     <span class="stat-label">
-
                         Eventos registrados
-
                     </span>
 
 
                     <strong id="event-count">
-
                         0
-
                     </strong>
 
                 </div>
@@ -138,16 +149,12 @@
                 <div class="stat-card">
 
                     <span class="stat-label">
-
                         Radio estimado
-
                     </span>
 
 
                     <strong id="radius">
-
                         —
-
                     </strong>
 
                 </div>
@@ -159,16 +166,12 @@
                 <div class="stat-card">
 
                     <span class="stat-label">
-
                         Centro
-
                     </span>
 
 
                     <strong id="center">
-
                         —
-
                     </strong>
 
                 </div>
@@ -242,10 +245,16 @@
     <footer class="footer">
 
         <p>
-
             CanterMap · Herramienta educativa
             de análisis geográfico
+        </p>
 
+
+        <p>
+            Desarrollado por
+            <strong>
+                Mtro. Daniel Moreno Cortes
+            </strong>
         </p>
 
     </footer>
@@ -257,12 +266,14 @@
     ====================================== -->
 
     <script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
     ></script>
 
 
 
-    <!-- NUESTRO JAVASCRIPT -->
+    <!-- =====================================
+         JAVASCRIPT DE CANTERMAP
+    ====================================== -->
 
     <script src="js/app.js"></script>
 
@@ -270,3 +281,4 @@
 </body>
 
 </html>
+```
