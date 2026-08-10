@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CanterMap | Análisis Geográfico del Delito</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- Nuestro CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         ENCABEZADO
+    ====================================== -->
+
+    <header class="header">
+
+        <div class="header-content">
+
+            <div>
+
+                <h1>CanterMap</h1>
+
+                <p>
+                    Análisis geográfico del delito
+                </p>
+
+            </div>
+
+
+            <div class="header-badge">
+
+                CÍRCULO DE CANTER
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================
+         CONTENIDO PRINCIPAL
+    ====================================== -->
+
+    <main class="main-container">
+
+
+        <!-- INTRODUCCIÓN -->
+
+        <section class="intro">
+
+            <h2>
+                Análisis del círculo de Canter
+            </h2>
+
+
+            <p>
+
+                Herramienta interactiva para visualizar
+                eventos delictivos y analizar su distribución
+                espacial mediante técnicas de perfilamiento
+                geográfico.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =====================================
+             ÁREA DE TRABAJO
+        ====================================== -->
+
+        <section class="workspace">
+
+
+            <!-- MAPA -->
+
+            <div class="map-container">
+
+                <div id="map"></div>
+
+            </div>
+
+
+
+            <!-- PANEL DE ANÁLISIS -->
+
+            <aside class="sidebar">
+
+
+                <h2>
+                    Análisis
+                </h2>
+
+
+
+                <!-- EVENTOS -->
+
+                <div class="stat-card">
+
+                    <span class="stat-label">
+
+                        Eventos registrados
+
+                    </span>
+
+
+                    <strong id="event-count">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- RADIO -->
+
+                <div class="stat-card">
+
+                    <span class="stat-label">
+
+                        Radio estimado
+
+                    </span>
+
+
+                    <strong id="radius">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- CENTRO -->
+
+                <div class="stat-card">
+
+                    <span class="stat-label">
+
+                        Centro
+
+                    </span>
+
+
+                    <strong id="center">
+
+                        —
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- BOTÓN -->
+
+                <div class="buttons">
+
+                    <button
+                        id="clear-btn"
+                        class="btn btn-danger"
+                    >
+
+                        Limpiar eventos
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- INSTRUCCIONES -->
+
+                <div class="instructions">
+
+                    <h3>
+                        ¿Cómo utilizarlo?
+                    </h3>
+
+
+                    <ol>
+
+                        <li>
+                            Haz clic sobre el mapa.
+                        </li>
+
+                        <li>
+                            Se agregará un evento.
+                        </li>
+
+                        <li>
+                            Agrega varios eventos.
+                        </li>
+
+                        <li>
+                            Posteriormente se calculará
+                            el círculo de Canter.
+                        </li>
+
+                    </ol>
+
+                </div>
+
+
+            </aside>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================
+         PIE DE PÁGINA
+    ====================================== -->
+
+    <footer class="footer">
+
+        <p>
+
+            CanterMap · Herramienta educativa
+            de análisis geográfico
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================
+         LEAFLET JAVASCRIPT
+    ====================================== -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
+
+
+
+    <!-- NUESTRO JAVASCRIPT -->
+
+    <script src="js/app.js"></script>
+
+
+</body>
+
+</html>
