@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultCenter = [19.4326, -99.1332];
     const defaultZoom = 12;
 
+    // Verificar que Leaflet esté disponible
+    if (typeof L === 'undefined') {
+        console.error('Leaflet no se ha cargado correctamente.');
+        return;
+    }
+
     // Inicializar el mapa de Leaflet
     const map = L.map('map').setView(defaultCenter, defaultZoom);
 
@@ -12,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Forzar actualización del tamaño del mapa para evitar el fondo gris por contenedores flexibles
+    // Forzar actualización del tamaño del mapa
     setTimeout(() => {
         map.invalidateSize();
-    }, 250);
+    }, 100);
 
     // Variables de estado para los eventos delictivos y elementos visuales
     let crimeEvents = [];
