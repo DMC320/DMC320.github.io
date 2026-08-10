@@ -1,287 +1,109 @@
-```javascript
-// ==========================================
-// CANTERMAP
-// Análisis geográfico del delito
-// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Coordenadas iniciales: Ciudad de México
+    const defaultCenter = [19.4326, -99.1332];
+    const defaultZoom = 12;
 
+    // Inicializar el mapa de Leaflet
+    const map = L.map('map').setView(defaultCenter, defaultZoom);
 
-// ==========================================
-// INICIALIZAR MAPA
-// ==========================================
+    // Agregar capa base de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-const map = L.map("map").setView(
-    [19.4326, -99.1332],
-    12
-);
+    // Variables de estado para los eventos delictivos y elementos visuales
+    let crimeEvents = [];
+    let markersLayer = L.layerGroup().addTo(map);
+    let canterCircleLayer = L.layerGroup().addTo(map);
 
+    // Elementos de la interfaz
+    const eventCountEl = document.getElementById('event-count');
+    const estimatedRadiusEl = document.getElementById('estimated-radius');
+    const centerCoordsEl = document.getElementById('center-coords');
+    const clearEventsBtn = document.getElementById('clear-events');
 
-// ==========================================
-// MAPA BASE
-// ==========================================
+    // Función para actualizar la interfaz del panel
+    function updatePanel() {
+        eventCountEl.textContent = crimeEvents.length;
 
-L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-        attribution: "&copy; OpenStreetMap contributors"
-    }
-).addTo(map);
-
-
-// ==========================================
-// VARIABLES
-// ==========================================
-
-let events = [];
-
-let markers = [];
-
-let analysisCircle = null;
-
-
-// ==========================================
-// AGREGAR EVENTO
-// ==========================================
-
-map.on("click", function (e) {
-
-    const latitude = e.latlng.lat;
-
-    const longitude = e.latlng.lng;
-
-
-    const event = {
-        latitude: latitude,
-        longitude: longitude
-    };
-
-
-    events.push(event);
-
-
-    // Crear marcador
-
-    const marker = L.marker([
-        latitude,
-        longitude
-    ]).addTo(map);
-
-
-    marker.bindPopup(
-        `
-        <strong>Evento ${events.length}</strong>
-        <br><br>
-        Latitud: ${latitude.toFixed(5)}
-        <br>
-        Longitud: ${longitude.toFixed(5)}
-        `
-    );
-
-
-    markers.push(marker);
-
-
-    updateInterface();
-
-});
-
-
-// ==========================================
-// ACTUALIZAR INTERFAZ
-// ==========================================
-
-function updateInterface() {
-
-    const eventCount =
-        document.getElementById("event-count");
-
-    const radiusElement =
-        document.getElementById("radius");
-
-    const centerElement =
-        document.getElementById("center");
-
-
-    eventCount.textContent =
-        events.length;
-
-
-    // Si no existen eventos
-
-    if (events.length === 0) {
-
-        radiusElement.textContent = "—";
-
-        centerElement.textContent = "—";
-
-
-        if (analysisCircle !== null) {
-
-            map.removeLayer(analysisCircle);
-
-            analysisCircle = null;
-
+        if (crimeEvents.length === 0) {
+            centerCoordsEl.textContent = 'Sin definir';
+            estimatedRadiusEl.textContent = '0.00 km';
+            return;
         }
 
-        return;
-    }
+        // Cálculo del centro geográfico (Centroide simple)
+        let totalLat = 0;
+        let totalLng = 0;
 
+        crimeEvents.forEach(event => {
+            totalLat += event.lat;
+            totalLng += event.lng;
+        });
 
-    // ======================================
-    // CENTRO PROMEDIO
-    // ======================================
+        const centerLat = totalLat / crimeEvents.length;
+        const centerLng = totalLng / crimeEvents.length;
 
-    let latitudeSum = 0;
+        centerCoordsEl.textContent = `${centerLat.toFixed(4)}, ${centerLng.toFixed(4)}`;
 
-    let longitudeSum = 0;
+        // Cálculo preliminar del radio (Distancia máxima desde el centroide a los eventos)
+        let maxDistance = 0;
+        const centerPoint = L.latLng(centerLat, centerLng);
 
-
-    events.forEach(function (event) {
-
-        latitudeSum += event.latitude;
-
-        longitudeSum += event.longitude;
-
-    });
-
-
-    const centerLatitude =
-        latitudeSum / events.length;
-
-
-    const centerLongitude =
-        longitudeSum / events.length;
-
-
-    centerElement.textContent =
-        centerLatitude.toFixed(5)
-        + ", "
-        + centerLongitude.toFixed(5);
-
-
-    // ======================================
-    // CALCULAR DISTANCIA MÁXIMA
-    // ======================================
-
-    let maximumDistance = 0;
-
-
-    events.forEach(function (event) {
-
-        const distance =
-            map.distance(
-                [
-                    centerLatitude,
-                    centerLongitude
-                ],
-                [
-                    event.latitude,
-                    event.longitude
-                ]
-            );
-
-
-        if (distance > maximumDistance) {
-
-            maximumDistance = distance;
-
-        }
-
-    });
-
-
-    // ======================================
-    // MOSTRAR RADIO
-    // ======================================
-
-    if (maximumDistance < 1000) {
-
-        radiusElement.textContent =
-            Math.round(maximumDistance)
-            + " m";
-
-    } else {
-
-        radiusElement.textContent =
-            (maximumDistance / 1000).toFixed(2)
-            + " km";
-
-    }
-
-
-    // ======================================
-    // DIBUJAR CÍRCULO
-    // ==========================================
-
-    if (analysisCircle !== null) {
-
-        map.removeLayer(analysisCircle);
-
-    }
-
-
-    analysisCircle = L.circle(
-        [
-            centerLatitude,
-            centerLongitude
-        ],
-        {
-            radius: maximumDistance,
-
-            fillOpacity: 0.12,
-
-            weight: 2
-        }
-    ).addTo(map);
-
-}
-
-
-// ==========================================
-// BOTÓN LIMPIAR
-// ==========================================
-
-document
-    .getElementById("clear-btn")
-    .addEventListener(
-        "click",
-        function () {
-
-
-            // Eliminar marcadores
-
-            markers.forEach(
-                function (marker) {
-
-                    map.removeLayer(marker);
-
-                }
-            );
-
-
-            // Eliminar círculo
-
-            if (analysisCircle !== null) {
-
-                map.removeLayer(
-                    analysisCircle
-                );
-
-                analysisCircle = null;
-
+        crimeEvents.forEach(event => {
+            const eventPoint = L.latLng(event.lat, event.lng);
+            const distance = centerPoint.distanceTo(eventpoint = eventPoint) / 1000; // en kilómetros
+            if (distance > maxDistance) {
+                maxDistance = distance;
             }
+        });
 
+        estimatedRadiusEl.textContent = `${maxDistance.toFixed(2)} km`;
 
-            // Vaciar eventos
+        // Dibujar círculo de Canter y centroide en el mapa
+        canterCircleLayer.clearLayers();
 
-            events = [];
+        // Marcador del centro geográfico
+        L.marker([centerLat, centerLng], {
+            icon: L.divIcon({
+                className: 'center-marker',
+                html: '<div style="background-color: #ef4444; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 4px rgba(0,0,0,0.4);"></div>',
+                iconSize: [14, 14],
+                iconAnchor: [7, 7]
+            })
+        }).addTo(canterCircleLayer).bindPopup('Centro Geográfico / Áncora estimada');
 
-            markers = [];
-
-
-            // Actualizar interfaz
-
-            updateInterface();
-
+        // Círculo de Canter basado en la distancia máxima (radio)
+        if (maxDistance > 0) {
+            L.circle([centerLat, centerLng], {
+                radius: maxDistance * 1000, // Leaflet usa metros
+                color: '#3b82f6',
+                fillColor: '#3b82f6',
+                fillOpacity: 0.15,
+                weight: 2
+            }).addTo(canterCircleLayer);
         }
-    );
-```
+    }
+
+    // Manejador de clics en el mapa para registrar eventos
+    map.on('click', (e) => {
+        const { lat, lng } = e.latlng;
+        
+        crimeEvents.push({ lat, lng });
+
+        // Agregar marcador al mapa
+        L.marker([lat, lng]).addTo(markersLayer)
+            .bindPopup(`Evento Delictivo<br>Lat: ${lat.toFixed(4)}<br>Lng: ${lng.toFixed(4)}`);
+
+        updatePanel();
+    });
+
+    // Botón para limpiar eventos
+    clearEventsBtn.addEventListener('click', () => {
+        crimeEvents = [];
+        markersLayer.clearLayers();
+        canterCircleLayer.clearLayers();
+        updatePanel();
+    });
+});
