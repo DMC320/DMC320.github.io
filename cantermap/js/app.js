@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    // Forzar actualización del tamaño del mapa para evitar el fondo gris por contenedores flexibles
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 250);
+
     // Variables de estado para los eventos delictivos y elementos visuales
     let crimeEvents = [];
     let markersLayer = L.layerGroup().addTo(map);
@@ -53,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         crimeEvents.forEach(event => {
             const eventPoint = L.latLng(event.lat, event.lng);
-            const distance = centerPoint.distanceTo(eventpoint = eventPoint) / 1000; // en kilómetros
+            const distance = centerPoint.distanceTo(eventPoint) / 1000; // en kilómetros
             if (distance > maxDistance) {
                 maxDistance = distance;
             }
