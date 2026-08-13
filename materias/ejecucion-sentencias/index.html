@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ejecución de Sentencias | Portal Académico</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<style>
+
+/* =========================================
+   CONFIGURACIÓN GENERAL
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+    background: #090909;
+
+    color: #f5f5f5;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================
+   NAVEGACIÓN
+   ========================================= */
+
+.navbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 8%;
+
+    background: rgba(5,5,5,0.96);
+
+    border-bottom: 1px solid #c5a059;
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.logo {
+
+    width: 45px;
+
+    height: 45px;
+
+    border: 1px solid #c5a059;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #d4af37;
+
+    font-family: 'Cinzel', serif;
+
+    font-weight: 700;
+
+    font-size: 17px;
+
+}
+
+
+.navbar a {
+
+    color: #eee;
+
+    text-decoration: none;
+
+    margin-left: 25px;
+
+    font-size: 0.9rem;
+
+    transition: 0.3s;
+
+}
+
+
+.navbar a:hover {
+
+    color: #d4af37;
+
+}
+
+
+/* =========================================
+   PORTADA DE LA MATERIA
+   ========================================= */
+
+.hero {
+
+    padding: 90px 8% 70px;
+
+    text-align: center;
+
+    background:
+
+    radial-gradient(
+        circle at top,
+        rgba(197,160,89,0.12),
+        transparent 45%
+    ),
+
+    #090909;
+
+}
+
+
+.etiqueta {
+
+    display: inline-block;
+
+    padding: 8px 22px;
+
+    border: 1px solid #c5a059;
+
+    color: #d4af37;
+
+    letter-spacing: 3px;
+
+    font-size: 0.75rem;
+
+    margin-bottom: 25px;
+
+}
+
+
+.hero h1 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+
+    margin: 0;
+
+    color: #fff;
+
+}
+
+
+.hero h1 span {
+
+    color: #d4af37;
+
+}
+
+
+.hero h2 {
+
+    font-weight: 400;
+
+    color: #bbb;
+
+    max-width: 850px;
+
+    margin: 25px auto;
+
+}
+
+
+.hero p {
+
+    max-width: 800px;
+
+    margin: auto;
+
+    color: #aaa;
+
+}
+
+
+/* =========================================
+   BOTONES
+   ========================================= */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 12px 25px;
+
+    border-radius: 30px;
+
+    text-decoration: none;
+
+    margin: 10px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+
+}
+
+
+.btn-gold {
+
+    background: #d4af37;
+
+    color: #111;
+
+}
+
+
+.btn-gold:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 25px rgba(212,175,55,0.25);
+
+}
+
+
+.btn-outline {
+
+    border: 1px solid #d4af37;
+
+    color: #d4af37;
+
+}
+
+
+.btn-outline:hover {
+
+    background: #d4af37;
+
+    color: #111;
+
+}
+
+
+/* =========================================
+   CONTENEDOR
+   ========================================= */
+
+.container {
+
+    width: 84%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+}
+
+
+/* =========================================
+   SECCIONES
+   ========================================= */
+
+section {
+
+    padding: 70px 0;
+
+}
+
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+
+}
+
+
+.section-title h2 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 2rem;
+
+    margin-bottom: 10px;
+
+}
+
+
+.section-title p {
+
+    color: #999;
+
+}
+
+
+/* =========================================
+   INFORMACIÓN DE LA MATERIA
+   ========================================= */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(230px, 1fr));
+
+    gap: 20px;
+
+}
+
+
+.info-card {
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+
+    padding: 28px;
+
+    text-align: center;
+
+    transition: 0.3s;
+
+}
+
+
+.info-card:hover {
+
+    transform: translateY(-5px);
+
+    border-color: #c5a059;
+
+}
+
+
+.info-card i {
+
+    color: #d4af37;
+
+    font-size: 30px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.info-card h3 {
+
+    margin: 5px 0 10px;
+
+}
+
+
+.info-card p {
+
+    color: #aaa;
+
+    margin: 0;
+
+}
+
+
+/* =========================================
+   PARCIALES
+   ========================================= */
+
+.parcial {
+
+    background: #0d0d0d;
+
+}
+
+
+.parcial-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 30px;
+
+}
+
+
+.parcial-card {
+
+    background: #151515;
+
+    border: 1px solid #333;
+
+    border-radius: 15px;
+
+    padding: 35px;
+
+    position: relative;
+
+}
+
+
+.parcial-card:hover {
+
+    border-color: #c5a059;
+
+}
+
+
+.parcial-card h3 {
+
+    font-family: 'Cinzel', serif;
+
+    color: #d4af37;
+
+    font-size: 1.4rem;
+
+}
+
+
+.parcial-card h4 {
+
+    margin-top: 30px;
+
+    color: #fff;
+
+}
+
+
+.parcial-card ul {
+
+    padding-left: 20px;
+
+    color: #aaa;
+
+}
+
+
+.parcial-card li {
+
+    margin-bottom: 10px;
+
+}
+
+
+.parcial-card li::marker {
+
+    color: #d4af37;
+
+}
+
+
+/* =========================================
+   SESIONES
+   ========================================= */
+
+.sesiones {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 20px;
+
+}
+
+
+.sesion {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px 18px;
+
+    background: #101010;
+
+    border: 1px solid #292929;
+
+    border-radius: 8px;
+
+}
+
+
+.sesion:hover {
+
+    border-color: #c5a059;
+
+}
+
+
+.sesion-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.numero {
+
+    width: 35px;
+
+    height: 35px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #d4af37;
+
+    color: #111;
+
+    font-weight: 700;
+
+}
+
+
+.sesion strong {
+
+    color: #eee;
+
+}
+
+
+.sesion small {
+
+    display: block;
+
+    color: #777;
+
+}
+
+
+.sesion a {
+
+    text-decoration: none;
+
+    color: #d4af37;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================
+   RECURSOS
+   ========================================= */
+
+.recursos-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(230px, 1fr));
+
+    gap: 20px;
+
+}
+
+
+.recurso {
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 12px;
+
+    padding: 30px;
+
+    text-align: center;
+
+}
+
+
+.recurso i {
+
+    color: #d4af37;
+
+    font-size: 32px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.recurso h3 {
+
+    margin-bottom: 10px;
+
+}
+
+
+.recurso p {
+
+    color: #999;
+
+}
+
+
+/* =========================================
+   PIE DE PÁGINA
+   ========================================= */
+
+footer {
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    border-top: 1px solid #292929;
+
+    color: #777;
+
+}
+
+
+footer strong {
+
+    color: #d4af37;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+
+        padding: 0 5%;
+
+    }
+
+    .navbar nav {
+
+        display: none;
+
+    }
+
+    .hero {
+
+        padding: 70px 5%;
+
+    }
+
+    .container {
+
+        width: 90%;
+
+    }
+
+    .sesion {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVEGACIÓN
+     ========================================= -->
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+DM
+</div>
+
+
+<div>
+
+<a href="../../index.html">
+Inicio
+</a>
+
+<a href="#materia">
+Materia
+</a>
+
+<a href="#parciales">
+Parciales
+</a>
+
+<a href="#recursos">
+Recursos
+</a>
+
+</div>
+
+</nav>
+
+</header>
+
+
+
+<!-- =========================================
+     PORTADA
+     ========================================= -->
+
+<section class="hero" id="materia">
+
+<div class="etiqueta">
+PORTAL ACADÉMICO
+</div>
+
+
+<h1>
+
+Ejecución de
+<span>Sentencias</span>
+
+</h1>
+
+
+<h2>
+Procedimiento jurisdiccional ante el Juez de Ejecución
+</h2>
+
+
+<p>
+
+Espacio académico destinado al estudio de la etapa de ejecución,
+el papel del Juez de Ejecución, las partes procesales,
+las audiencias, las resoluciones y los medios de impugnación.
+
+</p>
+
+
+<div style="margin-top:30px;">
+
+<a href="#parciales" class="btn btn-gold">
+<i class="fa-solid fa-book-open"></i>
+&nbsp; Explorar materia
+</a>
+
+
+<a href="../../index.html" class="btn btn-outline">
+<i class="fa-solid fa-arrow-left"></i>
+&nbsp; Portal principal
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     INFORMACIÓN
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Información de la materia
+</h2>
+
+<p>
+Elementos generales del curso
+</p>
+
+</div>
+
+
+<div class="info-grid">
+
+
+<div class="info-card">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h3>
+Área
+</h3>
+
+<p>
+Derecho
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<i class="fa-solid fa-gavel"></i>
+
+<h3>
+Enfoque
+</h3>
+
+<p>
+Ejecución y control jurisdiccional
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<i class="fa-solid fa-landmark"></i>
+
+<h3>
+Eje de estudio
+</h3>
+
+<p>
+Juez de Ejecución
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+<h3>
+Modalidad
+</h3>
+
+<p>
+Formación jurídica universitaria
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     OBJETIVO
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Objetivo de aprendizaje
+</h2>
+
+</div>
+
+
+<div class="info-card">
+
+<p>
+
+Analizar el procedimiento jurisdiccional desarrollado durante
+la etapa de ejecución de las resoluciones judiciales, identificando
+las funciones del Juez de Ejecución, los sujetos que intervienen,
+las controversias que pueden plantearse, las audiencias y los
+medios de impugnación correspondientes.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     PARCIALES
+     ========================================= -->
+
+<section class="parcial" id="parciales">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Parciales y sesiones
+</h2>
+
+<p>
+Selecciona una sesión para acceder a sus materiales.
+</p>
+
+</div>
+
+
+<div class="parcial-grid">
+
+
+<!-- =====================================
+     PRIMER PARCIAL
+     ===================================== -->
+
+<div class="parcial-card">
+
+<h3>
+Primer Parcial
+</h3>
+
+
+<p>
+Fundamentos y bases de la materia.
+</p>
+
+
+<div class="sesiones">
+
+
+<div class="sesion">
+
+<div class="sesion-info">
+
+<div class="numero">
+1
+</div>
+
+<div>
+
+<strong>
+Sesión 1
+</strong>
+
+<small>
+Fundamentos de la ejecución
+</small>
+
+</div>
+
+</div>
+
+
+<a href="primer-parcial/sesion-1.html">
+Ingresar →
+</a>
+
+</div>
+
+
+
+<div class="sesion">
+
+<div class="sesion-info">
+
+<div class="numero">
+2
+</div>
+
+<div>
+
+<strong>
+Sesión 2
+</strong>
+
+<small>
+Desarrollo de la etapa de ejecución
+</small>
+
+</div>
+
+</div>
+
+
+<a href="primer-parcial/sesion-2.html">
+Ingresar →
+</a>
+
+</div>
+
+
+
+<div class="sesion">
+
+<div class="sesion-info">
+
+<div class="numero">
+3
+</div>
+
+<div>
+
+<strong>
+Sesión 3
+</strong>
+
+<small>
+Sujetos y funciones durante la ejecución
+</small>
+
+</div>
+
+</div>
+
+
+<a href="primer-parcial/sesion-3.html">
+Ingresar →
+</a>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================
+     SEGUNDO PARCIAL
+     ===================================== -->
+
+<div class="parcial-card">
+
+<h3>
+Segundo Parcial
+</h3>
+
+
+<p>
+Procedimiento jurisdiccional y actuación del Juez de Ejecución.
+</p>
+
+
+<div class="sesiones">
+
+
+<div class="sesion">
+
+<div class="sesion-info">
+
+<div class="numero">
+4
+</div>
+
+<div>
+
+<strong>
+Sesión 4
+</strong>
+
+<small>
+Procedimiento jurisdiccional ante el Juez de Ejecución
+</small>
+
+</div>
+
+</div>
+
+
+<a href="segundo-parcial/sesion-4.html">
+Ingresar →
+</a>
+
+</div>
+
+
+
+<div class="sesion">
+
+<div class="sesion-info">
+
+<div class="numero">
+5
+</div>
+
+<div>
+
+<strong>
+Sesión 5
+</strong>
+
+<small>
+Tema pendiente de desarrollar
+</small>
+
+</div>
+
+</div>
+
+
+<a href="segundo-parcial/sesion-5.html">
+Próximamente
+</a>
+
+</div>
+
+
+
+<div class="sesion">
+
+<div class="sesion-info">
+
+<div class="numero">
+6
+</div>
+
+<div>
+
+<strong>
+Sesión 6
+</strong>
+
+<small>
+Tema pendiente de desarrollar
+</small>
+
+</div>
+
+</div>
+
+
+<a href="segundo-parcial/sesion-6.html">
+Próximamente
+</a>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     RECURSOS
+     ========================================= -->
+
+<section id="recursos">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Recursos de aprendizaje
+</h2>
+
+<p>
+Materiales que acompañan el desarrollo de cada sesión.
+</p>
+
+</div>
+
+
+<div class="recursos-grid">
+
+
+<div class="recurso">
+
+<i class="fa-solid fa-route"></i>
+
+<h3>
+Rutas de aprendizaje
+</h3>
+
+<p>
+
+Organización progresiva de los contenidos
+y actividades de cada sesión.
+
+</p>
+
+</div>
+
+
+
+<div class="recurso">
+
+<i class="fa-solid fa-diagram-project"></i>
+
+<h3>
+Esquemas conceptuales
+</h3>
+
+<p>
+
+Representaciones visuales para facilitar
+la comprensión de los contenidos jurídicos.
+
+</p>
+
+</div>
+
+
+
+<div class="recurso">
+
+<i class="fa-solid fa-file-lines"></i>
+
+<h3>
+Materiales académicos
+</h3>
+
+<p>
+
+Lecturas, documentos, legislación
+y materiales de apoyo.
+
+</p>
+
+</div>
+
+
+
+<div class="recurso">
+
+<i class="fa-solid fa-brain"></i>
+
+<h3>
+Autoevaluaciones
+</h3>
+
+<p>
+
+Preguntas y ejercicios para comprobar
+el aprendizaje.
+
+</p>
+
+</div>
+
+
+
+<div class="recurso">
+
+<i class="fa-solid fa-gavel"></i>
+
+<h3>
+Casos prácticos
+</h3>
+
+<p>
+
+Aplicación de los conocimientos
+a situaciones jurídicas.
+
+</p>
+
+</div>
+
+
+
+<div class="recurso">
+
+<i class="fa-solid fa-laptop-code"></i>
+
+<h3>
+Recursos interactivos
+</h3>
+
+<p>
+
+Herramientas digitales diseñadas
+para reforzar el aprendizaje.
+
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+
+<footer>
+
+<p>
+
+<strong>
+Mtro. Daniel Moreno Cortés
+</strong>
+
+</p>
+
+
+<p>
+Portal Académico | Educación Jurídica
+</p>
+
+
+<p>
+© 2026 Todos los derechos reservados.
+</p>
+
+</footer>
+
+
+</body>
+
+</html>
