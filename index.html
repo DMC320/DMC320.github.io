@@ -18,9 +18,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <link rel="stylesheet" href="css/style.css">
 
+
 <style>
 
-/* Estilos integrados para la Galería Académica */
+/* =========================================
+   GALERÍA ACADÉMICA
+   ========================================= */
 
 #galeria {
     padding: 60px 20px;
@@ -67,11 +70,189 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     margin: 0;
 }
 
+
+/* =========================================
+   TARJETAS DE MATERIAS
+   ========================================= */
+
+#materias .card {
+    position: relative;
+    box-sizing: border-box;
+}
+
+#materias .card p {
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#materias .card .btn1 {
+    display: inline-block;
+    margin-top: auto;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   TARJETAS DE RECURSOS
+   ========================================= */
+
+/*
+   Esta es la corrección principal.
+
+   Las tarjetas utilizan Flexbox para que el
+   contenido se distribuya correctamente y
+   los botones queden dentro de la tarjeta.
+*/
+
+#recursos .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+
+/* Títulos */
+
+#recursos .card h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+
+/* Descripciones */
+
+#recursos .card p {
+    margin-top: 0;
+    margin-bottom: 25px;
+    line-height: 1.7;
+}
+
+
+/* Botones */
+
+#recursos .card .btn1,
+#recursos .card .btn2 {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: auto;
+
+    text-decoration: none;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================
+   BOTONES DE MATERIAS
+   ========================================= */
+
+#materias .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#materias .card .btn1 {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: auto;
+
+    text-decoration: none;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    #galeria {
+        padding: 40px 15px;
+    }
+
+    .galeria-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #recursos .card,
+    #materias .card {
+        height: auto;
+        min-height: 300px;
+    }
+
+}
+
+
+/* =========================================
+   ESPACIADO EXTRA PARA TARJETAS
+   ========================================= */
+
+#recursos .card,
+#materias .card {
+
+    padding-bottom: 30px;
+
+}
+
+
+/* =========================================
+   EVITAR QUE LOS BOTONES SE ENCIMEN
+   ========================================= */
+
+#recursos .card a,
+#materias .card a {
+
+    flex-shrink: 0;
+
+}
+
+
+/* =========================================
+   TARJETAS DE RECURSOS CON ALTURA UNIFORME
+   ========================================= */
+
+#recursos .cards {
+
+    align-items: stretch;
+
+}
+
+
 </style>
 
 </head>
 
+
 <body>
+
+
+<!-- =========================================
+     ENCABEZADO Y NAVEGACIÓN
+     ========================================= -->
 
 <header>
 
@@ -81,36 +262,63 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     <span>DM</span>
 </div>
 
+
 <ul>
 
-<li><a href="#inicio">Inicio</a></li>
+<li>
+<a href="#inicio">Inicio</a>
+</li>
 
-<li><a href="#perfil">Perfil</a></li>
+<li>
+<a href="#perfil">Perfil</a>
+</li>
 
-<li><a href="#formacion">Formación</a></li>
+<li>
+<a href="#formacion">Formación</a>
+</li>
 
-<li><a href="#especialidades">Especialidades</a></li>
+<li>
+<a href="#especialidades">Especialidades</a>
+</li>
 
-<li><a href="#materias">Materias</a></li>
+<li>
+<a href="#materias">Materias</a>
+</li>
 
-<li><a href="#recursos">Recursos</a></li>
+<li>
+<a href="#recursos">Recursos</a>
+</li>
 
-<li><a href="#galeria">Galería</a></li>
+<li>
+<a href="#galeria">Galería</a>
+</li>
 
-<li><a href="#contacto">Contacto</a></li>
+<li>
+<a href="#contacto">Contacto</a>
+</li>
 
 </ul>
 
 </nav>
 
 
+<!-- =========================================
+     PORTADA
+     ========================================= -->
+
 <section class="hero" id="inicio">
 
 <div class="hero-texto">
 
-<h3>PORTAL ACADÉMICO</h3>
+<h3>
+PORTAL ACADÉMICO
+</h3>
 
-<h1>Mtro. Daniel Moreno Cortés</h1>
+
+<h1>
+Mtro. Daniel Moreno Cortés
+</h1>
+
 
 <h2>
 
@@ -130,6 +338,7 @@ Innovación Tecnológica Aplicada a la Educación Jurídica
 
 </h2>
 
+
 <p>
 
 Bienvenido a mi portal académico.
@@ -141,11 +350,13 @@ de la tecnología.
 
 </p>
 
+
 <div class="botones">
 
 <a href="#perfil" class="btn1">
 Conocer más
 </a>
+
 
 <a href="#materias" class="btn2">
 Materias
@@ -167,42 +378,65 @@ Materias
 </header>
 
 
+
+<!-- =========================================
+     ESTADÍSTICAS
+     ========================================= -->
+
 <section class="estadisticas">
 
 <div>
 
-<h2>12+</h2>
+<h2>
+12+
+</h2>
 
-<p>Años de experiencia docente</p>
-
-</div>
-
-
-<div>
-
-<h2>10+</h2>
-
-<p>Áreas disciplinares impartidas</p>
+<p>
+Años de experiencia docente
+</p>
 
 </div>
 
 
 <div>
 
-<h2>100%</h2>
+<h2>
+10+
+</h2>
 
-<p>Compromiso con la innovación educativa</p>
+<p>
+Áreas disciplinares impartidas
+</p>
+
+</div>
+
+
+<div>
+
+<h2>
+100%
+</h2>
+
+<p>
+Compromiso con la innovación educativa
+</p>
 
 </div>
 
 </section>
 
 
+
+<!-- =========================================
+     PERFIL
+     ========================================= -->
+
 <section class="perfil" id="perfil">
 
 <h2>
 Perfil Profesional
 </h2>
+
 
 <p>
 
@@ -221,6 +455,11 @@ Inteligencia Artificial aplicada a la enseñanza del Derecho.
 
 </section>
 
+
+
+<!-- =========================================
+     FORMACIÓN ACADÉMICA
+     ========================================= -->
 
 <section id="formacion">
 
@@ -306,6 +545,11 @@ Reconocimiento académico.
 </section>
 
 
+
+<!-- =========================================
+     ÁREAS DE ESPECIALIZACIÓN
+     ========================================= -->
+
 <section id="especialidades">
 
 <h2>
@@ -387,6 +631,11 @@ Investigación Educativa
 </section>
 
 
+
+<!-- =========================================
+     MATERIAS
+     ========================================= -->
+
 <section id="materias">
 
 <h2>
@@ -394,62 +643,221 @@ Materias Impartidas
 </h2>
 
 
+<p style="text-align: center; color: #aaa; margin-bottom: 30px;">
+
+Explora las materias y accede a rutas de aprendizaje,
+contenidos, actividades y recursos académicos.
+
+</p>
+
+
 <div class="cards">
 
-<div class="card">
-<h3>Derecho</h3>
-</div>
+
+<!-- DERECHO -->
 
 <div class="card">
-<h3>Derecho Penal</h3>
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h3>
+Derecho
+</h3>
+
 </div>
 
-<div class="card">
-<h3>Derecho Ecológico</h3>
-</div>
+
+
+<!-- DERECHO PENAL -->
 
 <div class="card">
-<h3>Criminalística</h3>
+
+<i class="fa-solid fa-gavel"></i>
+
+<h3>
+Derecho Penal
+</h3>
+
 </div>
 
-<div class="card">
-<h3>Formación Cívica y Ética</h3>
-</div>
+
+
+<!-- EJECUCIÓN DE SENTENCIAS -->
 
 <div class="card">
-<h3>Historia</h3>
+
+<i class="fa-solid fa-building-columns"></i>
+
+<h3>
+Ejecución de Sentencias
+</h3>
+
+<p>
+
+Ruta de aprendizaje, contenidos,
+marco jurídico y actividades.
+
+</p>
+
+
+<a href="materias/ejecucion-sentencias/" class="btn1">
+
+Ingresar
+
+</a>
+
 </div>
 
-<div class="card">
-<h3>Geografía</h3>
-</div>
+
+
+<!-- DERECHO ECOLÓGICO -->
 
 <div class="card">
-<h3>Ciencias Sociales</h3>
+
+<i class="fa-solid fa-leaf"></i>
+
+<h3>
+Derecho Ecológico
+</h3>
+
 </div>
 
-<div class="card">
-<h3>Sociología</h3>
-</div>
+
+
+<!-- CRIMINALÍSTICA -->
 
 <div class="card">
-<h3>Pedagogía</h3>
+
+<i class="fa-solid fa-fingerprint"></i>
+
+<h3>
+Criminalística
+</h3>
+
 </div>
 
-<div class="card">
-<h3>Administración</h3>
-</div>
+
+
+<!-- FORMACIÓN CÍVICA -->
 
 <div class="card">
-<h3>Sistema Penal Acusatorio</h3>
+
+<i class="fa-solid fa-landmark"></i>
+
+<h3>
+Formación Cívica y Ética
+</h3>
+
 </div>
+
+
+
+<!-- HISTORIA -->
+
+<div class="card">
+
+<i class="fa-solid fa-book"></i>
+
+<h3>
+Historia
+</h3>
+
+</div>
+
+
+
+<!-- GEOGRAFÍA -->
+
+<div class="card">
+
+<i class="fa-solid fa-earth-americas"></i>
+
+<h3>
+Geografía
+</h3>
+
+</div>
+
+
+
+<!-- CIENCIAS SOCIALES -->
+
+<div class="card">
+
+<i class="fa-solid fa-users"></i>
+
+<h3>
+Ciencias Sociales
+</h3>
+
+</div>
+
+
+
+<!-- SOCIOLOGÍA -->
+
+<div class="card">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<h3>
+Sociología
+</h3>
+
+</div>
+
+
+
+<!-- PEDAGOGÍA -->
+
+<div class="card">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+<h3>
+Pedagogía
+</h3>
+
+</div>
+
+
+
+<!-- ADMINISTRACIÓN -->
+
+<div class="card">
+
+<i class="fa-solid fa-briefcase"></i>
+
+<h3>
+Administración
+</h3>
+
+</div>
+
+
+
+<!-- SISTEMA PENAL ACUSATORIO -->
+
+<div class="card">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h3>
+Sistema Penal Acusatorio
+</h3>
+
+</div>
+
 
 </div>
 
 </section>
 
 
-<!-- RECURSOS -->
+
+<!-- =========================================
+     RECURSOS JURÍDICOS
+     ========================================= -->
 
 <section id="recursos">
 
@@ -467,7 +875,9 @@ Recursos Jurídicos Interactivos
 
 <i class="fa-solid fa-scale-balanced"></i>
 
-<h3>⚖️ Quiz Jurídico</h3>
+<h3>
+⚖️ Quiz Jurídico
+</h3>
 
 <p>
 
@@ -476,11 +886,15 @@ interactivas con retroalimentación inmediata.
 
 </p>
 
+
 <a href="quiz.html" class="btn1">
+
 Ingresar al Quiz
+
 </a>
 
 </div>
+
 
 
 <!-- CASOS PRÁCTICOS -->
@@ -500,11 +914,15 @@ doctrina y argumentación jurídica.
 
 </p>
 
+
 <a href="#" class="btn2">
+
 Próximamente
+
 </a>
 
 </div>
+
 
 
 <!-- SIMULADOR CON IA -->
@@ -524,11 +942,15 @@ mediante inteligencia artificial.
 
 </p>
 
+
 <a href="#" class="btn2">
+
 Próximamente
+
 </a>
 
 </div>
+
 
 
 <!-- VERDICT 7 -->
@@ -548,8 +970,11 @@ de un proceso judicial y poner en práctica la toma de decisiones.
 
 </p>
 
+
 <a href="/juez/" class="btn1" target="_blank">
+
 Ingresar al simulador
+
 </a>
 
 </div>
@@ -560,13 +985,17 @@ Ingresar al simulador
 </section>
 
 
-<!-- GALERÍA -->
+
+<!-- =========================================
+     GALERÍA
+     ========================================= -->
 
 <section id="galeria">
 
 <h2>
 Galería Académica
 </h2>
+
 
 <p style="text-align: center; color: #aaa; margin-bottom: 30px;">
 
@@ -580,7 +1009,8 @@ Registro visual de clases, ponencias e impartición de cursos académicos.
 
 <div class="galeria-item">
 
-<img src="img1.jpg" alt="Clase presencial y ponencias académicas">
+<img src="img1.jpg"
+alt="Clase presencial y ponencias académicas">
 
 <p>
 Impartición de cátedra universitaria
@@ -589,9 +1019,11 @@ Impartición de cátedra universitaria
 </div>
 
 
+
 <div class="galeria-item">
 
-<img src="img2.jpg" alt="Ponencia y conferencias jurídicas">
+<img src="img2.jpg"
+alt="Ponencia y conferencias jurídicas">
 
 <p>
 Participación en ponencias y coloquios
@@ -600,9 +1032,11 @@ Participación en ponencias y coloquios
 </div>
 
 
+
 <div class="galeria-item">
 
-<img src="img3.jpg" alt="Innovación educativa y docencia">
+<img src="img3.jpg"
+alt="Innovación educativa y docencia">
 
 <p>
 Aplicación de pedagogía jurídica
@@ -615,6 +1049,11 @@ Aplicación de pedagogía jurídica
 
 </section>
 
+
+
+<!-- =========================================
+     FRASE
+     ========================================= -->
 
 <section class="frase">
 
@@ -629,6 +1068,11 @@ para construir una mejor justicia."
 </section>
 
 
+
+<!-- =========================================
+     CONTACTO
+     ========================================= -->
+
 <section id="contacto">
 
 <h2>
@@ -642,12 +1086,15 @@ Contacto
 type="text"
 placeholder="Nombre">
 
+
 <input
 type="email"
 placeholder="Correo electrónico">
 
+
 <textarea
 placeholder="Escribe tu mensaje"></textarea>
+
 
 <button>
 Enviar mensaje
@@ -658,21 +1105,29 @@ Enviar mensaje
 </section>
 
 
+
+<!-- =========================================
+     PIE DE PÁGINA
+     ========================================= -->
+
 <footer>
 
 <div class="footer-logo">
 DM
 </div>
 
+
 <h3>
 Daniel Moreno | Educación Jurídica
 </h3>
+
 
 <p>
 © 2026 Todos los derechos reservados.
 </p>
 
 </footer>
+
 
 
 <script src="js/script.js"></script>
