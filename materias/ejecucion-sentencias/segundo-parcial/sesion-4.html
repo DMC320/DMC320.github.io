@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Sesión 4 | Procedimiento Jurisdiccional ante el Juez de Ejecución</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<style>
+
+/* =========================================
+   CONFIGURACIÓN GENERAL
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+    background: #090909;
+
+    color: #f5f5f5;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================
+   NAVEGACIÓN
+   ========================================= */
+
+.navbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 14px 7%;
+
+    background: rgba(5,5,5,0.97);
+
+    border-bottom: 1px solid #c5a059;
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.logo {
+
+    width: 45px;
+
+    height: 45px;
+
+    border: 1px solid #d4af37;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #d4af37;
+
+    font-family: 'Cinzel', serif;
+
+    font-weight: 700;
+
+}
+
+
+.nav-links {
+
+    display: flex;
+
+    gap: 25px;
+
+}
+
+
+.nav-links a {
+
+    color: #ddd;
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+
+}
+
+
+.nav-links a:hover {
+
+    color: #d4af37;
+
+}
+
+
+/* =========================================
+   PORTADA
+   ========================================= */
+
+.hero {
+
+    padding: 90px 8% 80px;
+
+    text-align: center;
+
+    background:
+
+    radial-gradient(
+        circle at top,
+        rgba(197,160,89,0.13),
+        transparent 48%
+    );
+
+}
+
+
+.etiqueta {
+
+    display: inline-block;
+
+    border: 1px solid #c5a059;
+
+    color: #d4af37;
+
+    padding: 8px 20px;
+
+    letter-spacing: 3px;
+
+    font-size: 0.75rem;
+
+    margin-bottom: 25px;
+
+}
+
+
+.hero h1 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: clamp(2.2rem, 5vw, 4rem);
+
+    line-height: 1.2;
+
+    margin: 0 auto;
+
+    max-width: 1000px;
+
+}
+
+
+.hero h1 span {
+
+    color: #d4af37;
+
+}
+
+
+.hero h2 {
+
+    font-weight: 400;
+
+    color: #bbb;
+
+    max-width: 850px;
+
+    margin: 25px auto;
+
+}
+
+
+.hero p {
+
+    max-width: 800px;
+
+    margin: auto;
+
+    color: #999;
+
+}
+
+
+/* =========================================
+   CONTENEDOR
+   ========================================= */
+
+.container {
+
+    width: 84%;
+
+    max-width: 1100px;
+
+    margin: auto;
+
+}
+
+
+section {
+
+    padding: 70px 0;
+
+}
+
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 40px;
+
+}
+
+
+.section-title h2 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 2rem;
+
+}
+
+
+.section-title p {
+
+    color: #999;
+
+}
+
+
+/* =========================================
+   BOTONES
+   ========================================= */
+
+.btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 12px 24px;
+
+    border-radius: 30px;
+
+    text-decoration: none;
+
+    margin: 8px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+
+}
+
+
+.btn-gold {
+
+    background: #d4af37;
+
+    color: #111;
+
+}
+
+
+.btn-gold:hover {
+
+    transform: translateY(-3px);
+
+}
+
+
+.btn-outline {
+
+    border: 1px solid #d4af37;
+
+    color: #d4af37;
+
+}
+
+
+.btn-outline:hover {
+
+    background: #d4af37;
+
+    color: #111;
+
+}
+
+
+/* =========================================
+   RUTA DE APRENDIZAJE
+   ========================================= */
+
+.ruta {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(210px, 1fr));
+
+    gap: 15px;
+
+}
+
+
+.ruta-item {
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+    text-align: center;
+
+    position: relative;
+
+}
+
+
+.ruta-item:hover {
+
+    border-color: #c5a059;
+
+}
+
+
+.ruta-numero {
+
+    width: 38px;
+
+    height: 38px;
+
+    margin: 0 auto 12px;
+
+    border-radius: 50%;
+
+    background: #d4af37;
+
+    color: #111;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 700;
+
+}
+
+
+.ruta-item h3 {
+
+    font-size: 1rem;
+
+    margin: 5px 0;
+
+}
+
+
+.ruta-item p {
+
+    color: #999;
+
+    font-size: 0.85rem;
+
+    margin: 0;
+
+}
+
+
+/* =========================================
+   BLOQUES DE CONTENIDO
+   ========================================= */
+
+.bloque {
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    border-radius: 14px;
+
+    padding: 35px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.bloque:hover {
+
+    border-color: #3a3a3a;
+
+}
+
+
+.bloque h3 {
+
+    font-family: 'Cinzel', serif;
+
+    color: #d4af37;
+
+    margin-top: 0;
+
+}
+
+
+.bloque h4 {
+
+    color: #eee;
+
+    margin-top: 25px;
+
+}
+
+
+.bloque p {
+
+    color: #ccc;
+
+}
+
+
+.bloque ul {
+
+    color: #bbb;
+
+}
+
+
+.bloque li {
+
+    margin-bottom: 10px;
+
+}
+
+
+/* =========================================
+   MARCO JURÍDICO
+   ========================================= */
+
+.marco-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 20px;
+
+}
+
+
+.marco {
+
+    background: #101010;
+
+    border: 1px solid #333;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+}
+
+
+.marco i {
+
+    color: #d4af37;
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.marco h3 {
+
+    margin: 5px 0 10px;
+
+}
+
+
+.marco p {
+
+    color: #999;
+
+    font-size: 0.9rem;
+
+}
+
+
+/* =========================================
+   ESQUEMA
+   ========================================= */
+
+.esquema {
+
+    background: #0d0d0d;
+
+    border: 1px solid #333;
+
+    border-radius: 14px;
+
+    padding: 35px;
+
+    text-align: center;
+
+}
+
+
+.esquema-linea {
+
+    margin: 12px auto;
+
+    padding: 13px;
+
+    max-width: 600px;
+
+    border: 1px solid #c5a059;
+
+    border-radius: 8px;
+
+    color: #eee;
+
+}
+
+
+.flecha {
+
+    color: #d4af37;
+
+    font-size: 22px;
+
+}
+
+
+/* =========================================
+   CASO PRÁCTICO
+   ========================================= */
+
+.caso {
+
+    border-left: 4px solid #d4af37;
+
+    background: #141414;
+
+    padding: 30px;
+
+    border-radius: 0 12px 12px 0;
+
+}
+
+
+.caso strong {
+
+    color: #d4af37;
+
+}
+
+
+/* =========================================
+   ACTIVIDAD
+   ========================================= */
+
+.actividad {
+
+    background: linear-gradient(
+        135deg,
+        #151515,
+        #101010
+    );
+
+    border: 1px solid #c5a059;
+
+    border-radius: 14px;
+
+    padding: 35px;
+
+}
+
+
+.actividad ol {
+
+    color: #ccc;
+
+}
+
+
+.actividad li {
+
+    margin-bottom: 12px;
+
+}
+
+
+/* =========================================
+   AUTOEVALUACIÓN
+   ========================================= */
+
+.preguntas {
+
+    display: grid;
+
+    gap: 15px;
+
+}
+
+
+.pregunta {
+
+    background: #111;
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+}
+
+
+.pregunta strong {
+
+    color: #d4af37;
+
+}
+
+
+/* =========================================
+   NAVEGACIÓN INFERIOR
+   ========================================= */
+
+.navegacion {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 50px;
+
+}
+
+
+.navegacion a {
+
+    flex: 1;
+
+    text-align: center;
+
+    padding: 15px;
+
+    border: 1px solid #333;
+
+    border-radius: 10px;
+
+    color: #d4af37;
+
+    text-decoration: none;
+
+}
+
+
+.navegacion a:hover {
+
+    border-color: #d4af37;
+
+    background: #151515;
+
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    border-top: 1px solid #292929;
+
+    color: #777;
+
+}
+
+
+footer strong {
+
+    color: #d4af37;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .nav-links {
+
+        display: none;
+
+    }
+
+    .container {
+
+        width: 90%;
+
+    }
+
+    .bloque,
+    .actividad,
+    .caso {
+
+        padding: 25px;
+
+    }
+
+    .navegacion {
+
+        flex-direction: column;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVEGACIÓN
+     ========================================= -->
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+DM
+</div>
+
+
+<div class="nav-links">
+
+<a href="../../index.html">
+Materia
+</a>
+
+<a href="#ruta">
+Ruta
+</a>
+
+<a href="#marco">
+Marco legal
+</a>
+
+<a href="#desarrollo">
+Contenido
+</a>
+
+<a href="#actividad">
+Actividad
+</a>
+
+</div>
+
+</nav>
+
+</header>
+
+
+
+<!-- =========================================
+     PORTADA
+     ========================================= -->
+
+<section class="hero">
+
+<div class="etiqueta">
+SEGUNDO PARCIAL · SESIÓN 4
+</div>
+
+
+<h1>
+
+Procedimiento jurisdiccional ante el
+<span>Juez de Ejecución</span>
+
+</h1>
+
+
+<h2>
+Ejecución de Sentencias
+</h2>
+
+
+<p>
+
+Análisis del procedimiento jurisdiccional durante la etapa de ejecución,
+las partes que intervienen, las audiencias, los principios que rigen
+el procedimiento y los medios de impugnación.
+
+</p>
+
+
+<div style="margin-top:30px;">
+
+<a href="../../index.html"
+class="btn btn-gold">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+&nbsp; Volver a la materia
+
+</a>
+
+
+<a href="#ruta"
+class="btn btn-outline">
+
+<i class="fa-solid fa-route"></i>
+
+&nbsp; Ver ruta de aprendizaje
+
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     OBJETIVO
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Objetivo de aprendizaje
+</h2>
+
+</div>
+
+
+<div class="bloque">
+
+<p>
+
+Analizar el procedimiento jurisdiccional que se desarrolla ante el
+Juez de Ejecución, identificando las etapas de su tramitación, los
+sujetos que intervienen, las controversias que pueden plantearse,
+las reglas de las audiencias, las resoluciones y los medios de
+impugnación previstos por la legislación aplicable.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     RUTA DE APRENDIZAJE
+     ========================================= -->
+
+<section id="ruta">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Ruta de aprendizaje
+</h2>
+
+<p>
+Recorrido de la sesión
+</p>
+
+</div>
+
+
+<div class="ruta">
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+1
+</div>
+
+<h3>
+Inicio de la ejecución
+</h3>
+
+<p>
+Sentencia firme y puesta a disposición.
+</p>
+
+</div>
+
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+2
+</div>
+
+<h3>
+Remisión de la sentencia
+</h3>
+
+<p>
+Comunicación al Juez de Ejecución.
+</p>
+
+</div>
+
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+3
+</div>
+
+<h3>
+Sujetos procesales
+</h3>
+
+<p>
+Identificación de quienes intervienen.
+</p>
+
+</div>
+
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+4
+</div>
+
+<h3>
+Controversias
+</h3>
+
+<p>
+Peticiones, planteamientos y conflictos.
+</p>
+
+</div>
+
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+5
+</div>
+
+<h3>
+Audiencia
+</h3>
+
+<p>
+Desarrollo del procedimiento oral.
+</p>
+
+</div>
+
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+6
+</div>
+
+<h3>
+Principios
+</h3>
+
+<p>
+Contradicción, inmediación y oralidad.
+</p>
+
+</div>
+
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+7
+</div>
+
+<h3>
+Resolución
+</h3>
+
+<p>
+Decisión del Juez de Ejecución.
+</p>
+
+</div>
+
+
+
+<div class="ruta-item">
+
+<div class="ruta-numero">
+8
+</div>
+
+<h3>
+Impugnación
+</h3>
+
+<p>
+Medios de defensa frente a las resoluciones.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     MARCO JURÍDICO
+     ========================================= -->
+
+<section id="marco">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Marco jurídico
+</h2>
+
+<p>
+Normas fundamentales para el estudio de la sesión
+</p>
+
+</div>
+
+
+<div class="marco-grid">
+
+
+<div class="marco">
+
+<i class="fa-solid fa-landmark"></i>
+
+<h3>
+Constitución Política
+</h3>
+
+<p>
+
+Artículo 18: bases constitucionales del sistema penitenciario,
+reinserción social y derechos relacionados con la ejecución de las
+penas.
+
+</p>
+
+</div>
+
+
+
+<div class="marco">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h3>
+Código Nacional de Procedimientos Penales
+</h3>
+
+<p>
+
+Artículos 102 y 103: puesta a disposición del Juez de Ejecución
+y disposiciones relativas al inicio de la ejecución.
+
+</p>
+
+</div>
+
+
+
+<div class="marco">
+
+<i class="fa-solid fa-gavel"></i>
+
+<h3>
+Ley Nacional de Ejecución Penal
+</h3>
+
+<p>
+
+Artículos 24 y 25: competencia y atribuciones del Juez de Ejecución.
+
+</p>
+
+</div>
+
+
+
+<div class="marco">
+
+<i class="fa-solid fa-comments"></i>
+
+<h3>
+Procedimiento jurisdiccional
+</h3>
+
+<p>
+
+Artículos 120 a 127 de la LNEP: principios, partes procesales,
+formulación, sustanciación, audiencias y resolución.
+
+</p>
+
+</div>
+
+
+
+<div class="marco">
+
+<i class="fa-solid fa-file-circle-check"></i>
+
+<h3>
+Medios de impugnación
+</h3>
+
+<p>
+
+Artículos 130 a 132 de la LNEP: revocación y apelación,
+incluyendo los supuestos de procedencia previstos por la ley.
+
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     DESARROLLO
+     ========================================= -->
+
+<section id="desarrollo">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Desarrollo de la sesión
+</h2>
+
+</div>
+
+
+
+<!-- TEMA 1 -->
+
+<div class="bloque">
+
+<h3>
+1. Inicio de la etapa de ejecución
+</h3>
+
+
+<p>
+
+La etapa de ejecución comienza una vez que la sentencia ha causado
+ejecutoria y corresponde llevar a cabo las actuaciones necesarias para
+su cumplimiento.
+
+</p>
+
+
+<p>
+
+En esta fase adquiere especial relevancia el Juez de Ejecución,
+quien tiene competencia para resolver las controversias relacionadas
+con la ejecución penal dentro del ámbito que establece la Ley Nacional
+de Ejecución Penal.
+
+</p>
+
+</div>
+
+
+
+<!-- TEMA 2 -->
+
+<div class="bloque">
+
+<h3>
+2. Remisión de la sentencia firme
+</h3>
+
+
+<p>
+
+Una vez que la sentencia condenatoria causa ejecutoria, el órgano
+jurisdiccional que conoció del juicio debe realizar las actuaciones
+correspondientes para poner la sentencia en conocimiento del Juez de
+Ejecución y de la autoridad penitenciaria.
+
+</p>
+
+
+<p>
+
+El Código Nacional de Procedimientos Penales establece reglas
+específicas para la puesta a disposición y el inicio de la ejecución.
+
+</p>
+
+</div>
+
+
+
+<!-- TEMA 3 -->
+
+<div class="bloque">
+
+<h3>
+3. Sujetos procesales que intervienen
+</h3>
+
+
+<p>
+
+La naturaleza de la controversia determina quiénes pueden intervenir
+en el procedimiento ante el Juez de Ejecución.
+
+</p>
+
+
+<ul>
+
+<li>
+Persona privada de la libertad.
+</li>
+
+<li>
+Defensor público o privado.
+</li>
+
+<li>
+Ministerio Público.
+</li>
+
+<li>
+Autoridad Penitenciaria o quien la represente.
+</li>
+
+<li>
+Promovente de la acción o recurso.
+</li>
+
+<li>
+Víctima y asesor jurídico, cuando corresponda conforme a la ley.
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- TEMA 4 -->
+
+<div class="bloque">
+
+<h3>
+4. Peticiones, planteamientos y controversias
+</h3>
+
+
+<p>
+
+Durante la ejecución pueden surgir controversias relacionadas con
+la duración, modificación o extinción de la pena, medidas de seguridad,
+condiciones de internamiento, traslados, sanciones disciplinarias,
+reparación del daño y otros aspectos previstos por la legislación.
+
+</p>
+
+
+<p>
+
+El procedimiento permite que las partes formulen sus planteamientos
+ante el órgano jurisdiccional y que estos sean resueltos mediante el
+procedimiento correspondiente.
+
+</p>
+
+</div>
+
+
+
+<!-- TEMA 5 -->
+
+<div class="bloque">
+
+<h3>
+5. Audiencias de ejecución
+</h3>
+
+
+<p>
+
+Cuando la controversia requiere audiencia, ésta es presidida por el
+Juez de Ejecución y se desarrolla conforme a las reglas establecidas
+por la Ley Nacional de Ejecución Penal y, en lo conducente, el Código.
+
+</p>
+
+
+<h4>
+Etapas básicas de la audiencia
+</h4>
+
+
+<ul>
+
+<li>
+Identificación y verificación de los intervinientes.
+</li>
+
+<li>
+Apertura de la audiencia.
+</li>
+
+<li>
+Explicación del motivo de la audiencia.
+</li>
+
+<li>
+Intervención de las partes.
+</li>
+
+<li>
+Discusión sobre los medios de prueba.
+</li>
+
+<li>
+Desahogo de pruebas cuando corresponda.
+</li>
+
+<li>
+Alegatos finales.
+</li>
+
+<li>
+Cierre del debate.
+</li>
+
+<li>
+Emisión y explicación de la resolución.
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- TEMA 6 -->
+
+<div class="bloque">
+
+<h3>
+6. Principios de contradicción, inmediación y oralidad
+</h3>
+
+
+<h4>
+Contradicción
+</h4>
+
+<p>
+
+Permite que las partes conozcan, controviertan y debatan los
+planteamientos y medios de prueba presentados durante el procedimiento.
+
+</p>
+
+
+<h4>
+Inmediación
+</h4>
+
+<p>
+
+Implica la participación directa del Juez en el desarrollo de la
+audiencia y en la percepción de los actos procesales que correspondan.
+
+</p>
+
+
+<h4>
+Oralidad
+</h4>
+
+<p>
+
+Los actos de debate y audiencia se desarrollan mediante la expresión
+oral de los planteamientos de las partes, conforme a las reglas
+establecidas por la legislación.
+
+</p>
+
+</div>
+
+
+
+<!-- TEMA 7 -->
+
+<div class="bloque">
+
+<h3>
+7. Resoluciones del Juez de Ejecución
+</h3>
+
+
+<p>
+
+Una vez concluido el debate, el Juez de Ejecución emite la resolución
+correspondiente.
+
+</p>
+
+
+<p>
+
+La resolución debe atender la controversia planteada y encontrarse
+debidamente fundamentada y motivada, dentro del marco de sus
+atribuciones legales.
+
+</p>
+
+
+<p>
+
+La Ley Nacional de Ejecución Penal contempla reglas específicas para
+la emisión, explicación, redacción y notificación de las resoluciones.
+
+</p>
+
+</div>
+
+
+
+<!-- TEMA 8 -->
+
+<div class="bloque">
+
+<h3>
+8. Medios de impugnación
+</h3>
+
+
+<p>
+
+Las decisiones adoptadas durante el procedimiento de ejecución pueden
+ser susceptibles de los medios de impugnación previstos por la Ley
+Nacional de Ejecución Penal.
+
+</p>
+
+
+<h4>
+Revocación
+</h4>
+
+<p>
+
+Procede en los supuestos establecidos por la propia Ley y constituye
+un mecanismo de revisión dentro del ámbito del procedimiento de
+ejecución.
+
+</p>
+
+
+<h4>
+Apelación
+</h4>
+
+<p>
+
+La Ley Nacional de Ejecución Penal establece los supuestos en los que
+procede la apelación contra determinadas resoluciones del Juez de
+Ejecución.
+
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     ESQUEMA CONCEPTUAL
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Esquema conceptual
+</h2>
+
+<p>
+Del dictado de la sentencia a la resolución de la controversia
+</p>
+
+</div>
+
+
+<div class="esquema">
+
+
+<div class="esquema-linea">
+Sentencia condenatoria firme
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Remisión al Juez de Ejecución
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Inicio de la ejecución
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Petición o controversia
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Contestación y medios de prueba
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Audiencia de ejecución
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Debate y alegatos
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Resolución del Juez de Ejecución
+</div>
+
+<div class="flecha">
+↓
+</div>
+
+
+<div class="esquema-linea">
+Medio de impugnación, cuando proceda
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     CASO PRÁCTICO
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Caso práctico
+</h2>
+
+<p>
+Aplicación de los contenidos
+</p>
+
+</div>
+
+
+<div class="caso">
+
+<p>
+
+<strong>Supuesto:</strong>
+
+Una persona sentenciada se encuentra privada de la libertad.
+Durante la ejecución de la pena surge una controversia relacionada
+con el cómputo del tiempo que debe considerarse para el cumplimiento
+de la sanción.
+
+</p>
+
+
+<p>
+
+La defensa considera que existe un error en la determinación realizada
+por la autoridad correspondiente y decide acudir ante el Juez de
+Ejecución.
+
+</p>
+
+
+<p>
+
+<strong>Problema jurídico:</strong>
+
+¿Puede el Juez de Ejecución conocer y resolver la controversia?
+¿Qué sujetos deben intervenir? ¿Qué procedimiento debe seguirse?
+¿Es necesaria una audiencia? ¿Qué principios deben observarse?
+
+</p>
+
+
+<p>
+
+<strong>Actividad de análisis:</strong>
+
+Identifica la norma aplicable, determina quiénes intervienen,
+explica la ruta procesal y señala qué resolución podría emitir
+el Juez de Ejecución.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     ACTIVIDAD
+     ========================================= -->
+
+<section id="actividad">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Actividad de aprendizaje
+</h2>
+
+<p>
+Análisis de un procedimiento jurisdiccional de ejecución
+</p>
+
+</div>
+
+
+<div class="actividad">
+
+<h3>
+Instrucciones
+</h3>
+
+
+<ol>
+
+<li>
+
+Explica qué ocurre jurídicamente cuando una sentencia
+condenatoria causa ejecutoria.
+
+</li>
+
+
+<li>
+
+Identifica las funciones que corresponden al Juez de Ejecución.
+
+</li>
+
+
+<li>
+
+Señala quiénes pueden intervenir como partes procesales.
+
+</li>
+
+
+<li>
+
+Describe las principales etapas de una audiencia de ejecución.
+
+</li>
+
+
+<li>
+
+Explica la importancia de los principios de contradicción,
+inmediación y oralidad.
+
+</li>
+
+
+<li>
+
+Identifica los medios de impugnación previstos por la legislación
+de ejecución penal.
+
+</li>
+
+
+<li>
+
+Construye un esquema que represente el procedimiento desde la
+sentencia firme hasta la resolución.
+
+</li>
+
+</ol>
+
+
+<p>
+
+<strong>Producto:</strong>
+
+Esquema procesal acompañado de una explicación jurídica de una
+cuartilla.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     AUTOEVALUACIÓN
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Autoevaluación
+</h2>
+
+<p>
+Comprueba tu comprensión de la sesión
+</p>
+
+</div>
+
+
+<div class="preguntas">
+
+
+<div class="pregunta">
+
+<strong>
+1.
+</strong>
+
+¿Cuándo adquiere relevancia la intervención del Juez de Ejecución
+dentro del procedimiento?
+
+</div>
+
+
+<div class="pregunta">
+
+<strong>
+2.
+</strong>
+
+¿Qué diferencia existe entre el órgano jurisdiccional que dicta
+la sentencia y el Juez de Ejecución?
+
+</div>
+
+
+<div class="pregunta">
+
+<strong>
+3.
+</strong>
+
+¿Por qué la ejecución penal requiere control jurisdiccional?
+
+</div>
+
+
+<div class="pregunta">
+
+<strong>
+4.
+</strong>
+
+¿Qué sujetos pueden intervenir en un procedimiento ante el
+Juez de Ejecución?
+
+</div>
+
+
+<div class="pregunta">
+
+<strong>
+5.
+</strong>
+
+¿Cómo se manifiesta el principio de contradicción en una audiencia
+de ejecución?
+
+</div>
+
+
+<div class="pregunta">
+
+<strong>
+6.
+</strong>
+
+¿Qué importancia tiene la inmediación del Juez?
+
+</div>
+
+
+<div class="pregunta">
+
+<strong>
+7.
+</strong>
+
+¿Qué función cumplen los medios de impugnación dentro de la
+ejecución penal?
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     RECURSOS
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Recursos para profundizar
+</h2>
+
+<p>
+Material jurídico de consulta
+</p>
+
+</div>
+
+
+<div class="marco-grid">
+
+
+<div class="marco">
+
+<i class="fa-solid fa-book"></i>
+
+<h3>
+Constitución
+</h3>
+
+<p>
+Consulta el artículo 18 y las disposiciones constitucionales
+relacionadas con el sistema penitenciario y la ejecución de penas.
+</p>
+
+</div>
+
+
+<div class="marco">
+
+<i class="fa-solid fa-scale-balanced"></i>
+
+<h3>
+Código Nacional de Procedimientos Penales
+</h3>
+
+<p>
+Revisa especialmente las disposiciones relativas a la puesta a
+disposición y al inicio de la ejecución.
+</p>
+
+</div>
+
+
+<div class="marco">
+
+<i class="fa-solid fa-gavel"></i>
+
+<h3>
+Ley Nacional de Ejecución Penal
+</h3>
+
+<p>
+Consulta las disposiciones sobre competencia del Juez de Ejecución,
+procedimiento jurisdiccional, audiencias y medios de impugnación.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     NAVEGACIÓN
+     ========================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="navegacion">
+
+
+<a href="../../index.html">
+
+← Volver a Ejecución de Sentencias
+
+</a>
+
+
+<a href="../../index.html">
+
+Volver al portal académico →
+
+</a>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+
+<footer>
+
+<p>
+
+<strong>
+Mtro. Daniel Moreno Cortés
+</strong>
+
+</p>
+
+
+<p>
+Educación Jurídica | Portal Académico
+</p>
+
+
+<p>
+© 2026 Todos los derechos reservados.
+</p>
+
+</footer>
+
+
+</body>
+
+</html>
