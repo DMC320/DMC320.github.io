@@ -24,13 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const map = L.map('map').setView(defaultCenter, defaultZoom);
 
-    // Capa de OpenStreetMap
+    // Capa base de OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Actualizar tamaño del mapa
+    // Forzar actualización del tamaño del mapa
     setTimeout(() => {
         map.invalidateSize();
     }, 100);
@@ -41,9 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let crimeEvents = [];
 
+    // Marcadores de eventos
     let markersLayer = L.layerGroup().addTo(map);
 
+    // Círculo de Canter y centro geográfico
     let canterCircleLayer = L.layerGroup().addTo(map);
+
+    // NUEVA CAPA:
+    // Visualización de la zona probable según Márkov
+    let markovZoneLayer = L.layerGroup().addTo(map);
 
     // ============================================================
     // CONFIGURACIÓN DE ZONAS
@@ -52,15 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /*
         Dividimos el mapa en una cuadrícula.
 
-        Cada zona tiene aproximadamente 0.05 grados.
-        Esto permite convertir coordenadas geográficas
-        en "estados" para la cadena de Márkov.
+        Cada zona funciona como un "estado"
+        dentro de la cadena de Márkov.
 
         Ejemplo:
 
-        A1 → A2 → B2 → B3
+        M-2 → M-1 → N-1 → N-2
 
-        Cada zona representa un estado.
+        La zona depende de la latitud y longitud
+        donde se registra el evento.
     */
 
     const GRID_SIZE = 0.05;
@@ -69,27 +76,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // ELEMENTOS DE LA INTERFAZ
     // ============================================================
 
-    const eventCountEl = document.getElementById('event-count');
+    const eventCountEl =
+        document.getElementById('event-count');
 
-    const estimatedRadiusEl = document.getElementById('estimated-radius');
+    const estimatedRadiusEl =
+        document.getElementById('estimated-radius');
 
-    const centerCoordsEl = document.getElementById('center-coords');
+    const centerCoordsEl =
+        document.getElementById('center-coords');
 
-    const clearEventsBtn = document.getElementById('clear-events');
+    const clearEventsBtn =
+        document.getElementById('clear-events');
 
     // ============================================================
     // CREAR PANEL DE MÁRKOV
     // ============================================================
 
-    const markovPanel = document.createElement('div');
+    const markovPanel =
+        document.createElement('div');
 
-    markovPanel.id = 'markov-analysis';
+    markovPanel.id =
+        'markov-analysis';
 
-    markovPanel.style.marginTop = '25px';
-    markovPanel.style.paddingTop = '18px';
-    markovPanel.style.borderTop = '1px solid #d1d5db';
+    markovPanel.style.marginTop =
+        '25px';
+
+    markovPanel.style.paddingTop =
+        '18px';
+
+    markovPanel.style.borderTop =
+        '1px solid #d1d5db';
 
     markovPanel.innerHTML = `
+
         <h3 style="
             margin: 0 0 15px 0;
             font-size: 16px;
@@ -99,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </h3>
 
         <div style="margin-bottom: 12px;">
+
             <div style="
                 font-size: 11px;
                 color: #64748b;
@@ -116,9 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
             ">
                 —
             </div>
+
         </div>
 
         <div style="margin-bottom: 12px;">
+
             <div style="
                 font-size: 11px;
                 color: #64748b;
@@ -136,9 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
             ">
                 —
             </div>
+
         </div>
 
         <div style="margin-bottom: 15px;">
+
             <div style="
                 font-size: 11px;
                 color: #64748b;
@@ -155,9 +179,11 @@ document.addEventListener('DOMContentLoaded', () => {
             ">
                 0%
             </div>
+
         </div>
 
         <div>
+
             <div style="
                 font-size: 11px;
                 color: #64748b;
@@ -174,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ">
                 Sin datos suficientes
             </div>
+
         </div>
 
         <div style="
@@ -186,29 +213,43 @@ document.addEventListener('DOMContentLoaded', () => {
             line-height: 1.5;
             color: #475569;
         ">
+
             <strong>Modelo:</strong><br>
-            La cadena de Márkov analiza la secuencia de zonas
-            registradas y calcula la probabilidad de transición
-            hacia otra zona.
+
+            La cadena de Márkov analiza la secuencia
+            de zonas registradas y calcula la probabilidad
+            de transición hacia otra zona.
+
         </div>
+
     `;
 
-    // Insertar el panel después del botón de limpiar
-    if (clearEventsBtn && clearEventsBtn.parentElement) {
-        clearEventsBtn.parentElement.appendChild(markovPanel);
+    // Insertar panel después del botón
+    if (
+        clearEventsBtn &&
+        clearEventsBtn.parentElement
+    ) {
+
+        clearEventsBtn.parentElement
+            .appendChild(markovPanel);
+
     }
 
     // ============================================================
-    // REFERENCIAS A LOS ELEMENTOS DEL PANEL DE MÁRKOV
+    // REFERENCIAS A ELEMENTOS DEL PANEL
     // ============================================================
 
-    const currentZoneEl = document.getElementById('current-zone');
+    const currentZoneEl =
+        document.getElementById('current-zone');
 
-    const nextZoneEl = document.getElementById('next-zone');
+    const nextZoneEl =
+        document.getElementById('next-zone');
 
-    const nextProbabilityEl = document.getElementById('next-probability');
+    const nextProbabilityEl =
+        document.getElementById('next-probability');
 
-    const transitionListEl = document.getElementById('transition-list');
+    const transitionListEl =
+        document.getElementById('transition-list');
 
     // ============================================================
     // FUNCIÓN: OBTENER ZONA
@@ -216,31 +257,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getZone(lat, lng) {
 
-        /*
-            Convertimos las coordenadas en una cuadrícula.
+        const row =
+            Math.floor(
+                (lat - defaultCenter[0]) /
+                GRID_SIZE
+            );
 
-            El resultado será algo como:
+        const column =
+            Math.floor(
+                (lng - defaultCenter[1]) /
+                GRID_SIZE
+            );
 
-            A1
-            A2
-            B1
-            B2
-            C3
-
-            La fila representa la latitud.
-            La columna representa la longitud.
-        */
-
-        const row = Math.floor(
-            (lat - defaultCenter[0]) / GRID_SIZE
-        );
-
-        const column = Math.floor(
-            (lng - defaultCenter[1]) / GRID_SIZE
-        );
-
-        // Convertir fila a letra
-        const rowLetter = numberToLetter(row);
+        const rowLetter =
+            numberToLetter(row);
 
         return `${rowLetter}${column}`;
     }
@@ -251,122 +281,425 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function numberToLetter(number) {
 
-        /*
-            Permite obtener:
+        const index =
+            number + 13;
 
-            0  → A
-            1  → B
-            2  → C
-            -1 → Z
-            -2 → Y
-        */
+        if (
+            index >= 0 &&
+            index < 26
+        ) {
 
-        const index = number + 13;
+            return String.fromCharCode(
+                65 + index
+            );
 
-        if (index >= 0 && index < 26) {
-            return String.fromCharCode(65 + index);
         }
 
         return `R${number}`;
     }
 
     // ============================================================
-    // FUNCIÓN: ACTUALIZAR PANEL PRINCIPAL
+    // NUEVA FUNCIÓN:
+    // OBTENER LÍMITES GEOGRÁFICOS DE UNA ZONA
     // ============================================================
 
-    function updatePanel() {
+    function getZoneBounds(zone) {
 
-        eventCountEl.textContent = crimeEvents.length;
+        /*
+            Convierte una zona como:
 
-        // --------------------------------------------------------
-        // SIN EVENTOS
-        // --------------------------------------------------------
+            M-2
+            M-1
+            N0
+            N1
 
-        if (crimeEvents.length === 0) {
+            en límites geográficos
+            para poder dibujarla en Leaflet.
+        */
 
-            centerCoordsEl.textContent = 'Sin definir';
+        const match =
+            zone.match(/^([A-Z]+)(-?\d+)$/);
 
-            estimatedRadiusEl.textContent = '0.00 km';
+        if (!match) {
+            return null;
+        }
 
-            currentZoneEl.textContent = '—';
+        const letter =
+            match[1];
 
-            nextZoneEl.textContent = '—';
+        const column =
+            parseInt(
+                match[2],
+                10
+            );
 
-            nextProbabilityEl.textContent = '0%';
+        const row =
+            letter.charCodeAt(0) -
+            65 -
+            13;
 
-            transitionListEl.innerHTML = 'Sin datos suficientes';
+        const south =
+            defaultCenter[0] +
+            (row * GRID_SIZE);
+
+        const north =
+            south +
+            GRID_SIZE;
+
+        const west =
+            defaultCenter[1] +
+            (column * GRID_SIZE);
+
+        const east =
+            west +
+            GRID_SIZE;
+
+        return [
+            [south, west],
+            [north, east]
+        ];
+    }
+
+    // ============================================================
+    // NUEVA FUNCIÓN:
+    // VISUALIZAR ZONA PROBABLE
+    // ============================================================
+
+    function visualizePredictedZone(
+        zone,
+        probability
+    ) {
+
+        // Limpiar cualquier predicción anterior
+        markovZoneLayer.clearLayers();
+
+        if (!zone) {
+            return;
+        }
+
+        // Obtener límites
+        const bounds =
+            getZoneBounds(zone);
+
+        if (!bounds) {
+            console.warn(
+                'No se pudieron calcular los límites de la zona:',
+                zone
+            );
 
             return;
         }
 
-        // --------------------------------------------------------
-        // CÁLCULO DEL CENTRO GEOGRÁFICO
-        // --------------------------------------------------------
+        // ========================================================
+        // DIBUJAR RECTÁNGULO DE LA ZONA
+        // ========================================================
+
+        const predictedRectangle =
+            L.rectangle(
+                bounds,
+                {
+
+                    color: '#16a34a',
+
+                    weight: 4,
+
+                    fillColor: '#22c55e',
+
+                    fillOpacity: 0.25,
+
+                    dashArray: '8, 6'
+
+                }
+            )
+            .addTo(markovZoneLayer);
+
+        // ========================================================
+        // OBTENER CENTRO DE LA ZONA
+        // ========================================================
+
+        const zoneCenter =
+            predictedRectangle
+                .getBounds()
+                .getCenter();
+
+        // ========================================================
+        // MARCADOR DE LA ZONA PROBABLE
+        // ========================================================
+
+        L.marker(
+            zoneCenter,
+            {
+
+                icon: L.divIcon({
+
+                    className:
+                        'predicted-zone-marker',
+
+                    html: `
+
+                        <div style="
+                            background:#15803d;
+                            color:white;
+                            padding:8px 12px;
+                            border-radius:6px;
+                            border:2px solid white;
+                            box-shadow:0 2px 8px rgba(0,0,0,.35);
+                            font-family:Arial,sans-serif;
+                            font-size:12px;
+                            font-weight:bold;
+                            text-align:center;
+                            line-height:1.3;
+                            white-space:nowrap;
+                        ">
+
+                            ZONA PROBABLE<br>
+
+                            <span style="
+                                font-size:15px;
+                            ">
+                                ${zone}
+                            </span>
+
+                            <br>
+
+                            <span style="
+                                font-size:11px;
+                            ">
+                                ${(probability * 100).toFixed(1)}%
+                            </span>
+
+                        </div>
+
+                    `,
+
+                    iconSize:
+                        [130, 65],
+
+                    iconAnchor:
+                        [65, 32]
+
+                })
+
+            }
+        )
+        .addTo(markovZoneLayer)
+        .bindPopup(`
+
+            <div style="
+                font-family:Arial,sans-serif;
+                text-align:center;
+            ">
+
+                <strong>
+                    Zona con mayor probabilidad
+                </strong>
+
+                <hr>
+
+                <div>
+                    <strong>Zona:</strong>
+                    ${zone}
+                </div>
+
+                <div>
+                    <strong>Probabilidad:</strong>
+                    ${(probability * 100).toFixed(1)}%
+                </div>
+
+                <div style="
+                    margin-top:8px;
+                    font-size:11px;
+                    color:#64748b;
+                ">
+                    Resultado del modelo de Márkov
+                    con los eventos registrados.
+                </div>
+
+            </div>
+
+        `);
+
+        // ========================================================
+        // LÍNEA DESDE EL ÚLTIMO EVENTO
+        // HACIA LA ZONA PROBABLE
+        // ========================================================
+
+        if (crimeEvents.length > 0) {
+
+            const currentEvent =
+                crimeEvents[
+                    crimeEvents.length - 1
+                ];
+
+            L.polyline(
+                [
+
+                    [
+                        currentEvent.lat,
+                        currentEvent.lng
+                    ],
+
+                    [
+                        zoneCenter.lat,
+                        zoneCenter.lng
+                    ]
+
+                ],
+                {
+
+                    color: '#16a34a',
+
+                    weight: 3,
+
+                    dashArray: '6, 8',
+
+                    opacity: 0.8
+
+                }
+            )
+            .addTo(markovZoneLayer);
+
+        }
+
+    }
+
+    // ============================================================
+    // ACTUALIZAR PANEL PRINCIPAL
+    // ============================================================
+
+    function updatePanel() {
+
+        eventCountEl.textContent =
+            crimeEvents.length;
+
+        // ========================================================
+        // SIN EVENTOS
+        // ========================================================
+
+        if (
+            crimeEvents.length === 0
+        ) {
+
+            centerCoordsEl.textContent =
+                'Sin definir';
+
+            estimatedRadiusEl.textContent =
+                '0.00 km';
+
+            currentZoneEl.textContent =
+                '—';
+
+            nextZoneEl.textContent =
+                '—';
+
+            nextProbabilityEl.textContent =
+                '0%';
+
+            transitionListEl.innerHTML =
+                'Sin datos suficientes';
+
+            // IMPORTANTE:
+            // eliminar predicción anterior
+            markovZoneLayer.clearLayers();
+
+            return;
+        }
+
+        // ========================================================
+        // CENTRO GEOGRÁFICO
+        // ========================================================
 
         let totalLat = 0;
-
         let totalLng = 0;
 
-        crimeEvents.forEach(event => {
+        crimeEvents.forEach(
+            event => {
 
-            totalLat += event.lat;
+                totalLat +=
+                    event.lat;
 
-            totalLng += event.lng;
+                totalLng +=
+                    event.lng;
 
-        });
+            }
+        );
 
-        const centerLat = totalLat / crimeEvents.length;
+        const centerLat =
+            totalLat /
+            crimeEvents.length;
 
-        const centerLng = totalLng / crimeEvents.length;
+        const centerLng =
+            totalLng /
+            crimeEvents.length;
 
         centerCoordsEl.textContent =
             `${centerLat.toFixed(4)}, ${centerLng.toFixed(4)}`;
 
-        // --------------------------------------------------------
-        // CÁLCULO DEL RADIO
-        // --------------------------------------------------------
+        // ========================================================
+        // RADIO
+        // ========================================================
 
         let maxDistance = 0;
 
-        const centerPoint = L.latLng(
-            centerLat,
-            centerLng
-        );
-
-        crimeEvents.forEach(event => {
-
-            const eventPoint = L.latLng(
-                event.lat,
-                event.lng
+        const centerPoint =
+            L.latLng(
+                centerLat,
+                centerLng
             );
 
-            const distance =
-                centerPoint.distanceTo(eventPoint) / 1000;
+        crimeEvents.forEach(
+            event => {
 
-            if (distance > maxDistance) {
-                maxDistance = distance;
+                const eventPoint =
+                    L.latLng(
+                        event.lat,
+                        event.lng
+                    );
+
+                const distance =
+                    centerPoint
+                        .distanceTo(
+                            eventPoint
+                        ) / 1000;
+
+                if (
+                    distance >
+                    maxDistance
+                ) {
+
+                    maxDistance =
+                        distance;
+
+                }
+
             }
-
-        });
+        );
 
         estimatedRadiusEl.textContent =
             `${maxDistance.toFixed(2)} km`;
 
-        // --------------------------------------------------------
+        // ========================================================
         // DIBUJAR CÍRCULO DE CANTER
-        // --------------------------------------------------------
+        // ========================================================
 
-        canterCircleLayer.clearLayers();
+        canterCircleLayer
+            .clearLayers();
 
-        // Marcador del centro
+        // Centro geográfico
         L.marker(
-            [centerLat, centerLng],
+            [
+                centerLat,
+                centerLng
+            ],
             {
+
                 icon: L.divIcon({
 
-                    className: 'center-marker',
+                    className:
+                        'center-marker',
 
                     html: `
+
                         <div style="
                             background-color:#ef4444;
                             width:14px;
@@ -375,52 +708,74 @@ document.addEventListener('DOMContentLoaded', () => {
                             border:2px solid white;
                             box-shadow:0 0 4px rgba(0,0,0,0.4);
                         "></div>
+
                     `,
 
-                    iconSize: [14, 14],
+                    iconSize:
+                        [14, 14],
 
-                    iconAnchor: [7, 7]
+                    iconAnchor:
+                        [7, 7]
 
                 })
+
             }
         )
-        .addTo(canterCircleLayer)
+        .addTo(
+            canterCircleLayer
+        )
         .bindPopup(
             'Centro Geográfico / Áncora estimada'
         );
 
-        // Dibujar círculo
-        if (maxDistance > 0) {
+        // ========================================================
+        // CÍRCULO
+        // ========================================================
+
+        if (
+            maxDistance > 0
+        ) {
 
             L.circle(
-                [centerLat, centerLng],
+                [
+                    centerLat,
+                    centerLng
+                ],
                 {
 
-                    radius: maxDistance * 1000,
+                    radius:
+                        maxDistance * 1000,
 
-                    color: '#3b82f6',
+                    color:
+                        '#3b82f6',
 
-                    fillColor: '#3b82f6',
+                    fillColor:
+                        '#3b82f6',
 
-                    fillOpacity: 0.15,
+                    fillOpacity:
+                        0.15,
 
-                    weight: 2
+                    weight:
+                        2
 
                 }
             )
-            .addTo(canterCircleLayer);
+            .addTo(
+                canterCircleLayer
+            );
 
         }
 
-        // --------------------------------------------------------
+        // ========================================================
         // ACTUALIZAR MÁRKOV
-        // --------------------------------------------------------
+        // ========================================================
 
         updateMarkovAnalysis();
+
     }
 
     // ============================================================
-    // FUNCIÓN: CONSTRUIR TRANSICIONES
+    // CONSTRUIR TRANSICIONES
     // ============================================================
 
     function buildTransitions() {
@@ -430,16 +785,18 @@ document.addEventListener('DOMContentLoaded', () => {
         /*
             Ejemplo:
 
-            A1 → A2
-            A2 → B2
-            B2 → B3
+            M-2 → M-2
+            M-2 → N-2
+            N-2 → N-3
 
-            Se cuentan las veces que ocurre cada transición.
+            Se cuentan las veces que ocurre
+            cada transición.
         */
 
         for (
             let i = 0;
-            i < crimeEvents.length - 1;
+            i <
+            crimeEvents.length - 1;
             i++
         ) {
 
@@ -450,67 +807,111 @@ document.addEventListener('DOMContentLoaded', () => {
                 crimeEvents[i + 1].zone;
 
             // Crear estado actual
-            if (!transitions[current]) {
-                transitions[current] = {};
+            if (
+                !transitions[current]
+            ) {
+
+                transitions[current] =
+                    {};
+
             }
 
             // Crear transición
-            if (!transitions[current][next]) {
-                transitions[current][next] = 0;
+            if (
+                !transitions[current][next]
+            ) {
+
+                transitions[current][next] =
+                    0;
+
             }
 
             // Incrementar contador
             transitions[current][next]++;
+
         }
 
         return transitions;
     }
 
     // ============================================================
-    // FUNCIÓN: CONSTRUIR MATRIZ DE MÁRKOV
+    // CONSTRUIR MATRIZ DE MÁRKOV
     // ============================================================
 
-    function buildMarkovMatrix(transitions) {
+    function buildMarkovMatrix(
+        transitions
+    ) {
 
         const matrix = {};
 
-        Object.keys(transitions).forEach(currentZone => {
+        Object.keys(
+            transitions
+        )
+        .forEach(
+            currentZone => {
 
-            matrix[currentZone] = {};
+                matrix[currentZone] =
+                    {};
 
-            const total =
-                Object.values(
-                    transitions[currentZone]
+                const total =
+                    Object.values(
+                        transitions[
+                            currentZone
+                        ]
+                    )
+                    .reduce(
+                        (
+                            sum,
+                            value
+                        ) =>
+                            sum + value,
+                        0
+                    );
+
+                Object.keys(
+                    transitions[
+                        currentZone
+                    ]
                 )
-                .reduce(
-                    (sum, value) => sum + value,
-                    0
+                .forEach(
+                    nextZone => {
+
+                        matrix[
+                            currentZone
+                        ][
+                            nextZone
+                        ] =
+                            transitions[
+                                currentZone
+                            ][
+                                nextZone
+                            ] / total;
+
+                    }
                 );
 
-            Object.keys(
-                transitions[currentZone]
-            )
-            .forEach(nextZone => {
-
-                matrix[currentZone][nextZone] =
-                    transitions[currentZone][nextZone] /
-                    total;
-
-            });
-
-        });
+            }
+        );
 
         return matrix;
     }
 
     // ============================================================
-    // FUNCIÓN: ACTUALIZAR ANÁLISIS DE MÁRKOV
+    // ACTUALIZAR ANÁLISIS DE MÁRKOV
     // ============================================================
 
     function updateMarkovAnalysis() {
 
-        // Necesitamos por lo menos dos eventos
-        if (crimeEvents.length < 2) {
+        // ========================================================
+        // MENOS DE DOS EVENTOS
+        // ========================================================
+
+        if (
+            crimeEvents.length < 2
+        ) {
+
+            markovZoneLayer
+                .clearLayers();
 
             currentZoneEl.textContent =
                 crimeEvents.length === 1
@@ -529,23 +930,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // --------------------------------------------------------
-        // OBTENER TRANSICIONES
-        // --------------------------------------------------------
+        // ========================================================
+        // TRANSICIONES
+        // ========================================================
 
         const transitions =
             buildTransitions();
 
-        // --------------------------------------------------------
-        // OBTENER MATRIZ DE MÁRKOV
-        // --------------------------------------------------------
+        // ========================================================
+        // MATRIZ
+        // ========================================================
 
         const markovMatrix =
-            buildMarkovMatrix(transitions);
+            buildMarkovMatrix(
+                transitions
+            );
 
-        // --------------------------------------------------------
+        // ========================================================
         // ZONA ACTUAL
-        // --------------------------------------------------------
+        // ========================================================
 
         const currentZone =
             crimeEvents[
@@ -555,11 +958,18 @@ document.addEventListener('DOMContentLoaded', () => {
         currentZoneEl.textContent =
             currentZone;
 
-        // --------------------------------------------------------
-        // COMPROBAR SI EXISTE INFORMACIÓN
-        // --------------------------------------------------------
+        // ========================================================
+        // COMPROBAR INFORMACIÓN
+        // ========================================================
 
-        if (!markovMatrix[currentZone]) {
+        if (
+            !markovMatrix[
+                currentZone
+            ]
+        ) {
+
+            markovZoneLayer
+                .clearLayers();
 
             nextZoneEl.textContent =
                 'Sin datos';
@@ -573,26 +983,31 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // --------------------------------------------------------
-        // OBTENER PROBABILIDADES
-        // --------------------------------------------------------
+        // ========================================================
+        // PROBABILIDADES
+        // ========================================================
 
         const probabilities =
-            markovMatrix[currentZone];
+            markovMatrix[
+                currentZone
+            ];
 
-        // --------------------------------------------------------
-        // ORDENAR DE MAYOR A MENOR
-        // --------------------------------------------------------
+        // ========================================================
+        // ORDENAR PROBABILIDADES
+        // ========================================================
 
         const sortedTransitions =
-            Object.entries(probabilities)
+            Object.entries(
+                probabilities
+            )
             .sort(
-                (a, b) => b[1] - a[1]
+                (a, b) =>
+                    b[1] - a[1]
             );
 
-        // --------------------------------------------------------
+        // ========================================================
         // SIGUIENTE ZONA MÁS PROBABLE
-        // --------------------------------------------------------
+        // ========================================================
 
         const mostLikely =
             sortedTransitions[0];
@@ -603,15 +1018,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const probability =
             mostLikely[1];
 
+        // ========================================================
+        // ACTUALIZAR PANEL
+        // ========================================================
+
         nextZoneEl.textContent =
             nextZone;
 
         nextProbabilityEl.textContent =
-            `${(probability * 100).toFixed(1)}%`;
+            `${(
+                probability * 100
+            ).toFixed(1)}%`;
 
-        // --------------------------------------------------------
+        // ========================================================
+        // NUEVO:
+        // VISUALIZAR ZONA PROBABLE EN EL MAPA
+        // ========================================================
+
+        visualizePredictedZone(
+            nextZone,
+            probability
+        );
+
+        // ========================================================
         // CONSTRUIR LISTA DE TRANSICIONES
-        // --------------------------------------------------------
+        // ========================================================
 
         let html = '';
 
@@ -619,38 +1050,52 @@ document.addEventListener('DOMContentLoaded', () => {
             ([zone, probability]) => {
 
                 html += `
+
                     <div style="
                         display:flex;
                         justify-content:space-between;
                         border-bottom:1px solid #e5e7eb;
                         padding:3px 0;
                     ">
+
                         <span>
-                            ${currentZone} → ${zone}
+                            ${currentZone}
+                            →
+                            ${zone}
                         </span>
 
                         <strong>
-                            ${(probability * 100).toFixed(1)}%
+                            ${(
+                                probability * 100
+                            ).toFixed(1)}%
                         </strong>
+
                     </div>
+
                 `;
 
             }
         );
 
-        transitionListEl.innerHTML = html;
+        transitionListEl.innerHTML =
+            html;
+
     }
 
     // ============================================================
-    // FUNCIÓN: MOSTRAR MATRIZ COMPLETA EN CONSOLA
+    // MOSTRAR MATRIZ COMPLETA EN CONSOLA
     // ============================================================
 
     function showMarkovMatrixInConsole() {
 
-        if (crimeEvents.length < 2) {
+        if (
+            crimeEvents.length < 2
+        ) {
+
             console.log(
                 'No hay suficientes eventos para construir la matriz.'
             );
+
             return;
         }
 
@@ -658,7 +1103,9 @@ document.addEventListener('DOMContentLoaded', () => {
             buildTransitions();
 
         const matrix =
-            buildMarkovMatrix(transitions);
+            buildMarkovMatrix(
+                transitions
+            );
 
         console.log(
             '========================================'
@@ -672,7 +1119,9 @@ document.addEventListener('DOMContentLoaded', () => {
             '========================================'
         );
 
-        console.table(matrix);
+        console.table(
+            matrix
+        );
 
         return matrix;
     }
@@ -681,148 +1130,177 @@ document.addEventListener('DOMContentLoaded', () => {
     // REGISTRAR EVENTO AL HACER CLIC
     // ============================================================
 
-    map.on('click', (e) => {
+    map.on(
+        'click',
+        (e) => {
 
-        const {
-            lat,
-            lng
-        } = e.latlng;
-
-        // --------------------------------------------------------
-        // DETERMINAR ZONA
-        // --------------------------------------------------------
-
-        const zone =
-            getZone(lat, lng);
-
-        // --------------------------------------------------------
-        // REGISTRAR FECHA Y HORA
-        // --------------------------------------------------------
-
-        const timestamp =
-            new Date();
-
-        // --------------------------------------------------------
-        // CREAR EVENTO
-        // --------------------------------------------------------
-
-        const event = {
-
-            id:
-                crimeEvents.length + 1,
-
-            lat:
+            const {
                 lat,
+                lng
+            } = e.latlng;
 
-            lng:
-                lng,
+            // ====================================================
+            // DETERMINAR ZONA
+            // ====================================================
 
-            zone:
-                zone,
+            const zone =
+                getZone(
+                    lat,
+                    lng
+                );
 
-            timestamp:
-                timestamp.toISOString()
+            // ====================================================
+            // FECHA Y HORA
+            // ====================================================
 
-        };
+            const timestamp =
+                new Date();
 
-        // Agregar evento
-        crimeEvents.push(event);
+            // ====================================================
+            // CREAR EVENTO
+            // ====================================================
 
-        // --------------------------------------------------------
-        // CREAR MARCADOR
-        // --------------------------------------------------------
+            const event = {
 
-        const marker =
-            L.marker(
-                [lat, lng]
-            )
-            .addTo(markersLayer);
+                id:
+                    crimeEvents.length + 1,
 
-        // --------------------------------------------------------
-        // POPUP
-        // --------------------------------------------------------
+                lat:
+                    lat,
 
-        marker.bindPopup(`
-            <div style="
-                font-family:Arial,sans-serif;
-                min-width:180px;
-            ">
+                lng:
+                    lng,
 
-                <strong>
-                    Evento Delictivo #${event.id}
-                </strong>
+                zone:
+                    zone,
 
-                <hr style="
-                    border:0;
-                    border-top:1px solid #ddd;
-                    margin:8px 0;
+                timestamp:
+                    timestamp.toISOString()
+
+            };
+
+            // ====================================================
+            // AGREGAR EVENTO
+            // ====================================================
+
+            crimeEvents.push(
+                event
+            );
+
+            // ====================================================
+            // MARCADOR
+            // ====================================================
+
+            const marker =
+                L.marker(
+                    [
+                        lat,
+                        lng
+                    ]
+                )
+                .addTo(
+                    markersLayer
+                );
+
+            // ====================================================
+            // POPUP
+            // ====================================================
+
+            marker.bindPopup(`
+
+                <div style="
+                    font-family:Arial,sans-serif;
+                    min-width:180px;
                 ">
 
-                <div>
-                    <strong>Zona:</strong>
-                    ${zone}
+                    <strong>
+                        Evento Delictivo #${event.id}
+                    </strong>
+
+                    <hr style="
+                        border:0;
+                        border-top:1px solid #ddd;
+                        margin:8px 0;
+                    ">
+
+                    <div>
+                        <strong>Zona:</strong>
+                        ${zone}
+                    </div>
+
+                    <div>
+                        <strong>Lat:</strong>
+                        ${lat.toFixed(4)}
+                    </div>
+
+                    <div>
+                        <strong>Lng:</strong>
+                        ${lng.toFixed(4)}
+                    </div>
+
+                    <div>
+                        <strong>Registro:</strong>
+                        ${timestamp.toLocaleString()}
+                    </div>
+
                 </div>
 
-                <div>
-                    <strong>Lat:</strong>
-                    ${lat.toFixed(4)}
-                </div>
+            `);
 
-                <div>
-                    <strong>Lng:</strong>
-                    ${lng.toFixed(4)}
-                </div>
+            // ====================================================
+            // ACTUALIZAR PANEL
+            // ====================================================
 
-                <div>
-                    <strong>Registro:</strong>
-                    ${timestamp.toLocaleString()}
-                </div>
+            updatePanel();
 
-            </div>
-        `);
+            // ====================================================
+            // MATRIZ EN CONSOLA
+            // ====================================================
 
-        // --------------------------------------------------------
-        // ACTUALIZAR PANEL
-        // --------------------------------------------------------
+            showMarkovMatrixInConsole();
 
-        updatePanel();
-
-        // --------------------------------------------------------
-        // MOSTRAR MATRIZ EN CONSOLA
-        // --------------------------------------------------------
-
-        showMarkovMatrixInConsole();
-
-    });
+        }
+    );
 
     // ============================================================
     // BOTÓN LIMPIAR EVENTOS
     // ============================================================
 
-    clearEventsBtn.addEventListener(
-        'click',
-        () => {
+    if (clearEventsBtn) {
 
-            // Vaciar eventos
-            crimeEvents = [];
+        clearEventsBtn.addEventListener(
+            'click',
+            () => {
 
-            // Limpiar marcadores
-            markersLayer.clearLayers();
+                // Vaciar eventos
+                crimeEvents = [];
 
-            // Limpiar círculo
-            canterCircleLayer.clearLayers();
+                // Limpiar marcadores
+                markersLayer
+                    .clearLayers();
 
-            // Actualizar panel
-            updatePanel();
+                // Limpiar círculo
+                canterCircleLayer
+                    .clearLayers();
 
-            console.clear();
+                // NUEVO:
+                // Limpiar zona probable
+                markovZoneLayer
+                    .clearLayers();
 
-            console.log(
-                'CanterMap: todos los eventos han sido eliminados.'
-            );
+                // Actualizar panel
+                updatePanel();
 
-        }
-    );
+                console.clear();
+
+                console.log(
+                    'CanterMap: todos los eventos han sido eliminados.'
+                );
+
+            }
+        );
+
+    }
 
     // ============================================================
     // MENSAJE INICIAL
