@@ -14,27 +14,33 @@
     </header>
 
     <main>
-        <!-- Sección 1: Configuración de Candidatos -->
+        <!-- Sección 1: Configuración de Candidatos y Votantes -->
         <section id="configuracion">
-            <h2>1. Configuración de Candidatos</h2>
-            <p style="font-size: 0.9em; color: #aaa;">Separa los candidatos con comas (Ej. A, B, C)</p>
+            <h2>1. Configuración del Sistema</h2>
+            <p style="font-size: 0.9em; color: #aaa;">Candidatos (separados por comas):</p>
             <input type="text" id="candidatos" placeholder="A, B, C">
-            <button onclick="iniciarSimulacion()">Iniciar Sistema</button>
+            
+            <p style="font-size: 0.9em; color: #aaa; margin-top: 15px;">Número total de electores simulados:</p>
+            <input type="number" id="num-electores" value="3" min="1" max="100" style="background-color: #000; border: 1px solid #444; color: #00ff66; padding: 10px; width: 100px; font-family: 'Courier New', Courier, monospace;">
+            
+            <div style="margin-top: 20px;">
+                <button onclick="iniciarSimulacion()">Iniciar Sistema</button>
+            </div>
         </section>
 
         <!-- Sección 2: Registro de Preferencias de Electores -->
         <section id="votacion" style="display:none;">
-            <h2>2. Registro de Preferencias de Electores</h2>
+            <h2>2. Registro de Preferencias (<span id="contador-votos-restantes">0</span> pendientes)</h2>
             <p style="font-size: 0.9em; color: #aaa;">Ingresa el orden de preferencia usando el símbolo > (Ej. A > B > C)</p>
             <input type="text" id="preferencia-elector" placeholder="Ej. A > B > C">
             <button onclick="registrarVoto()">Registrar Voto</button>
             <div id="display-votos" style="margin-top: 15px;"></div>
         </section>
 
-        <!-- Sección 3: Resultados Analíticos -->
+        <!-- Sección 3: Resultados Analíticos y Gráfica -->
         <section id="analisis">
-            <h2>3. Resultados Analíticos</h2>
-            <button onclick="ejecutarAnalisis()" style="background-color: #0080ff; width: 100%; cursor: pointer;">Ejecutar Análisis de Votación</button>
+            <h2>3. Resultados Analíticos y Gráfica</h2>
+            <button onclick="ejecutarAnalisis()" style="background-color: #0080ff; width: 100%; cursor: pointer;">Ejecutar Análisis y Generar Gráfica</button>
             <div id="display-analisis" style="margin-top: 20px;"></div>
         </section>
 
@@ -42,7 +48,7 @@
         <section id="output">
             <h2>Estado del Sistema</h2>
             <div id="display-resultados">
-                <p style="color: #666; font-style: italic;">Esperando configuración inicial de candidatos...</p>
+                <p style="color: #666; font-style: italic;">Esperando configuración inicial...</p>
             </div>
         </section>
     </main>
