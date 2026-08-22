@@ -6,7 +6,8 @@ let estadoSimulador = {
 
 function iniciarSimulacion() {
     const inputCandidatos = document.getElementById('candidatos').value.trim();
-    const inputElectores = parseInt(document.getElementById('num-electores').value);
+    // Corrección: Asegurar que lea correctamente el valor numérico del input
+    const inputElectores = parseInt(document.getElementById('num-electores').value, 10);
     const display = document.getElementById('display-resultados');
 
     if (inputCandidatos === "") {
@@ -27,8 +28,9 @@ function iniciarSimulacion() {
     }
 
     estadoSimulador.totalElectores = inputElectores;
-    estadoSimulador.preferencias = []; // Reiniciar votos
+    estadoSimulador.preferencias = []; // Reiniciar votos al iniciar
 
+    // Mostrar sección de votación y actualizar el contador de pendientes correctamente
     document.getElementById('votacion').style.display = 'block';
     document.getElementById('contador-votos-restantes').innerText = estadoSimulador.totalElectores;
 
@@ -37,6 +39,7 @@ function iniciarSimulacion() {
         <p>Candidatos activos: <strong>[ ${estadoSimulador.candidatos.join(', ')} ]</strong></p>
         <p>Electores totales definidos: <strong>${estadoSimulador.totalElectores}</strong></p>
     `;
+    document.getElementById('display-votos').innerHTML = "";
 }
 
 function registrarVoto() {
@@ -60,7 +63,7 @@ function registrarVoto() {
     displayVotos.innerHTML = `
         <p style="color: #00ff66;"><strong>Votos registrados: ${estadoSimulador.preferencias.length} / ${estadoSimulador.totalElectores}</strong></p>
         <ul>
-            ${estadoSimulador.preferencias.map(v => `<li>Elector: ${v}</li>`).join('')}
+            ${estadoSimulador.preferencias.map((v, index) => `<li>Elector ${index + 1}: ${v}</li>`).join('')}
         </ul>
     `;
     
@@ -77,9 +80,8 @@ function ejecutarAnalisis() {
         return;
     }
 
-    let htmlReporte = `<p style="color: #00ff66;"><strong>[ANÁLISIS DE CONDORCET Y BARRAS DE PREFERENCIA]</strong></p><h3>Comparativa por Parejas:</h3>`;
+    let htmlReporte = `<p style="color: #00ff66;"><strong>[ANÁLISIS DE CONDORCET Y BARRAS DE PREFERENCIA]</strong></p><h3>Comparativa por Parejas (Total votos: ${preferencias.length}):</h3>`;
     
-    // Almacenar puntajes simples (apariciones en primera posición o victorias directas para la gráfica)
     let conteoPrimeras = {};
     candidatos.forEach(c => conteoPrimeras[c] = 0);
 
@@ -95,18 +97,21 @@ function ejecutarAnalisis() {
             if (c1 !== c2) {
                 let count = 0;
                 preferencias.forEach(p => {
-                    if (p.indexOf(c1) < p.indexOf(c2)) count++;
+                    // Verificamos la posición relativa de c1 respecto a c2 en la cadena del voto
+                    let idx1 = p.indexOf(c1);
+                    let idx2 = p.indexOf(c2);
+                    if (idx1 !== -1 && idx2 !== -1 && idx1 < idx2) {
+                        count++;
+                    }
                 });
                 htmlReporte += `<p style="color: #e0e0e0;">${c1} prefiere sobre ${c2} en <strong>${count}</strong> de ${preferencias.length} votos.</p>`;
             }
         });
     });
 
-    // Generación de Gráfica de Barras en CSS Puro (Estilo Terminal Matemática)
+    // Generación de Gráfica de Barras en CSS Puro
     htmlReporte += `<h3 style="margin-top: 20px;">Gráfica de Primeras Preferencias:</h3><div style="background: #000; padding: 15px; border: 1px solid #333;">`;
     
-    let maxVotos = Math.max(...Object.values(conteoPrimeras), 1);
-
     candidatos.forEach(c => {
         let votosC = conteoPrimeras[c];
         let porcentaje = (votosC / Math.max(preferencias.length, 1)) * 100;
