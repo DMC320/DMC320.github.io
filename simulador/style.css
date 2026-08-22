@@ -95,3 +95,7 @@ footer {
 footer strong {
     color: #ccc;
 }
+#analisis button {
+    background-color: #0066cc; /* Azul para diferenciarlo */
+    width: 100%;
+}
