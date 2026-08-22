@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Sistemas de Votación</title>
+    <title>Simulador del Teorema de Arrow</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <h1>Simulador del Teorema de Arrow</h1>
+        <p style="color: #888; font-size: 0.9em; margin-top: 5px;">Sistemas de Votación y Teoría de Elección Social</p>
     </header>
 
     <main>
+        <!-- Sección 1: Configuración de Candidatos -->
         <section id="configuracion">
-            <h2>1. Configuración</h2>
-            <input type="text" id="candidatos" placeholder="Ingresa candidatos (ej. A, B, C)">
+            <h2>1. Configuración de Candidatos</h2>
+            <p style="font-size: 0.9em; color: #aaa;">Separa los candidatos con comas (Ej. A, B, C)</p>
+            <input type="text" id="candidatos" placeholder="A, B, C">
             <button onclick="iniciarSimulacion()">Iniciar Sistema</button>
         </section>
 
+        <!-- Sección 2: Registro de Preferencias de Electores -->
+        <section id="votacion" style="display:none;">
+            <h2>2. Registro de Preferencias de Electores</h2>
+            <p style="font-size: 0.9em; color: #aaa;">Ingresa el orden de preferencia usando el símbolo > (Ej. A > B > C)</p>
+            <input type="text" id="preferencia-elector" placeholder="Ej. A > B > C">
+            <button onclick="registrarVoto()">Registrar Voto</button>
+            <div id="display-votos" style="margin-top: 15px;"></div>
+        </section>
+
+        <!-- Sección 3: Outputs y Resultados -->
         <section id="output">
-            <h2>Resultados</h2>
-            <div id="display-resultados"></div>
+            <h2>Resultados y Estado del Sistema</h2>
+            <div id="display-resultados">
+                <p style="color: #666; font-style: italic;">Esperando configuración inicial de candidatos...</p>
+            </div>
         </section>
     </main>
 
