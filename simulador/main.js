@@ -59,3 +59,38 @@ function registrarVoto() {
     document.getElementById('preferencia-elector').value = "";
     console.log("Preferencias acumuladas:", estadoSimulador.preferencias);
 }
+function ejecutarAnalisis() {
+    const displayAnalisis = document.getElementById('display-analisis');
+    const candidatos = estadoSimulador.candidatos;
+    const preferencias = estadoSimulador.preferencias;
+
+    if (preferencias.length === 0) {
+        displayAnalisis.innerHTML = `<p style="color: #ff3333;">[ERROR]: Registre al menos un voto primero.</p>`;
+        return;
+    }
+
+    // Inicializar matriz de victorias
+    let victorias = {};
+    candidatos.forEach(c => victorias[c] = 0);
+
+    // Procesamiento simplificado (Contar cuántas veces aparece un candidato antes que otro)
+    displayAnalisis.innerHTML = `<h3>Reporte de Resultados:</h3>`;
+    
+    candidatos.forEach(c1 => {
+        candidatos.forEach(c2 => {
+            if (c1 !== c2) {
+                let count = 0;
+                preferencias.forEach(p => {
+                    if (p.indexOf(c1) < p.indexOf(c2)) count++;
+                });
+                displayAnalisis.innerHTML += `<p style="color: #00ff66;">${c1} prefiere sobre ${c2} en ${count} votos.</p>`;
+            }
+        });
+    });
+    
+    displayAnalisis.innerHTML += `
+        <p style="margin-top:20px; border-top: 1px solid #444; padding-top:10px;">
+        <em>Nota: El análisis muestra la preferencia colectiva. Si A>B, B>C y C>A, se ha detectado una Paradoja de Condorcet, confirmando la tesis del Teorema de Arrow.</em>
+        </p>
+    `;
+}
